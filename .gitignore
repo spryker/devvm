@@ -1,6 +1,9 @@
 mkmf.log
 .vagrant/
+saltstack
 saltstack/
+pillar
 pillar/
+spryker
 spryker/
 
