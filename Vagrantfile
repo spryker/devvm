@@ -17,8 +17,8 @@ PILLAR_DIRECTORY   = BASE_DIRECTORY + "/pillar"
 PILLAR_REPOSITORY  = "git@github.com:spryker/pillar.git"
 PILLAR_BRANCH      = "master"
 
-# Uncomment the lines below to clone Spryker
-#SPRYKER_DIRECTORY  = BASE_DIRECTORY + '/spryker'
+# Uncomment the lines below to clone Spryker Demoshop
+#SPRYKER_DIRECTORY  = BASE_DIRECTORY + '/demoshop'
 #SPRYKER_REPOSITORY = "git@github.com:spryker/demoshop.git"
 #SPRYKER_BRANCH     = "master"
 
@@ -149,7 +149,7 @@ Vagrant.configure(2) do |config|
   end
 
   # Share the application code with VM
-  config.vm.synced_folder "./", "/data/shop/development/current", type: SYNCED_FOLDER_TYPE
+  config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", type: SYNCED_FOLDER_TYPE
   if SYNCED_FOLDER_TYPE == "nfs"
     config.nfs.map_uid = Process.uid
     config.nfs.map_gid = Process.gid
