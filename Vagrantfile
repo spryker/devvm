@@ -16,11 +16,9 @@ SALT_BRANCH        = "master"
 PILLAR_DIRECTORY   = BASE_DIRECTORY + "/pillar"
 PILLAR_REPOSITORY  = "git@github.com:spryker/pillar.git"
 PILLAR_BRANCH      = "master"
-
-# Uncomment the lines below to clone Spryker Demoshop
-#SPRYKER_DIRECTORY  = BASE_DIRECTORY + '/demoshop'
-#SPRYKER_REPOSITORY = "git@github.com:spryker/demoshop.git"
-#SPRYKER_BRANCH     = "master"
+SPRYKER_DIRECTORY  = BASE_DIRECTORY + '/demoshop'
+SPRYKER_REPOSITORY = "git@github.com:spryker/demoshop.git"
+SPRYKER_BRANCH     = "master"
 
 # Hostnames to be managed
 HOSTS = ["spryker.dev", "zed.de.spryker.dev","zed.com.spryker.dev", "www.com.spryker.dev", "com.spryker.dev", "static.com.spryker.dev", "www.de.spryker.dev", "de.spryker.dev", "static.de.spryker.dev", "kibana.spryker.dev"]
@@ -98,8 +96,8 @@ Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The list of available community boxes is available on: http://www.vagrantbox.es/
   # Not that the box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian76"
-  config.vm.box_url = "https://github.com/jose-lpa/packer-debian_7.6.0/releases/download/1.0/packer_virtualbox-iso_virtualbox.box"
+  config.vm.box = "debian81"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian8/releases/download/1.1/debian81.box"
   config.vm.hostname = "spryker-vagrant"
   config.vm.boot_timeout = 300
 
@@ -118,7 +116,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 11007, host: 11007, auto_correct: true   # Jenkins (testing)
 
   # install required, but missing dependencies into the base box
-  config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev; mount / -o remount,noatime,nobarrier"
+  config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
 
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
@@ -143,7 +141,7 @@ Vagrant.configure(2) do |config|
   else
     hosts_line = VM_IP + " " + HOSTS.join(' ')
     if not File.open(HOSTS_PATH).each_line.any? { |line| line.chomp == hosts_line }
-      puts bold "Please add the following entries to your ${HOSTS_PATH} file: \n\033[0m"
+      puts bold "Please add the following entries to your #{HOSTS_PATH} file: \n\033[0m"
       puts hosts_line
     end
   end
