@@ -6,8 +6,8 @@ initial state of the Dev VM.
 ## Requirements
  * Unix-compatible operating system (tested on Mac OS X and Linux)
  * git
- * [Oracle VirtualBox](https://www.virtualbox.org/)
- * [Vagrant](https://www.vagrantup.com/)
+ * [Oracle VirtualBox (Version 4.3.30)](https://www.virtualbox.org/wiki/Download_Old_Builds_4_3)
+ * [Vagrant (Version 1.7.2)](https://www.vagrantup.com/download-archive/v1.7.2.html)
 
 ## Configuration
 Please view and edit at least remote repositories in `Vagrantfile`
@@ -19,7 +19,7 @@ vagrant up
 
 ## What it does?
 The `Vagrantfile` is executing following actions:
- * Cloning Saltstack, Pillar and (optionally) Spryker repositories
+ * Cloning Saltstack, Pillar and Spryker repositories
  * Setting up /etc/hosts entries
  * Starting the machine
  * Setting up shared folders

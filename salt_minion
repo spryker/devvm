@@ -4,6 +4,7 @@ state_events: false
 id: spryker-vm
 environment: dev
 grains:
+  environment: dev
   roles:
     - app
     - web
@@ -11,8 +12,6 @@ grains:
     - elasticsearch
     - dev
     - queue
-#    - elk_kibana
-#    - elk_elasticsearch
     - redis
     - postgresql
 file_roots:
