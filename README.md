@@ -28,3 +28,35 @@ The `Vagrantfile` is executing following actions:
 
 ## Documentation
  * Spryker [reference salstack](https://github.com/spryker/saltstack) repository
+ 
+## Configure the VM to your needs
+
+If you want to commit from within the VM just set the right git preferences:
+
+```
+git config --global user.email <your.email@domain.tld>
+git config --global user.name <Your Name>
+```
+
+## Update the VM configuration
+
+When the VM configuration should be updated via saltstack there is no need to destroy your VM and create a new one, just execute the following commands:
+
+In the project directory (outside of VM):
+```
+cd saltstack/
+git pull
+cd ../pillar
+git pull
+cd ..
+vagrant ssh
+```
+
+Inside the VM:
+```
+sudo -i
+salt-call --local state.highstate
+```
+
+Afterwards your VM has the newest configuration and dependencies
+
