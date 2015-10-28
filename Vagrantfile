@@ -125,7 +125,7 @@ Vagrant.configure(2) do |config|
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
-      salt.bootstrap_options = "-P"
+      salt.bootstrap_options = "-F -P -c /tmp"
     end
   else
     raise "ERROR: Salt (#{SALT_DIRECTORY}) or Pillar (#{PILLAR_DIRECTORY}) directory not found.\n\n\033[0m"
