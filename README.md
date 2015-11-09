@@ -10,7 +10,12 @@ initial state of the Dev VM.
  * [Vagrant (Version 1.7.2)](https://www.vagrantup.com/download-archive/v1.7.2.html)
 
 ## Configuration
-Please view and edit at least remote repositories in `Vagrantfile`
+Please view and edit at least remote repositories in `Vagrantfile`.
+
+Also make sure you got the `vbguest` plugin installed:
+```
+vagrant plugin install vagrant-vbguest
+```
 
 ## Usage
 ```
