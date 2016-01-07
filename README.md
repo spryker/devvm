@@ -24,6 +24,7 @@ vagrant up
 
 ## Troubleshooting (Mac OS X)
 
+#### Error on box image download
 If you get an error on downloading `debian81.box` image file, then go to
 https://github.com/korekontrol/packer-debian8/releases/download/1.1/debian81.box
 and download it manually, than run command:
@@ -33,6 +34,26 @@ vagrant box add /path/to/downloaded/image/debian81.box --name debian81
 vagrant up
 ```
 
+#### NFS is reporting that your exports file is invalid
+
+> This may happend if you have previous VMs created and not removed properly or even if you share the computer with someone else who has VMs installed.
+
+```
+sudo rm /etc/exports
+sudo touch /etc/exports
+```
+
+Reinitialize VM
+
+```
+vagrant halt
+vagrant up --provision
+
+# or
+
+vagrant destroy
+vagrant up
+```
 
 ## What it does?
 The `Vagrantfile` is executing following actions:
