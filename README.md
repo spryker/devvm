@@ -22,6 +22,18 @@ vagrant plugin install vagrant-vbguest
 vagrant up
 ```
 
+## Troubleshooting (Mac OS X)
+
+If you get an error on downloading `debian81.box` image file, then go to
+https://github.com/korekontrol/packer-debian8/releases/download/1.1/debian81.box
+and download it manually, than run command:
+
+```
+vagrant box add /path/to/downloaded/image/debian81.box --name debian81
+vagrant up
+```
+
+
 ## What it does?
 The `Vagrantfile` is executing following actions:
  * Cloning Saltstack, Pillar and Spryker repositories
