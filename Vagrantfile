@@ -37,10 +37,8 @@ def bold(text); colorize(text, "\033[1;97m"); end
 # Check whether we are running UNIX or Windows-based machine
 if Vagrant::Util::Platform.windows?
   HOSTS_PATH = 'c:\WINDOWS\system32\drivers\etc\hosts'
-  SYNCED_FOLDER_TYPE = 'smb'
 else
   HOSTS_PATH = '/etc/hosts'
-  SYNCED_FOLDER_TYPE = 'nfs'
 end
 
 # Verify if salt/pillar directories are present
@@ -120,8 +118,8 @@ Vagrant.configure(2) do |config|
 
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
-    config.vm.synced_folder SALT_DIRECTORY,   "/srv/salt/",   type: SYNCED_FOLDER_TYPE
-    config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", type: SYNCED_FOLDER_TYPE
+    config.vm.synced_folder SALT_DIRECTORY,   "/srv/salt/",   :mount_options => ["dmode=777","fmode=777"]
+    config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", :mount_options => ["dmode=777","fmode=777"]
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
@@ -147,11 +145,7 @@ Vagrant.configure(2) do |config|
   end
 
   # Share the application code with VM
-  config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", type: SYNCED_FOLDER_TYPE
-  if SYNCED_FOLDER_TYPE == "nfs"
-    config.nfs.map_uid = Process.uid
-    config.nfs.map_gid = Process.gid
-  end
+  config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", :mount_options => ["dmode=777","fmode=777"]
 
   # Configure VirtualBox VM resources (CPU and memory)
   config.vm.provider :virtualbox do |vb|
