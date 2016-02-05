@@ -8,17 +8,19 @@ VM_MEMORY  = '1200'          # Amount of memory for DEV VM, in MB
 VM_CPUS    = '2'             # Amount of CPU cores for DEV VM
 VM_NAME    = "Spryker Dev VM"
 
-# Locations of SaltStack code
+# Local locations of reposities
 BASE_DIRECTORY     = File.expand_path(File.dirname(__FILE__))
 SALT_DIRECTORY     = BASE_DIRECTORY + "/saltstack"
-SALT_REPOSITORY    = "git@github.com:spryker/saltstack.git"
-SALT_BRANCH        = "master"
 PILLAR_DIRECTORY   = BASE_DIRECTORY + "/pillar"
-PILLAR_REPOSITORY  = "git@github.com:spryker/pillar.git"
-PILLAR_BRANCH      = "master"
 SPRYKER_DIRECTORY  = BASE_DIRECTORY + '/demoshop'
-SPRYKER_REPOSITORY = "git@github.com:spryker/demoshop.git"
-SPRYKER_BRANCH     = "master"
+
+# Remote locations of repositories
+SALT_REPOSITORY    = env['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
+SALT_BRANCH        = env['SALT_BRANCH']        || "master"
+PILLAR_REPOSITORY  = env['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar.git"
+PILLAR_BRANCH      = env['PILLAR_BRANCH']      || "master"
+SPRYKER_REPOSITORY = env['SPRYKER_REPOSITORY'] || "git@github.com:spryker/demoshop.git"
+SPRYKER_BRANCH     = env['SPRYKER_BRANCH']     || "master"
 
 # Hostnames to be managed
 HOSTS = ["spryker.dev", "zed.de.spryker.dev","zed.com.spryker.dev", "www.com.spryker.dev", "com.spryker.dev", "static.com.spryker.dev", "www.de.spryker.dev", "de.spryker.dev", "static.de.spryker.dev", "kibana.spryker.dev"]
@@ -49,7 +51,7 @@ end
 require 'mkmf'
 has_fresh_repos = false
 
-if !Dir.exists?(SALT_DIRECTORY)
+if not Dir.exists?(SALT_DIRECTORY)
   if find_executable 'git'
     puts bold "Cloning SaltStack git repository..."
     system "git clone #{SALT_REPOSITORY} --branch #{SALT_BRANCH} #{SALT_DIRECTORY}"
@@ -60,7 +62,7 @@ if !Dir.exists?(SALT_DIRECTORY)
   end
 end
 
-if !Dir.exists?(PILLAR_DIRECTORY)
+if not Dir.exists?(PILLAR_DIRECTORY)
   if find_executable 'git'
     puts bold "Cloning Pillar git repository..."
     system "git clone #{PILLAR_REPOSITORY} --branch #{PILLAR_BRANCH} #{PILLAR_DIRECTORY}"
@@ -78,7 +80,7 @@ end
 
 # Clone Spryker (if repository is given)
 if defined?(SPRYKER_REPOSITORY)
-  if !Dir.exists?(SPRYKER_DIRECTORY)
+  if not Dir.exists?(SPRYKER_DIRECTORY) and not SPRYKER_REPOSITORY.empty?
     puts bold "Cloning Spryker git repository..."
     if find_executable 'git'
       system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} #{SPRYKER_DIRECTORY}"
@@ -109,13 +111,13 @@ Vagrant.configure(2) do |config|
   # The VirtualBox IP-address for the browser
   config.vm.network :private_network, ip: VM_IP
 
-  # Port forwarding for services running on VM:
-#  config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
-#  config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
-#  config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
-#  config.vm.network "forwarded_port", guest: 9200,  host: 9200,  auto_correct: true   # ELK-Elasticsearch
-#  config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
-#  config.vm.network "forwarded_port", guest: 11007, host: 11007, auto_correct: true   # Jenkins (testing)
+  # Port forwarding for services running on VM, does not work on Windows
+  if not IS_WINDOWS
+    config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
+    config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
+    config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
+    config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
+  end
 
   # install required, but missing dependencies into the base box
   config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
