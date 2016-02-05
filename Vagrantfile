@@ -15,12 +15,12 @@ PILLAR_DIRECTORY   = BASE_DIRECTORY + "/pillar"
 SPRYKER_DIRECTORY  = BASE_DIRECTORY + '/demoshop'
 
 # Remote locations of repositories
-SALT_REPOSITORY    = env['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
-SALT_BRANCH        = env['SALT_BRANCH']        || "master"
-PILLAR_REPOSITORY  = env['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar.git"
-PILLAR_BRANCH      = env['PILLAR_BRANCH']      || "master"
-SPRYKER_REPOSITORY = env['SPRYKER_REPOSITORY'] || "git@github.com:spryker/demoshop.git"
-SPRYKER_BRANCH     = env['SPRYKER_BRANCH']     || "master"
+SALT_REPOSITORY    = ENV['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
+SALT_BRANCH        = ENV['SALT_BRANCH']        || "master"
+PILLAR_REPOSITORY  = ENV['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar.git"
+PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
+SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/demoshop.git"
+SPRYKER_BRANCH     = ENV['SPRYKER_BRANCH']     || "master"
 
 # Hostnames to be managed
 HOSTS = ["spryker.dev", "zed.de.spryker.dev","zed.com.spryker.dev", "www.com.spryker.dev", "com.spryker.dev", "static.com.spryker.dev", "www.de.spryker.dev", "de.spryker.dev", "static.de.spryker.dev", "kibana.spryker.dev"]
