@@ -98,10 +98,9 @@ File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
-  # The list of available community boxes is available on: http://www.vagrantbox.es/
   # Not that the box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian81"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian8/releases/download/1.1/debian81.box"
+  config.vm.box = "debian83"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian8/releases/download/ci-9/debian83.box"
   config.vm.hostname = "spryker-vagrant"
   config.vm.boot_timeout = 300
 
