@@ -39,8 +39,7 @@ vagrant up
 > This may happend if you have previous VMs created and not removed properly or even if you share the computer with someone else who has VMs installed.
 
 ```
-sudo rm /etc/exports
-sudo touch /etc/exports
+sudo sed -i .bak '/VAGRANT-BEGIN/,/VAGRANT-END/d' /etc/exports
 ```
 
 Reinitialize VM
