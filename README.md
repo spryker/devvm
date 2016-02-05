@@ -65,3 +65,11 @@ salt-call --local state.highstate
 ```
 
 Afterwards your VM has the newest configuration and dependencies
+
+## Quick start
+Go to [GitHub release page](https://github.com/spryker/devvm/releases/latest), copy the link of file "spryker-devvm.box".
+Use this command to create VM, replacing URL with the copied link from above:
+```
+vagrant init devvm https://github.com/spryker/devvm/releases/download/ci-20/spryker-devvm.box
+vagrant up
+```

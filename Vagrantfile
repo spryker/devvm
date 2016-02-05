@@ -4,8 +4,8 @@
 
 # Settings for the Virtualbox VM
 VM_IP      = ENV['VM_IP']     || '10.10.0.33'  # IP Address of the DEV VM, must be unique
-VM_MEMORY  = ENV['VM_MEMORY'] || '1200'        # Amount of memory for DEV VM, in MB
-VM_CPUS    = ENV['VM_CPUS']   || '2'           # Amount of CPU cores for DEV VM
+VM_MEMORY  = ENV['VM_MEMORY'] || '3200'        # Amount of memory for DEV VM, in MB
+VM_CPUS    = ENV['VM_CPUS']   || '4'           # Amount of CPU cores for DEV VM
 VM_NAME    = "Spryker Dev VM"
 
 # Local locations of reposities
