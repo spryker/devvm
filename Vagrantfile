@@ -4,8 +4,8 @@
 
 # Settings for the Virtualbox VM
 VM_IP      = '10.10.0.33'    # IP Address of the DEV VM, must be unique
-VM_MEMORY  = '3200'          # Amount of memory for DEV VM, in MB
-VM_CPUS    = '4'             # Amount of CPU cores for DEV VM
+VM_MEMORY  = '1200'          # Amount of memory for DEV VM, in MB
+VM_CPUS    = '2'             # Amount of CPU cores for DEV VM
 VM_NAME    = "Spryker Dev VM"
 
 # Locations of SaltStack code
@@ -37,10 +37,12 @@ def bold(text); colorize(text, "\033[1;97m"); end
 # Check whether we are running UNIX or Windows-based machine
 if Vagrant::Util::Platform.windows?
   HOSTS_PATH = 'c:\WINDOWS\system32\drivers\etc\hosts'
-  SYNCED_FOLDER_TYPE = 'smb'
+  SYNCED_FOLDER_TYPE = 'virtualbox'
+  IS_WINDOWS = true
 else
   HOSTS_PATH = '/etc/hosts'
   SYNCED_FOLDER_TYPE = 'nfs'
+  IS_WINDOWS = false
 end
 
 # Verify if salt/pillar directories are present
@@ -90,7 +92,7 @@ else
 end
 
 # Cleanup mkmf log
-File.delete('mkmf.log') if File.exists?('mkmf.log')
+File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
@@ -108,12 +110,12 @@ Vagrant.configure(2) do |config|
   config.vm.network :private_network, ip: VM_IP
 
   # Port forwarding for services running on VM:
-  config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
-  config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
-  config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
-  config.vm.network "forwarded_port", guest: 9200,  host: 9200,  auto_correct: true   # ELK-Elasticsearch
-  config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
-  config.vm.network "forwarded_port", guest: 11007, host: 11007, auto_correct: true   # Jenkins (testing)
+#  config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
+#  config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
+#  config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
+#  config.vm.network "forwarded_port", guest: 9200,  host: 9200,  auto_correct: true   # ELK-Elasticsearch
+#  config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
+#  config.vm.network "forwarded_port", guest: 11007, host: 11007, auto_correct: true   # Jenkins (testing)
 
   # install required, but missing dependencies into the base box
   config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"

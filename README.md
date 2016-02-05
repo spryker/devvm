@@ -12,9 +12,10 @@ initial state of the Dev VM.
 ## Configuration
 Please view and edit at least remote repositories in `Vagrantfile`.
 
-Also make sure you got the `vbguest` plugin installed:
+Also make sure you got the `vbguest` and `hostmanager` plugins installed:
 ```
 vagrant plugin install vagrant-vbguest
+vagrant plugin install vagrant-hostmanager
 ```
 
 ## Usage
@@ -33,7 +34,7 @@ The `Vagrantfile` is executing following actions:
 
 ## Documentation
  * Spryker [reference salstack](https://github.com/spryker/saltstack) repository
- 
+
 ## Configure the VM to your needs
 
 If you want to commit from within the VM just set the right git preferences:
@@ -64,4 +65,3 @@ salt-call --local state.highstate
 ```
 
 Afterwards your VM has the newest configuration and dependencies
-
