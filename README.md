@@ -65,4 +65,3 @@ salt-call --local state.highstate
 ```
 
 Afterwards your VM has the newest configuration and dependencies
-
