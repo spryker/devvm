@@ -6,8 +6,8 @@ initial state of the Dev VM.
 ## Requirements
  * Unix-compatible operating system (tested on Mac OS X and Linux) or Microsoft Windows (tested on Windows 10)
  * git
- * [Oracle VirtualBox (Version 5.0.14)](https://www.virtualbox.org/)
- * [Vagrant (Version 1.7.4)](https://www.vagrantup.com/download-archive/v1.7.2.html)
+ * [Oracle VirtualBox (Version 5.0.14+)](https://www.virtualbox.org/wiki/Downloads)
+ * [Vagrant (Version 1.7.4+)](https://www.vagrantup.com/downloads.html)
 
 ## Configuration
 Please view and edit at least remote repositories in `Vagrantfile`.
@@ -80,7 +80,7 @@ git config --global user.name <Your Name>
 
 If the VM configuration should be updated via saltstack there is no need to destroy your VM and create a new one, just execute the following commands:
 
-In the project directory (outside of VM):
+In the project directory on your host operating system (outside of VM):
 ```
 cd saltstack/
 git pull
@@ -90,10 +90,9 @@ cd ..
 vagrant ssh
 ```
 
-Inside the VM:
+Inside the VM guest system:
 ```
-sudo -i
-salt-call --local state.highstate
+sudo -i salt-call state.highstate
 ```
 
 Afterwards your VM has the newest configuration and dependencies
