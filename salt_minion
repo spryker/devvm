@@ -20,17 +20,6 @@ file_roots:
   dev:
     - /srv/salt/dev
     - /srv/salt/base
-  qa:
-    - /srv/salt/qa
-    - /srv/salt/base
-  prod:
-    - /srv/salt/prod
-    - /srv/salt/base
-
 pillar_roots:
-  prod:
-    - /srv/pillar/prod
-  qa:
-    - /srv/pillar/qa
   dev:
     - /srv/pillar/dev
