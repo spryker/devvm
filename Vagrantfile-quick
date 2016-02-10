@@ -1,3 +1,10 @@
+# This Vagrantfile is included in .box file for "quick start"
+# It has limited functionality - no saltstack here, just basic items.
+# Note that this Vagrantbox is executed each time on developer's machine
+# when doing `vagrant up`.
+# For building the "quick start" box file, the default Vagrantfile is used,
+# like on dev vms created with full saltstack provisioning.
+
 ###
 ### BEGINNING OF CONFIGURATION
 ###
