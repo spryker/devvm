@@ -88,7 +88,7 @@ vagrant up
 
 #### NFS exoprts issue
 The error is:
-
+```
 NFS is reporting that your exports file is invalid. Vagrant does
 this check before making any changes to the file. Please correct
 the issues below and execute "vagrant reload":
@@ -99,6 +99,7 @@ exports:3: using fallback (marked offline): /
 exports:4: path contains non-directory or non-existent components: /Users/hussamhebbo/Development/devvm/saltstack
 exports:4: no usable directories in export entry
 exports:4: using fallback (marked offline): /
+```
 
 The fix is:
 ```
