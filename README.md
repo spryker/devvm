@@ -86,6 +86,26 @@ vagrant box add /path/to/downloaded/image/debian83.box --name debian83
 vagrant up
 ```
 
+#### NFS exoprts issue
+The error is:
+
+NFS is reporting that your exports file is invalid. Vagrant does
+this check before making any changes to the file. Please correct
+the issues below and execute "vagrant reload":
+
+exports:3: path contains non-directory or non-existent components: /Users/hussamhebbo/Development/devvm/pillar
+exports:3: no usable directories in export entry
+exports:3: using fallback (marked offline): /
+exports:4: path contains non-directory or non-existent components: /Users/hussamhebbo/Development/devvm/saltstack
+exports:4: no usable directories in export entry
+exports:4: using fallback (marked offline): /
+
+The fix is:
+```
+sudo rm /etc/exports
+sudo touch /etc/exports
+```
+
 #### NFS is reporting that your exports file is invalid
 
 > This may happen if you have previous VMs created and not properly destroyed (or even if you share the computer with someone else who had other VMs).
