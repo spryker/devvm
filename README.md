@@ -19,12 +19,25 @@ vagrant plugin install vagrant-hostmanager
 ```
 
 ## Quick start
+Make sure that plugins described above in "Before starting" are installed.
 Go to [GitHub release page](https://github.com/spryker/devvm/releases/latest), copy the link of file "spryker-devvm.box".
 Before you use this command to create VM you need to:
 * replace example number "999" in box name, e.g. `devvm35` 
 * and url with the copied link from above:
 ```
 vagrant init devvm999 https://github.com/spryker/devvm/releases/download/ci-999/spryker-devvm.box
+```
+
+Edit the Vagrantfile and add hostmanager configuration at the end. File should end like:
+```
+(...)
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+end
+```
+
+Start the VM:
+```
 vagrant up
 ```
 
