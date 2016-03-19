@@ -5,6 +5,9 @@
 # For building the "quick start" box file, the default Vagrantfile is used,
 # like on dev vms created with full saltstack provisioning.
 
+# On buildhost, following vagrant plugins must be installed:
+#  - vagrant-hostmanager
+#  - vagrant-vbguest
 ###
 ### BEGINNING OF CONFIGURATION
 ###
