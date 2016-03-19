@@ -108,8 +108,8 @@ sudo sed -i .bak '/VAGRANT-BEGIN/,/VAGRANT-END/d' /etc/exports
 ```
 
 
-### Reinitialize VM
-If the VM configuration should be updated via SaltStack there is no need to destroy your VM and create a new one, if full setup (no quick start) was used.
+### Update VM
+If the VM configuration should be updated via SaltStack there is no need to destroy your VM and create a new one, if full setup (not "quick start") was used.
 
 In the project directory on your host operating system (outside of VM):
 ```
