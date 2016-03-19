@@ -13,10 +13,10 @@
 ###
 
 # Settings for the Virtualbox VM
-VM_IP      = ENV['VM_IP']     || '10.10.0.33'  # IP Address of the DEV VM, must be unique
-VM_MEMORY  = ENV['VM_MEMORY'] || '3200'        # Amount of memory for DEV VM, in MB
-VM_CPUS    = ENV['VM_CPUS']   || '4'           # Amount of CPU cores for DEV VM
-VM_NAME    = "Spryker Dev VM"
+VM_IP      = ENV['VM_IP']     || '10.10.0.33'     # IP Address of the DEV VM, must be unique
+VM_MEMORY  = ENV['VM_MEMORY'] || '3200'           # Amount of memory for DEV VM, in MB
+VM_CPUS    = ENV['VM_CPUS']   || '4'              # Amount of CPU cores for DEV VM
+VM_NAME    = ENV['VM_NAME']   || "Spryker Dev VM" # Visible name in VirtualBox
 
 # Local locations of reposities
 BASE_DIRECTORY     = Dir.pwd
@@ -95,6 +95,7 @@ Vagrant.configure(2) do |config|
 
   # add hosts to /etc/hosts
   if Vagrant.has_plugin? 'vagrant-hostmanager'
+    puts bold "Configuring vagrant-hostmanager (#{HOSTS.count} hostnames)..."
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
     config.hostmanager.ignore_private_ip = false
