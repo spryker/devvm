@@ -87,7 +87,10 @@ sudo -i salt-call state.highstate
 
 Afterwards your VM has the newest configuration and dependencies
 
-## Troubleshooting (Mac OS X)
+## Troubleshooting
+
+#### NFS exports are not supported on encprypted filesystems (Linux)
+`nfs-kernel-server` can not be used to share folders on encrypted filesystem in Linux. There is no workaround known yet. Spryker code must be placed on non-encrypted filesystem in order to allow sharing folders with Vagrant using NFS.
 
 #### Error on box image download
 If you get an error on downloading `debian83.box` image file, then go to
