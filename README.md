@@ -18,8 +18,9 @@ vagrant plugin install vagrant-vbguest
 vagrant plugin install vagrant-hostmanager
 ```
 
-## Quick start
-Make sure that plugins described above in "Before starting" are installed.
+## Usage - Quick start
+The "Quick start" mode downloads pre-provisioned machine and starts it. It does not include saltstack setup and is intended, as name says - for quickly setting up development machine. It is not possible to apply system updates to machines created this way, new machine needs to be created when infrastructure changes. Make sure that plugins described above in "Before starting" are installed.
+
 Go to [GitHub release page](https://github.com/spryker/devvm/releases/latest), copy the link of file "spryker-devvm.box".
 Before you use this command to create VM you need to:
 * replace example number "999" in box name, e.g. `devvm35` 
@@ -41,7 +42,8 @@ Start the VM:
 vagrant up
 ```
 
-## Usage (full VM, no quick start)
+## Usage - Full VM, no quick start
+In this mode we are downloading only base perating system and then provision it using master-less SaltStack:
 ```
 vagrant up
 ```
@@ -70,9 +72,6 @@ git config --global user.name "Your Name"
 
 ## Troubleshooting
 
-### NFS exports are not supported on encprypted filesystems (Linux)
-`nfs-kernel-server` can not be used to share folders on encrypted filesystem in Linux. There is no workaround known yet. Spryker code must be placed on non-encrypted filesystem in order to allow sharing folders with Vagrant using NFS.
-
 ### Error on box image download
 If you get an error on downloading `debian83.box` image file, then go to
 https://github.com/korekontrol/packer-debian8/releases/download/ci-9/debian83.box
@@ -82,6 +81,10 @@ and download it manually, than run command:
 vagrant box add /path/to/downloaded/image/debian83.box --name debian83
 vagrant up
 ```
+
+### NFS exports are not supported on encprypted filesystems (Linux)
+`nfs-kernel-server` can not be used to share folders on encrypted filesystem in Linux. There is no workaround known yet. Spryker code must be placed on non-encrypted filesystem in order to allow sharing folders with Vagrant using NFS.
+
 
 ### NFS is reporting that your exports file is invalid
 This may happen if you have previous VMs created and not properly destroyed (or even if you share the computer with someone else who had other VMs).
