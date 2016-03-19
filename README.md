@@ -41,7 +41,7 @@ Start the VM:
 vagrant up
 ```
 
-## Usage
+## Usage (full VM, no quick start)
 ```
 vagrant up
 ```
@@ -58,41 +58,22 @@ The `Vagrantfile` is executing following actions:
 It's also possible to skip time-consuming provisioning operation and use ready box file, as described
 in "Quick start"
 
-## Documentation
- * Spryker [reference salstack](https://github.com/spryker/saltstack) repository
 
 ## Configuration of git VM
 If you want to commit from within the VM you must set the right git preferences:
 
 ```
-git config --global user.email <your.email@domain.tld>
-git config --global user.name <Your Name>
+git config --global user.email your.email@domain.tld
+git config --global user.name "Your Name"
 ```
 
-## Update of VM
-If the VM configuration should be updated via SaltStack there is no need to destroy your VM and create a new one.
-Updates can be applied by executing the following commands:
-
-In the project directory on your host operating system (outside of VM):
-```
-cd saltstack; git pull; cd ..
-cd pillar; git pull; cd ..
-vagrant ssh
-```
-
-Inside the VM guest system:
-```
-sudo -i salt-call state.highstate
-```
-
-Afterwards your VM has the newest configuration and dependencies
 
 ## Troubleshooting
 
-#### NFS exports are not supported on encprypted filesystems (Linux)
+### NFS exports are not supported on encprypted filesystems (Linux)
 `nfs-kernel-server` can not be used to share folders on encrypted filesystem in Linux. There is no workaround known yet. Spryker code must be placed on non-encrypted filesystem in order to allow sharing folders with Vagrant using NFS.
 
-#### Error on box image download
+### Error on box image download
 If you get an error on downloading `debian83.box` image file, then go to
 https://github.com/korekontrol/packer-debian8/releases/download/ci-9/debian83.box
 and download it manually, than run command:
@@ -102,43 +83,48 @@ vagrant box add /path/to/downloaded/image/debian83.box --name debian83
 vagrant up
 ```
 
-#### NFS exoprts issue
-The error is:
+### NFS is reporting that your exports file is invalid
+This may happen if you have previous VMs created and not properly destroyed (or even if you share the computer with someone else who had other VMs).
+
+In that case, Vagrant reports error like this:
 ```
 NFS is reporting that your exports file is invalid. Vagrant does
 this check before making any changes to the file. Please correct
 the issues below and execute "vagrant reload":
 
-exports:3: path contains non-directory or non-existent components: /Users/hussamhebbo/Development/devvm/pillar
+exports:3: path contains non-directory or non-existent components: /Users/mobuchowicz/code/loki-vm/pillar
 exports:3: no usable directories in export entry
 exports:3: using fallback (marked offline): /
-exports:4: path contains non-directory or non-existent components: /Users/hussamhebbo/Development/devvm/saltstack
-exports:4: no usable directories in export entry
-exports:4: using fallback (marked offline): /
+exports:4: path contains non-directory or non-exis
 ```
 
-The fix is:
-```
-sudo rm /etc/exports
-sudo touch /etc/exports
-```
-
-#### NFS is reporting that your exports file is invalid
-
-> This may happen if you have previous VMs created and not properly destroyed (or even if you share the computer with someone else who had other VMs).
+To fix it, you need to reset your NFS exports file by issuing following command:
 
 ```
 sudo sed -i .bak '/VAGRANT-BEGIN/,/VAGRANT-END/d' /etc/exports
 ```
 
-Reinitialize VM
 
+### Reinitialize VM
+If the VM configuration should be updated via SaltStack there is no need to destroy your VM and create a new one, if full setup (no quick start) was used.
+
+In the project directory on your host operating system (outside of VM):
 ```
 vagrant halt
+cd saltstack; git pull; cd ..
+cd pillar; git pull; cd ..
 vagrant up --provision
+```
 
-# or
+Afterwards your VM has the newest configuration and dependencies
 
+
+### Recreate VM
+To destroy machine completely and re-initialize it:
+```
 vagrant destroy
 vagrant up
 ```
+
+## Documentation
+ * Spryker [reference salstack](https://github.com/spryker/saltstack) repository
