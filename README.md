@@ -18,6 +18,16 @@ vagrant plugin install vagrant-vbguest
 vagrant plugin install vagrant-hostmanager
 ```
 
+If you are running on Linux, you should make sure that your local host runs NFS server.
+For Debian/Ubuntu, run:
+```
+sudo apt-get install nfs-kernel-server nfs-common
+```
+For RedHat / CentOS - based distributions, run:
+```
+sudo yum install nfs-utils nfs-utils-lib
+```
+
 ## Usage - Quick start
 The "Quick start" mode downloads pre-provisioned machine and starts it. It does not include saltstack setup and is intended, as name says - for quickly setting up development machine. It is not possible to apply system updates to machines created this way, new machine needs to be created when infrastructure changes. Make sure that plugins described above in "Before starting" are installed.
 
