@@ -129,7 +129,7 @@ Vagrant.configure(2) do |config|
 
   # Share the application code with VM
   config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
-  if US_UNIX
+  if IS_UNIX
     config.nfs.map_uid = Process.uid
     config.nfs.map_gid = Process.gid
   end
