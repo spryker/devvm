@@ -21,11 +21,11 @@ vagrant plugin install vagrant-hostmanager
 If you are running on Linux, you should make sure that your local host runs NFS server.
 For Debian/Ubuntu, run:
 ```
-apt-get install nfs-kernel-server nfs-common
+sudo apt-get install nfs-kernel-server nfs-common
 ```
 For RedHat / CentOS - based distributions, run:
 ```
-yum install nfs-utils nfs-utils-lib
+sudo yum install nfs-utils nfs-utils-lib
 ```
 
 ## Usage - Quick start
