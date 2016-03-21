@@ -37,6 +37,11 @@ Edit the Vagrantfile and add hostmanager configuration at the end. File should e
 end
 ```
 
+To do it automatically on Mac OS X / Unix, you can use the command:
+```
+mv Vagrantfile Vagrantfile.bak; awk '/^end/{print "  config.hostmanager.enabled = true\n  config.hostmanager.manage_host = true"}1' Vagrantfile.bak > Vagrantfile
+```
+
 Start the VM:
 ```
 vagrant up
