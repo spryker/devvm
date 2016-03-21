@@ -39,12 +39,24 @@ def bold(text); colorize(text, "\033[1;97m"); end
 # Check whether we are running UNIX or Windows-based machine
 if Vagrant::Util::Platform.windows?
   HOSTS_PATH = 'c:\WINDOWS\system32\drivers\etc\hosts'
-  SYNCED_FOLDER_TYPE = 'virtualbox'
   IS_WINDOWS = true
+  IS_UNIX = false
+  IS_LINUX = false
+  IS_OSX = false
+  SYNCED_FOLDER_OPTIONS = { type: 'virtualbox' }
 else
   HOSTS_PATH = '/etc/hosts'
-  SYNCED_FOLDER_TYPE = 'nfs'
   IS_WINDOWS = false
+  IS_UNIX = true
+  if (/darwin/ =~ Vagrant::Util::Platform.platform)
+    IS_LINUX = false
+    IS_OSX = true
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['noatime,fsc,actimeo=1'] }
+  else
+    IS_LINUX = true
+    IS_OSX = false
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['nolock,noatime,fsc,actimeo=1'] }
+  end
 end
 
 # Verify if salt/pillar directories are present
@@ -123,8 +135,8 @@ Vagrant.configure(2) do |config|
 
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
-    config.vm.synced_folder SALT_DIRECTORY,   "/srv/salt/",   type: SYNCED_FOLDER_TYPE
-    config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", type: SYNCED_FOLDER_TYPE
+    config.vm.synced_folder SALT_DIRECTORY,   "/srv/salt/",   SYNCED_FOLDER_OPTIONS
+    config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", SYNCED_FOLDER_OPTIONS
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
@@ -151,8 +163,8 @@ Vagrant.configure(2) do |config|
   end
 
   # Share the application code with VM
-  config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", type: SYNCED_FOLDER_TYPE
-  if SYNCED_FOLDER_TYPE == "nfs"
+  config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
+  if IS_UNIX
     config.nfs.map_uid = Process.uid
     config.nfs.map_gid = Process.gid
   end
