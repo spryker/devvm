@@ -27,7 +27,7 @@ SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/demosh
 SPRYKER_BRANCH     = ENV['SPRYKER_BRANCH']     || "master"
 
 # Hostnames to be managed
-HOSTS = ["spryker.dev", "zed.de.spryker.dev","zed.com.spryker.dev", "www.com.spryker.dev", "com.spryker.dev", "static.com.spryker.dev", "www.de.spryker.dev", "de.spryker.dev", "static.de.spryker.dev", "kibana.spryker.dev"]
+HOSTS = ["spryker.dev", "zed.de.spryker.dev","zed.com.spryker.dev", "www.com.spryker.dev", "com.spryker.dev", "static.com.spryker.dev", "www.de.spryker.dev", "de.spryker.dev", "static.de.spryker.dev" ]
 
 ###
 ### END OF CONFIGURATION
