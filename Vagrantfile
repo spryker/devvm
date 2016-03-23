@@ -51,11 +51,11 @@ else
   if (/darwin/ =~ Vagrant::Util::Platform.platform)
     IS_LINUX = false
     IS_OSX = true
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['noatime,fsc,actimeo=1'] }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['noatime'] }
   else
     IS_LINUX = true
     IS_OSX = false
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['nolock,noatime,fsc,actimeo=1'] }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['nolock,noatime'] }
   end
 end
 
