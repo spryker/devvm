@@ -3,23 +3,24 @@
 ###
 
 # Settings for the Virtualbox VM
-VM_IP      = ENV['VM_IP']     || '10.10.0.33'     # IP Address of the DEV VM, must be unique
-VM_MEMORY  = ENV['VM_MEMORY'] || '3200'           # Amount of memory for DEV VM, in MB
-VM_CPUS    = ENV['VM_CPUS']   || '4'              # Amount of CPU cores for DEV VM
-VM_NAME    = ENV['VM_NAME']   || "Spryker Dev VM" # Visible name in VirtualBox
+VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                         # Name of the project
+VM_IP      = ENV['VM_IP']      || '10.10.0.33'                       # IP Address of the DEV VM, must be unique
+VM_MEMORY  = ENV['VM_MEMORY']  || '3200'                             # Amount of memory for DEV VM, in MB
+VM_CPUS    = ENV['VM_CPUS']    || '4'                                # Amount of CPU cores for DEV VM
+VM_NAME    = ENV['VM_NAME']    || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
 
 # Local locations of reposities
 BASE_DIRECTORY     = File.expand_path(File.dirname(__FILE__))
 SALT_DIRECTORY     = BASE_DIRECTORY + "/saltstack"
 PILLAR_DIRECTORY   = BASE_DIRECTORY + "/pillar"
-SPRYKER_DIRECTORY  = BASE_DIRECTORY + '/demoshop'
+SPRYKER_DIRECTORY  = BASE_DIRECTORY + "/project"
 
 # Remote locations of repositories
 SALT_REPOSITORY    = ENV['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
 SALT_BRANCH        = ENV['SALT_BRANCH']        || "master"
 PILLAR_REPOSITORY  = ENV['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar.git"
 PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
-SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/demoshop.git"
+SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_PROJECT}.git"
 SPRYKER_BRANCH     = ENV['SPRYKER_BRANCH']     || "master"
 
 # Hostnames to be managed
@@ -51,11 +52,11 @@ else
   if (/darwin/ =~ Vagrant::Util::Platform.platform)
     IS_LINUX = false
     IS_OSX = true
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['noatime'] }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs' }
   else
     IS_LINUX = true
     IS_OSX = false
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['nolock,noatime'] }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['nolock'] }
   end
 end
 
@@ -139,7 +140,7 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", SYNCED_FOLDER_OPTIONS
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
-      salt.run_highstate = true
+      salt.run_highstate = false # FIXME true
       salt.bootstrap_options = "-F -P -c /tmp"
     end
   else
