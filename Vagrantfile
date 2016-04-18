@@ -140,7 +140,7 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", SYNCED_FOLDER_OPTIONS
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
-      salt.run_highstate = false # FIXME true
+      salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
     end
   else

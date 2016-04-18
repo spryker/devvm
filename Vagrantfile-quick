@@ -13,17 +13,18 @@
 ###
 
 # Settings for the Virtualbox VM
-VM_IP      = ENV['VM_IP']     || '10.10.0.33'     # IP Address of the DEV VM, must be unique
-VM_MEMORY  = ENV['VM_MEMORY'] || '3200'           # Amount of memory for DEV VM, in MB
-VM_CPUS    = ENV['VM_CPUS']   || '4'              # Amount of CPU cores for DEV VM
-VM_NAME    = ENV['VM_NAME']   || "Spryker Dev VM" # Visible name in VirtualBox
+VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                         # Name of the project
+VM_IP      = ENV['VM_IP']      || '10.10.0.33'                       # IP Address of the DEV VM, must be unique
+VM_MEMORY  = ENV['VM_MEMORY']  || '3200'                             # Amount of memory for DEV VM, in MB
+VM_CPUS    = ENV['VM_CPUS']    || '4'                                # Amount of CPU cores for DEV VM
+VM_NAME    = ENV['VM_NAME']    || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
 
 # Local locations of reposities
 BASE_DIRECTORY     = Dir.pwd
-SPRYKER_DIRECTORY  = BASE_DIRECTORY + '/demoshop'
+SPRYKER_DIRECTORY  = BASE_DIRECTORY + "/project"
 
 # Remote locations of repositories
-SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/demoshop.git"
+SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_PROJECT}.git"
 SPRYKER_BRANCH     = ENV['SPRYKER_BRANCH']     || "master"
 
 # Hostnames to be managed
@@ -55,11 +56,11 @@ else
   if (/darwin/ =~ Vagrant::Util::Platform.platform)
     IS_LINUX = false
     IS_OSX = true
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['noatime'] }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs' }
   else
     IS_LINUX = true
     IS_OSX = false
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['nolock,noatime'] }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['nolock'] }
   end
 end
 
