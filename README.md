@@ -5,9 +5,9 @@ initial state of the Dev VM.
 
 Please refer to the [Installation guide](http://spryker.github.io/getting-started/installation-guide/) to install Spryker.
 
-# Updates to VM
+## Updates to VM
 
-## RabbitMQ
+### RabbitMQ
 RabbitMQ service has been disabled by default - the software is installed but service is not started.
 It can be started manually by executing inside VM:
 ```
@@ -20,7 +20,7 @@ This only needs to be executed once:
 sudo -i salt-call state.sls rabbitmq.credentials
 ```
 
-## PHP development modules
+### PHP development modules
 The PHP modules `xdebug` and `xhprof` are pre-installed on the DevVM, but not enabled by default. To enable one of them, use the following commands:
 ```
 # Enable XDebug
