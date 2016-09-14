@@ -24,7 +24,14 @@ SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_P
 SPRYKER_BRANCH     = ENV['SPRYKER_BRANCH']     || "master"
 
 # Hostnames to be managed
-HOSTS = ["spryker.dev", "zed.de.spryker.dev","zed.com.spryker.dev", "www.com.spryker.dev", "com.spryker.dev", "static.com.spryker.dev", "www.de.spryker.dev", "de.spryker.dev", "static.de.spryker.dev" ]
+HOSTS = []
+['', '-test'].each do |host_suffix|
+  domain = VM_PROJECT + '.local'
+  ['de'].each do |store|
+    HOSTS.push [ "www#{host_suffix}.#{store}.#{domain}", "zed#{host_suffix}.#{store}.#{domain}",]
+  end
+  HOSTS.push [ "static#{host_suffix}.#{domain}" ]
+end
 
 ###
 ### END OF CONFIGURATION
@@ -112,8 +119,8 @@ File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # Not that the box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian83"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian8/releases/download/ci-9/debian83.box"
+  config.vm.box = "debian85_12"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian8/releases/download/ci-12/debian85.box"
   config.vm.hostname = "spryker-vagrant"
   config.vm.boot_timeout = 300
 
