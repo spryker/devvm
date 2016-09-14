@@ -24,10 +24,11 @@ SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_P
 SPRYKER_BRANCH     = ENV['SPRYKER_BRANCH']     || "master"
 
 # Hostnames to be managed
+STORES = ['de']
 HOSTS = []
 ['', '-test'].each do |host_suffix|
   domain = VM_PROJECT + '.local'
-  ['de'].each do |store|
+  STORES.each do |store|
     HOSTS.push [ "www#{host_suffix}.#{store}.#{domain}", "zed#{host_suffix}.#{store}.#{domain}",]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
@@ -159,6 +160,7 @@ Vagrant.configure(2) do |config|
     puts bold "Configuring vagrant-hostmanager (#{HOSTS.count} hostnames)..."
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
+    config.hostmanager.manage_guest = true
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
     config.hostmanager.aliases = HOSTS
