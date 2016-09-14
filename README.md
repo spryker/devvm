@@ -5,6 +5,22 @@ initial state of the Dev VM.
 
 Please refer to the [Installation guide](http://spryker.github.io/getting-started/installation-guide/) to install Spryker.
 
+## VM Settings
+The VM will start with the default configuration for project `demoshop` and IP `10.10.0.33`.
+If you would like to change project name, you need to edit `Vagrantfile` and change value of
+variable `VM_PROJECT` (ie. to demoshop, project) and `VM_IP` - last digit. The IP address must
+be unique, so each VM on your workstation must have unique IP address. The generated hostnames
+will be using value of `VM_PROJECT`, so by default the hostnames will be:
+```
+www.de.demoshop.local
+zed.de.demoshop.local
+static.demoshop.local
+www-test.de.demoshop.local
+zed-test.de.demoshop.local
+static-test.demoshop.local
+```
+
+
 ## Updates to VM
 
 ### RabbitMQ
