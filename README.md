@@ -37,17 +37,11 @@ sudo -i salt-call state.sls rabbitmq.credentials
 ```
 
 ### PHP development modules
-The PHP modules `xdebug` and `xhprof` are pre-installed on the DevVM, but not enabled by default. To enable one of them, use the following commands:
+The PHP module `xdebug` are pre-installed on the DevVM, but not enabled by default. To enable it, use the following commands:
 ```
 # Enable XDebug
-sudo -i bash -c "php5enmod -s cli -m xdebug; php5enmod -s fpm -m xdebug; service php5-fpm restart"
-
-# Enable xhprof
-sudo -i bash -c "php5enmod -s cli -m xhprof; php5enmod -s fpm -m xhprof; service php5-fpm restart"
+sudo -i bash -c "phpenmod -v 7.0 -s cli -m xdebug; phpenmod -v 7.0 -s fpm -m xdebug; service php7.0-fpm restart"
 
 # Disable XDebug
-sudo -i bash -c "php5dismod -s cli -m xdebug; php5dismod -s fpm -m xdebug; service php5-fpm restart"
-
-# Disable xhprof
-sudo -i bash -c "php5dismod -s cli -m xhprof; php5dismod -s fpm -m xhprof; service php5-fpm restart"
+sudo -i bash -c "phpdismod -v 7.0 -s cli -m xdebug; phpdismod -v 7.0 -s fpm -m xdebug; service php7.0-fpm restart"
 ```

@@ -164,6 +164,7 @@ Vagrant.configure(2) do |config|
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
     config.hostmanager.aliases = HOSTS
+    config.vm.provision :hostmanager
   else
     hosts_line = VM_IP + " " + HOSTS.join(' ')
     if not File.open(HOSTS_PATH).each_line.any? { |line| line.chomp == hosts_line }
