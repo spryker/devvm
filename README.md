@@ -23,19 +23,6 @@ static-test.demoshop.local
 
 ## Updates to VM
 
-### RabbitMQ
-RabbitMQ service has been disabled by default - the software is installed but service is not started.
-It can be started manually by executing inside VM:
-```
-sudo -i service rabbitmq-server start
-```
-
-After starting RabbitMQ for the first time, you have to create users and vhosts to be able to access queue from application.
-This only needs to be executed once:
-```
-sudo -i salt-call state.sls rabbitmq.credentials
-```
-
 ### PHP development modules
 The PHP module `xdebug` are pre-installed on the DevVM, but not enabled by default. To enable it, use the following commands:
 ```
