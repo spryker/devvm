@@ -30,11 +30,11 @@ else
   VM_NAME    = ENV['VM_NAME']    || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
 
   config=
-    "VM_PROJECT =   #{VM_PROJECT}\n" +
-    "VM_IP =        #{VM_IP}\n" +
-    "VM_MEMORY =    #{VM_MEMORY}\n" +
-    "VM_CPUS =      #{VM_CPUS}\n" +
-    "VM_NAME =      #{VM_NAME}\n"
+    "VM_PROJECT =   '#{VM_PROJECT}'\n" +
+    "VM_IP =        '#{VM_IP}'\n" +
+    "VM_MEMORY =    '#{VM_MEMORY}'\n" +
+    "VM_CPUS =      '#{VM_CPUS}'\n" +
+    "VM_NAME =      '#{VM_NAME}'\n"
   puts yellow "New VM settings will be used:"
   puts config
   puts bold "Press return to save it in file .vm, Ctrl+C to abort"
