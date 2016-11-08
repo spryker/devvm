@@ -18,8 +18,13 @@ VM_SETTINGS_FILE   = BASE_DIRECTORY + "/.vm"
 
 # Check if there is VM configuration already saved
 if File.exists? VM_SETTINGS_FILE
-  puts bold "Loading VM settings file: .vm"
-  load(VM_SETTINGS_FILE)
+  if ARGV.include? 'destroy'
+    puts bold "Deleting VM settings file: .vm"
+    File.delete(VM_SETTINGS_FILE)
+  else
+    puts bold "Loading VM settings file: .vm"
+    load(VM_SETTINGS_FILE)
+  end
 else
   # Settings for the Virtualbox VM
   VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                         # Name of the project
@@ -35,11 +40,14 @@ else
     "VM_MEMORY =    '#{VM_MEMORY}'\n" +
     "VM_CPUS =      '#{VM_CPUS}'\n" +
     "VM_NAME =      '#{VM_NAME}'\n"
-  puts yellow "New VM settings will be used:"
-  puts config
-  puts bold "Press return to save it in file .vm, Ctrl+C to abort"
-  STDIN.gets
-  File.write(VM_SETTINGS_FILE, config)
+
+  if not ARGV.include? 'destroy'
+    puts yellow "New VM settings will be used:"
+    puts config
+    puts bold "Press return to save it in file .vm, Ctrl+C to abort"
+    STDIN.gets
+    File.write(VM_SETTINGS_FILE, config)
+  end
 end
 
 # Remote locations of repositories
