@@ -27,12 +27,11 @@ VM_SETTINGS_FILE   = BASE_DIRECTORY + "/.vm"
 
 # Check if there is VM configuration already saved
 if File.exists? VM_SETTINGS_FILE
+  puts bold "Loading VM settings file: .vm"
+  load(VM_SETTINGS_FILE)
   if ARGV.include? 'destroy'
     puts bold "Deleting VM settings file: .vm"
     File.delete(VM_SETTINGS_FILE)
-  else
-    puts bold "Loading VM settings file: .vm"
-    load(VM_SETTINGS_FILE)
   end
 else
 
