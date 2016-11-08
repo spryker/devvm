@@ -1,19 +1,46 @@
+# Helpers
+def colorize(text, color_code); "#{color_code}#{text}\033[0m"; end
+def red(text); colorize(text, "\033[31m"); end
+def yellow(text); colorize(text, "\033[33m"); end
+def green(text); colorize(text, "\033[32m"); end
+def bold(text); colorize(text, "\033[1;97m"); end
+
 ###
 ### BEGINNING OF CONFIGURATION
 ###
-
-# Settings for the Virtualbox VM
-VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                         # Name of the project
-VM_IP      = ENV['VM_IP']      || '10.10.0.33'                       # IP Address of the DEV VM, must be unique
-VM_MEMORY  = ENV['VM_MEMORY']  || '3200'                             # Amount of memory for DEV VM, in MB
-VM_CPUS    = ENV['VM_CPUS']    || '4'                                # Amount of CPU cores for DEV VM
-VM_NAME    = ENV['VM_NAME']    || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
 
 # Local locations of reposities
 BASE_DIRECTORY     = File.expand_path(File.dirname(__FILE__))
 SALT_DIRECTORY     = BASE_DIRECTORY + "/saltstack"
 PILLAR_DIRECTORY   = BASE_DIRECTORY + "/pillar"
 SPRYKER_DIRECTORY  = BASE_DIRECTORY + "/project"
+VM_SETTINGS_FILE   = BASE_DIRECTORY + "/.vm"
+
+# Check if there is VM configuration already saved
+if File.exists? VM_SETTINGS_FILE
+  puts bold "Loading VM settings file: .vm"
+  load(VM_SETTINGS_FILE)
+else
+  # Settings for the Virtualbox VM
+  VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                         # Name of the project
+  unique_ip = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
+  VM_IP      = ENV['VM_IP']      || '10.10.0.' + unique_ip             # IP Address of the DEV VM, must be unique
+  VM_MEMORY  = ENV['VM_MEMORY']  || '3200'                             # Amount of memory for DEV VM, in MB
+  VM_CPUS    = ENV['VM_CPUS']    || '4'                                # Amount of CPU cores for DEV VM
+  VM_NAME    = ENV['VM_NAME']    || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
+
+  config=
+    "VM_PROJECT =   #{VM_PROJECT}\n" +
+    "VM_IP =        #{VM_IP}\n" +
+    "VM_MEMORY =    #{VM_MEMORY}\n" +
+    "VM_CPUS =      #{VM_CPUS}\n" +
+    "VM_NAME =      #{VM_NAME}\n"
+  puts yellow "New VM settings will be used:"
+  puts config
+  puts bold "Press return to save it in file .vm, Ctrl+C to abort"
+  STDIN.gets
+  File.write(VM_SETTINGS_FILE, config)
+end
 
 # Remote locations of repositories
 SALT_REPOSITORY    = ENV['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
@@ -37,13 +64,6 @@ end
 ###
 ### END OF CONFIGURATION
 ###
-
-# Helpers
-def colorize(text, color_code); "#{color_code}#{text}\033[0m"; end
-def red(text); colorize(text, "\033[31m"); end
-def yellow(text); colorize(text, "\033[33m"); end
-def green(text); colorize(text, "\033[32m"); end
-def bold(text); colorize(text, "\033[1;97m"); end
 
 # Check whether we are running UNIX or Windows-based machine
 if Vagrant::Util::Platform.windows?
