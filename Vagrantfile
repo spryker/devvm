@@ -28,6 +28,7 @@ else
 
   # Project settings
   VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                         # Name of the project
+  VM_HOST = ENV['VM_HOST'] || VM_PROJECT                               # Host url
   SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
   unique_byte = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
@@ -44,6 +45,8 @@ else
     "VM_MEMORY =          '#{VM_MEMORY}'\n" +
     "VM_CPUS =            '#{VM_CPUS}'\n" +
     "VM_NAME =            '#{VM_NAME}'\n" +
+    "VM_HOST =            '#{VM_HOST}'\n" +
+    "SPRYKER_BRANCH =     '#{SPRYKER_BRANCH}'\n" +
     "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
 
   if not ARGV.include? 'destroy'
@@ -189,23 +192,15 @@ Vagrant.configure(2) do |config|
   end
 
   # add hosts to /etc/hosts
-  if Vagrant.has_plugin? 'vagrant-hostmanager'
-    puts bold "Configuring vagrant-hostmanager (#{HOSTS.count} hostnames)..."
-    config.hostmanager.enabled = true
-    config.hostmanager.manage_host = true
-    config.hostmanager.manage_guest = true
-    config.hostmanager.ignore_private_ip = false
-    config.hostmanager.include_offline = true
-    config.hostmanager.aliases = HOSTS
-    config.vm.provision :hostmanager
-    puts "Using vagrant-hostmanager to set hostnames: " + HOSTS.join(', ')
-  else
-    hosts_line = VM_IP + " " + HOSTS.join(' ')
-    if not File.open(HOSTS_PATH).each_line.any? { |line| line.chomp == hosts_line }
-      puts bold "Please add the following entries to your #{HOSTS_PATH} file: \n\033[0m"
-      puts hosts_line
-    end
-  end
+  puts bold "Configuring vagrant-hostmanager (#{HOSTS.count} hostnames)..."
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.manage_guest = true
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+  config.hostmanager.aliases = HOSTS
+  config.vm.provision :hostmanager
+  puts "Using vagrant-hostmanager to set hostnames: " + HOSTS.join(', ')
 
   # Share the application code with VM
   config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
