@@ -5,6 +5,17 @@ def yellow(text); colorize(text, "\033[33m"); end
 def green(text); colorize(text, "\033[32m"); end
 def bold(text); colorize(text, "\033[1;97m"); end
 
+required_plugins = ['vagrant-vbguest', 'vagrant-hostmanager']
+plugins_to_install = required_plugins.select { |plugin| !Vagrant.has_plugin? plugin }
+unless plugins_to_install.empty?
+  puts "Installing plugins: #{plugins_to_install.join(', ')}"
+  if system "vagrant plugin install #{plugins_to_install.join(' ')}"
+    exec "vagrant #{ARGV.join(' ')}"
+  else
+    abort red "Installation of one or more plugins has failed. Aborting."
+  end
+end
+
 ###
 ### BEGINNING OF CONFIGURATION
 ###
