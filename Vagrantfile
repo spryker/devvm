@@ -12,6 +12,8 @@ required_plugins = ['vagrant-vbguest', 'vagrant-hostmanager']
 plugins_to_install = required_plugins.select { |plugin| !Vagrant.has_plugin? plugin }
 unless plugins_to_install.empty?
   puts "Installing plugins: #{plugins_to_install.join(', ')}"
+  # exec will replace the current thread (which makes it like restarting vagrant)
+  # while system run the command `vagrant plugin install` on the current thread if there's any `plugins_to_install`
   if system "vagrant plugin install #{plugins_to_install.join(' ')}"
     exec "vagrant #{ARGV.join(' ')}"
   else
@@ -147,8 +149,8 @@ Vagrant.configure(2) do |config|
 
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
-    config.vm.synced_folder SALT_DIRECTORY,   "/srv/salt/",   { type: 'virtualbox', type: 'nfs', mount_options: ['nolock'] }
-    config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", { type: 'virtualbox', type: 'nfs', mount_options: ['nolock'] }
+    config.vm.synced_folder SALT_DIRECTORY,   "/srv/salt/",   { type: 'nfs', mount_options: ['nolock'] }
+    config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", { type: 'nfs', mount_options: ['nolock'] }
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
@@ -170,7 +172,7 @@ Vagrant.configure(2) do |config|
   puts "Using vagrant-hostmanager to set hostnames: " + HOSTS.join(', ')
 
   # Share the application code with VM
-  config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", { type: 'virtualbox', type: 'nfs', mount_options: ['nolock'] }
+  config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", { type: 'nfs', mount_options: ['nolock'] }
   config.nfs.map_uid = Process.uid
   config.nfs.map_gid = Process.gid
 
