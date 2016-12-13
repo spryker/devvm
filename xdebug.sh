@@ -3,9 +3,11 @@
 PHP_VERSION=`php -v`
 PHP_ETC_DIR=/etc/php/7.0/
 PHP_VERSION_NUMBER=7
+PHP_FPM=/etc/init.d/php7.0-fpm
 
 if [[ $PHP_VERSION =~ "PHP 5" ]] ; then
     PHP_ETC_DIR=/etc/php5/
+    PHP_FPM=/etc/init.d/php5-fpm
     PHP_VERSION_NUMBER=5
 fi
 
@@ -16,7 +18,7 @@ PHP_FPM_DIR=${PHP_ETC_DIR}fpm/conf.d/
 echo "Detected PHP version: ${PHP_VERSION_NUMBER}.x";
 
 function restartFPM {
-	sudo /etc/init.d/php5-fpm restart
+	sudo $PHP_FPM restart
 }
 
 function xdebugOn {
