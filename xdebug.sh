@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PHP_VERSION=`php -v`
-PHP_ETC_DIR=/etc/php7/
+PHP_ETC_DIR=/etc/php/7.0/
 PHP_VERSION_NUMBER=7
 
 if [[ $PHP_VERSION =~ "PHP 5" ]] ; then
