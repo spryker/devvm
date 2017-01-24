@@ -5,6 +5,10 @@ def yellow(text); colorize(text, "\033[33m"); end
 def green(text); colorize(text, "\033[32m"); end
 def bold(text); colorize(text, "\033[1;97m"); end
 
+# mkmf
+require 'mkmf'
+File.delete('mkmf.log') if File.exists?('mkmf.log')
+
 ###
 ### BEGINNING OF CONFIGURATION
 ###
@@ -103,7 +107,6 @@ else
 end
 
 # Verify if salt/pillar directories are present
-require 'mkmf'
 has_fresh_repos = false
 
 if not Dir.exists?(SALT_DIRECTORY)
@@ -147,9 +150,6 @@ if defined?(SPRYKER_REPOSITORY)
 else
   puts yellow "Spryker repository is not defined in Vagrantfile - not cloning it..."
 end
-
-# Cleanup mkmf log
-File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
