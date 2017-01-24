@@ -39,7 +39,7 @@ else
 
   # Project settings
   VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                         # Name of the project
-  VM_HOST = ENV['VM_HOST'] || VM_PROJECT                               # Host url
+  VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT
   SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
   unique_byte = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
@@ -56,7 +56,7 @@ else
     "VM_MEMORY =          '#{VM_MEMORY}'\n" +
     "VM_CPUS =            '#{VM_CPUS}'\n" +
     "VM_NAME =            '#{VM_NAME}'\n" +
-    "VM_HOST =            '#{VM_HOST}'\n" +
+    "VM_DOMAIN =            '#{VM_DOMAIN}'\n" +
     "SPRYKER_BRANCH =     '#{SPRYKER_BRANCH}'\n" +
     "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
 
