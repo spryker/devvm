@@ -135,7 +135,7 @@ end
 
 # Clone Spryker (if repository is given)
 if defined?(SPRYKER_REPOSITORY)
-  if Dir[SPRYKER_DIRECTORY + "/*"].empty? and not SPRYKER_REPOSITORY.empty?
+  if Dir.entries(SPRYKER_DIRECTORY) - %w{ . .. }).empty? and not SPRYKER_REPOSITORY.empty?
     puts bold "Cloning Spryker git repository..."
     if find_executable 'git'
       system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} #{SPRYKER_DIRECTORY}"
