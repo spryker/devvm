@@ -16,6 +16,13 @@ def yellow(text); colorize(text, "\033[33m"); end
 def green(text); colorize(text, "\033[32m"); end
 def bold(text); colorize(text, "\033[1;97m"); end
 
+# mkmf
+require 'mkmf'
+File.delete('mkmf.log') if File.exists?('mkmf.log')
+
+# Check if git executable exists
+abort red 'ERROR: git executable was found.' unless find_executable 'git'
+
 ###
 ### BEGINNING OF CONFIGURATION
 ###
@@ -114,24 +121,14 @@ else
 end
 
 # Clone Spryker (if repository is given)
-require 'mkmf'
-
 if defined?(SPRYKER_REPOSITORY)
   if not Dir.exists?(SPRYKER_DIRECTORY) and not SPRYKER_REPOSITORY.empty?
     puts bold "Cloning Spryker git repository..."
-    if find_executable 'git'
-      system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} #{SPRYKER_DIRECTORY}"
-    else
-      raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
-      "\n\n\033[0m"
-    end
+    system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} #{SPRYKER_DIRECTORY}"
   end
 else
   puts yellow "Spryker repository is not defined in Vagrantfile or variable SPRYKER_REPOSITORY - not cloning it..."
 end
-
-# Cleanup mkmf log
-File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
