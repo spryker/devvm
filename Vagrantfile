@@ -109,7 +109,7 @@ has_fresh_repos = false
 if not Dir.exists?(SALT_DIRECTORY)
   if find_executable 'git'
     puts bold "Cloning SaltStack git repository..."
-    system "git clone #{SALT_REPOSITORY} --branch #{SALT_BRANCH} #{SALT_DIRECTORY}"
+    system "git clone #{SALT_REPOSITORY} --branch #{SALT_BRANCH} '#{SALT_DIRECTORY}'"
     has_fresh_repos = true
   else
     raise "ERROR: Required #{SALT_DIRECTORY} could not be found and no git executable was found to solve this problem." +
@@ -120,7 +120,7 @@ end
 if not Dir.exists?(PILLAR_DIRECTORY)
   if find_executable 'git'
     puts bold "Cloning Pillar git repository..."
-    system "git clone #{PILLAR_REPOSITORY} --branch #{PILLAR_BRANCH} #{PILLAR_DIRECTORY}"
+    system "git clone #{PILLAR_REPOSITORY} --branch #{PILLAR_BRANCH} '#{PILLAR_DIRECTORY}'"
     has_fresh_repos = true
   else
     raise "ERROR: Required #{PILLAR_DIRECTORY} could not be found and no git executable was found to solve this problem." +
@@ -138,7 +138,7 @@ if defined?(SPRYKER_REPOSITORY)
   if not Dir.exists?(SPRYKER_DIRECTORY) and not SPRYKER_REPOSITORY.empty?
     puts bold "Cloning Spryker git repository..."
     if find_executable 'git'
-      system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} #{SPRYKER_DIRECTORY}"
+      system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} '#{SPRYKER_DIRECTORY}'"
     else
       raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
       "\n\n\033[0m"
