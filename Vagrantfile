@@ -47,7 +47,7 @@ else
     "SPRYKER_BRANCH =     '#{SPRYKER_BRANCH}'\n" +
     "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
 
-  if not ARGV.include? 'destroy'
+  unless (ARGV & ['up', 'reload', 'provision']).empty?
     puts yellow "New VM settings will be used:"
     puts config
     puts bold "Press return to save it in file .vm, Ctrl+C to abort"
