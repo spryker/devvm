@@ -133,9 +133,8 @@ if has_fresh_repos
   sleep 5
 end
 
-# Clone Spryker (if repository is given)
-if defined?(SPRYKER_REPOSITORY)
-  if not Dir.exists?(SPRYKER_DIRECTORY) and not SPRYKER_REPOSITORY.empty?
+if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryker (if repository is given)
+  if (not Dir.exists?(SPRYKER_DIRECTORY)) or Dir.entries(SPRYKER_DIRECTORY) - %w{ . .. }.empty? # Only clone if it's empty folder
     puts bold "Cloning Spryker git repository..."
     if find_executable 'git'
       system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} '#{SPRYKER_DIRECTORY}'"
@@ -143,9 +142,11 @@ if defined?(SPRYKER_REPOSITORY)
       raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
       "\n\n\033[0m"
     end
+  elsif not Dir.entries(SPRYKER_DIRECTORY).include? 'setup'
+    raise "ERROR: The directory #{SPRYKER_DIRECTORY} isn't empty, yet it's not a clone of spryker repository!"
   end
 else
-  puts yellow "Spryker repository is not defined in Vagrantfile - not cloning it..."
+  puts yellow "Spryker repository is not defined or empty in Vagrantfile - can't clone the repository..."
 end
 
 # Cleanup mkmf log
