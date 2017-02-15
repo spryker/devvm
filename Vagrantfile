@@ -37,6 +37,7 @@ else
   VM_MEMORY  = ENV['VM_MEMORY']  || '3200'                             # Amount of memory for DEV VM, in MB
   VM_CPUS    = ENV['VM_CPUS']    || '4'                                # Amount of CPU cores for DEV VM
   VM_NAME    = ENV['VM_NAME']    || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
+  VM_SKIP_SF = ENV['VM_SKIP_SF'] || '0'                                # Don't mount shared folders
 
   config=
     "VM_PROJECT =         '#{VM_PROJECT}'\n" +
@@ -44,6 +45,7 @@ else
     "VM_MEMORY =          '#{VM_MEMORY}'\n" +
     "VM_CPUS =            '#{VM_CPUS}'\n" +
     "VM_NAME =            '#{VM_NAME}'\n" +
+    "VM_SKIP_SF =         '#{VM_SKIP_SF}'\n" +
     "SPRYKER_BRANCH =     '#{SPRYKER_BRANCH}'\n" +
     "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
 
@@ -102,8 +104,11 @@ else
   end
 end
 
-# Verify if salt/pillar directories are present
+# mkmf
 require 'mkmf'
+File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
+
+# Verify if salt/pillar directories are present
 has_fresh_repos = false
 
 if not Dir.exists?(SALT_DIRECTORY)
@@ -148,9 +153,6 @@ if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryke
 else
   puts yellow "Spryker repository is not defined or empty in Vagrantfile - can't clone the repository..."
 end
-
-# Cleanup mkmf log
-File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
@@ -210,10 +212,12 @@ Vagrant.configure(2) do |config|
   end
 
   # Share the application code with VM
-  config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
-  if IS_UNIX
-    config.nfs.map_uid = Process.uid
-    config.nfs.map_gid = Process.gid
+  if not (VM_SKIP_SF == '1')
+    config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
+    if IS_UNIX
+      config.nfs.map_uid = Process.uid
+      config.nfs.map_gid = Process.gid
+    end
   end
 
   # Configure VirtualBox VM resources (CPU and memory)
