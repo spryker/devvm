@@ -143,7 +143,7 @@ if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryke
       "\n\n\033[0m"
     end
   elsif not Dir.entries(SPRYKER_DIRECTORY).include? 'setup'
-    raise red "Looks like the directory isn't empty, yet it's not a clone of spryker repository!"
+    raise "ERROR: The directory #{SPRYKER_DIRECTORY} isn't empty, yet it's not a clone of spryker repository!"
   end
 else
   puts yellow "Spryker repository is not defined or empty in Vagrantfile - can't clone the repository..."
