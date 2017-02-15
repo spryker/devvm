@@ -16,6 +16,10 @@ def yellow(text); colorize(text, "\033[33m"); end
 def green(text); colorize(text, "\033[32m"); end
 def bold(text); colorize(text, "\033[1;97m"); end
 
+# mkmf
+require 'mkmf'
+File.delete('mkmf.log') if File.exists?('mkmf.log')
+
 ###
 ### BEGINNING OF CONFIGURATION
 ###
@@ -114,8 +118,6 @@ else
 end
 
 # Clone Spryker (if repository is given)
-require 'mkmf'
-
 if defined?(SPRYKER_REPOSITORY)
   if not Dir.exists?(SPRYKER_DIRECTORY) and not SPRYKER_REPOSITORY.empty?
     puts bold "Cloning Spryker git repository..."
@@ -129,9 +131,6 @@ if defined?(SPRYKER_REPOSITORY)
 else
   puts yellow "Spryker repository is not defined in Vagrantfile or variable SPRYKER_REPOSITORY - not cloning it..."
 end
-
-# Cleanup mkmf log
-File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
