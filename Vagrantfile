@@ -175,6 +175,7 @@ Vagrant.configure(2) do |config|
     config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
     config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
     config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
+    config.vm.network "forwarded_port", guest: 5601,  host: 5601,  auto_correct: true   # Kibana
     config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
   end
 
