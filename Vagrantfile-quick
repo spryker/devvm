@@ -71,7 +71,7 @@ else
 end
 
 # Hostnames to be managed
-STORES = ['de']
+STORES = ['de', 'at', 'us']
 HOSTS = []
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'
