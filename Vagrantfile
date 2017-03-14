@@ -139,7 +139,9 @@ if has_fresh_repos
 end
 
 if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryker (if repository is given)
-  if (not Dir.exists?(SPRYKER_DIRECTORY)) or Dir.entries(SPRYKER_DIRECTORY) - %w{ . .. }.empty? # Only clone if it's empty folder
+  # This line is giving exception: Message: TypeError: no implicit conversion of false into Array
+  #if (not Dir.exists?(SPRYKER_DIRECTORY)) or Dir.entries(SPRYKER_DIRECTORY) - %w{ . .. }.empty? # Only clone if it's empty folder
+  if (not Dir.exists?(SPRYKER_DIRECTORY))
     puts bold "Cloning Spryker git repository..."
     if find_executable 'git'
       system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} '#{SPRYKER_DIRECTORY}'"
