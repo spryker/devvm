@@ -33,10 +33,12 @@ else
   unique_byte = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
 
   # Settings for the Virtualbox VM
-  VM_IP      = ENV['VM_IP']      || '10.10.0.' + unique_byte           # IP Address of the DEV VM, must be unique
-  VM_MEMORY  = ENV['VM_MEMORY']  || '3200'                             # Amount of memory for DEV VM, in MB
-  VM_CPUS    = ENV['VM_CPUS']    || '4'                                # Amount of CPU cores for DEV VM
-  VM_NAME    = ENV['VM_NAME']    || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
+  VM_IP_PREFIX = ENV['VM_IP_PREFIX'] || '10.10.0.'                         # Prefix for IP address of DEV VM
+  VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
+  VM_MEMORY    = ENV['VM_MEMORY']    || '3200'                             # Amount of memory for DEV VM, in MB
+  VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Amount of CPU cores for DEV VM
+  VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
+  VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
 
   config=
     "VM_PROJECT =         '#{VM_PROJECT}'\n" +
@@ -44,10 +46,11 @@ else
     "VM_MEMORY =          '#{VM_MEMORY}'\n" +
     "VM_CPUS =            '#{VM_CPUS}'\n" +
     "VM_NAME =            '#{VM_NAME}'\n" +
+    "VM_SKIP_SF =         '#{VM_SKIP_SF}'\n" +
     "SPRYKER_BRANCH =     '#{SPRYKER_BRANCH}'\n" +
     "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
 
-  if not ARGV.include? 'destroy'
+  unless (ARGV & ['up', 'reload', 'provision']).empty?
     puts yellow "New VM settings will be used:"
     puts config
     puts bold "Press return to save it in file .vm, Ctrl+C to abort"
@@ -65,7 +68,7 @@ PILLAR_REPOSITORY  = ENV['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar
 PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
 
 # Hostnames to be managed
-STORES = ['de']
+STORES = ['de', 'at', 'us']
 HOSTS = []
 ['', '-test'].each do |host_suffix|
   domain = VM_PROJECT + '.local'
@@ -102,14 +105,17 @@ else
   end
 end
 
-# Verify if salt/pillar directories are present
+# mkmf
 require 'mkmf'
+File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
+
+# Verify if salt/pillar directories are present
 has_fresh_repos = false
 
 if not Dir.exists?(SALT_DIRECTORY)
   if find_executable 'git'
     puts bold "Cloning SaltStack git repository..."
-    system "git clone #{SALT_REPOSITORY} --branch #{SALT_BRANCH} #{SALT_DIRECTORY}"
+    system "git clone #{SALT_REPOSITORY} --branch #{SALT_BRANCH} '#{SALT_DIRECTORY}'"
     has_fresh_repos = true
   else
     raise "ERROR: Required #{SALT_DIRECTORY} could not be found and no git executable was found to solve this problem." +
@@ -120,7 +126,7 @@ end
 if not Dir.exists?(PILLAR_DIRECTORY)
   if find_executable 'git'
     puts bold "Cloning Pillar git repository..."
-    system "git clone #{PILLAR_REPOSITORY} --branch #{PILLAR_BRANCH} #{PILLAR_DIRECTORY}"
+    system "git clone #{PILLAR_REPOSITORY} --branch #{PILLAR_BRANCH} '#{PILLAR_DIRECTORY}'"
     has_fresh_repos = true
   else
     raise "ERROR: Required #{PILLAR_DIRECTORY} could not be found and no git executable was found to solve this problem." +
@@ -133,29 +139,29 @@ if has_fresh_repos
   sleep 5
 end
 
-# Clone Spryker (if repository is given)
-if defined?(SPRYKER_REPOSITORY)
-  if not Dir.exists?(SPRYKER_DIRECTORY) and not SPRYKER_REPOSITORY.empty?
+if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryker (if repository is given)
+  # This line is giving exception: Message: TypeError: no implicit conversion of false into Array
+  #if (not Dir.exists?(SPRYKER_DIRECTORY)) or Dir.entries(SPRYKER_DIRECTORY) - %w{ . .. }.empty? # Only clone if it's empty folder
+  if (not Dir.exists?(SPRYKER_DIRECTORY))
     puts bold "Cloning Spryker git repository..."
     if find_executable 'git'
-      system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} #{SPRYKER_DIRECTORY}"
+      system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} '#{SPRYKER_DIRECTORY}'"
     else
       raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
       "\n\n\033[0m"
     end
+  elsif not Dir.entries(SPRYKER_DIRECTORY).include? 'setup'
+    raise "ERROR: The directory #{SPRYKER_DIRECTORY} isn't empty, yet it's not a clone of spryker repository!"
   end
 else
-  puts yellow "Spryker repository is not defined in Vagrantfile - not cloning it..."
+  puts yellow "Spryker repository is not defined or empty in Vagrantfile - can't clone the repository..."
 end
-
-# Cleanup mkmf log
-File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # Not that the box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian85_12"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian8/releases/download/ci-12/debian85.box"
+  config.vm.box = "debian87_13"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian8/releases/download/ci-13/debian87.box"
   config.vm.hostname = "spryker-vagrant"
   config.vm.boot_timeout = 300
 
@@ -169,6 +175,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
   config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
   config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
+  config.vm.network "forwarded_port", guest: 5601,  host: 5601,  auto_correct: true   # Kibana
   config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
 
   # install required, but missing dependencies into the base box
@@ -207,10 +214,12 @@ Vagrant.configure(2) do |config|
   end
 
   # Share the application code with VM
-  config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
-  if IS_UNIX
-    config.nfs.map_uid = Process.uid
-    config.nfs.map_gid = Process.gid
+  if not (VM_SKIP_SF == '1')
+    config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
+    if IS_UNIX
+      config.nfs.map_uid = Process.uid
+      config.nfs.map_gid = Process.gid
+    end
   end
 
   # Configure VirtualBox VM resources (CPU and memory)
