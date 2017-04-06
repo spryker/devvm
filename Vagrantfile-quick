@@ -42,11 +42,11 @@ else
   unique_byte = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
 
   # Settings for the Virtualbox VM
-  VM_IP      = ENV['VM_IP']      || '10.10.0.' + unique_byte           # IP Address of the DEV VM, must be unique
-  VM_MEMORY  = ENV['VM_MEMORY']  || '3200'                             # Amount of memory for DEV VM, in MB
-  VM_CPUS    = ENV['VM_CPUS']    || '4'                                # Amount of CPU cores for DEV VM
-  VM_NAME    = ENV['VM_NAME']    || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
-  VM_SKIP_SF = ENV['VM_SKIP_SF'] || '0'                                # Don't mount shared folders
+  VM_IP_PREFIX = ENV['VM_IP_PREFIX'] || '10.10.0.'                         # Prefix for IP address of DEV VM
+  VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique  VM_MEMORY  = ENV['VM_MEMORY']  || '3200'                             # Amount of memory for DEV VM, in MB
+  VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Amount of CPU cores for DEV VM
+  VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
+  VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
 
   config=
     "VM_PROJECT =         '#{VM_PROJECT}'\n" +
