@@ -169,8 +169,8 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # Not that the box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian88_14"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian8/releases/download/ci-14/debian88.box"
+  config.vm.box = "debian91_8"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-8/debian91.box"
   config.vm.hostname = "spryker-vagrant"
   config.vm.boot_timeout = 300
 
