@@ -23,9 +23,18 @@ if File.exists? VM_SETTINGS_FILE
   if ARGV.include? 'destroy'
     puts bold "Deleting VM settings file: .vm"
     File.delete(VM_SETTINGS_FILE)
+  else
+    # Check for unknown constants (if outdated version of .vm file is found)
+    begin
+      [VM_IP,VM_MEMORY,VM_CPUS,VM_NAME,VM_SKIP_SF].each{|x|}
+    rescue NameError => exception
+      puts red "You have settings from older version of the VM"
+      puts "Settings file: #{VM_SETTINGS_FILE} - #{exception}"
+      puts "Please discard the old VM (vagrant destroy) and make sure that the settings file is deleted in order to upgrade you VM."
+      exit 1
+    end
   end
 else
-
   # Project settings
   VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                         # Name of the project
   SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_PROJECT}.git"
@@ -216,7 +225,7 @@ Vagrant.configure(2) do |config|
   end
 
   # Share the application code with VM
-  if not (VM_SKIP_SF == '1')
+  if not defined? VM_SKIP_SF or not (VM_SKIP_SF == '1')
     config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
     if IS_UNIX
       config.nfs.map_uid = Process.uid
