@@ -61,6 +61,9 @@ else
   end
 end
 
+# Backward compatibility for .vm file
+VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
+
 # Remote locations of provisioning repositories
 SALT_REPOSITORY    = ENV['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
 SALT_BRANCH        = ENV['SALT_BRANCH']        || "master"
