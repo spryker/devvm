@@ -21,7 +21,7 @@ static-test.demoshop.local
 ```
 
 ## Version tree and lifecycle
-After release CI-119 we stop using auto-increment release numbers and switch to semantic versioning. Next version becomes "1.0.0." Branch `master` is the main branch for version `1.x.x`. In future, branch `development` is the main branch for version `2.x.x`
+After release `ci-119` we decided to stop using auto-incremented release numbers and switch to semantic versioning. Next version becomes `1.0.0`. Branch `master` is the main branch for version `1.x.x`. In future, branch `development` is the main branch for version `2.x.x`
 
 ### 1.x.x
 1.x.x is current stable version, recommended for everyone unless instructed specifically to use another version, for a reason.
