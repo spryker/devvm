@@ -27,6 +27,9 @@ Branch `master` is the main branch for version `1.x.x`
 (not present yet)
 Branch `development` is the main branch for version `2.x.x`
 
+### 1.x.x
+1.x.x is current stable version, recommended for everyone unless instructed specifically to use version 2.x.x for a reason.
+
 ### 2.x.x
 Improved support for multi-store
 Upgraded components: (tbd)
