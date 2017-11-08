@@ -1,0 +1,6 @@
+#
+# Setup docker
+#
+
+include:
+  - .install

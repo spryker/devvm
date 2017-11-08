@@ -1,0 +1,31 @@
+filebeat:
+  registry_file: /var/lib/filebeat/registry
+  prospectors:
+    -
+      paths:
+        - "/data/shop/development/current/data/*/logs/YVES/*.log"
+      input_type: "log"
+      fields:
+        application: "YVES"
+    -
+      paths:
+        - "/data/shop/development/current/data/*/logs/ZED/*.log"
+      input_type: "log"
+      fields:
+        application: "ZED"
+    -
+      paths:
+        - "/data/shop/development/current/data/*/logs/application.log"
+      input_type: "log"
+
+output:
+  elasticsearch:
+    hosts: ["localhost:10005"]
+    protocol: "http"
+    index: "logstash"
+
+shipper:
+
+logging:
+  files:
+    rotateeverybytes: 10485760 # = 10MB

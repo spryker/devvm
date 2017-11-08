@@ -1,0 +1,12 @@
+# This file is managed by Salt!
+{%- set mirror = salt['pillar.get']('hosting:debian_mirror_host', 'cloudfront.debian.net') %}
+{%- set distro = grains.lsb_distrib_codename %}
+
+deb http://{{ mirror }}/debian {{ distro }} main contrib non-free
+deb-src http://{{ mirror }}/debian {{ distro }} main contrib non-free
+
+deb http://security.debian.org/ {{ distro }}/updates main contrib non-free
+deb-src http://security.debian.org/ {{ distro }}/updates main contrib non-free
+
+deb http://{{ mirror }}/debian {{ distro }}-updates main
+deb-src http://{{ mirror }}/debian {{ distro }}-updates main

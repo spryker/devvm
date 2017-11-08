@@ -5,6 +5,11 @@ initial state of the Dev VM.
 
 Please refer to the [Installation guide](http://spryker.github.io/getting-started/installation/guide/) to install Spryker.
 
+This repository contains:
+ - [saltstack](saltstack) - SaltStack implementation of reference hosting for development
+ - [pillar](pillar) - Pillar configuration values used by SaltStack
+ - Vagrantfile(s) used by Vagrant for managing local virtual machine
+
 ## VM Settings
 The VM will start with the default configuration for project `demoshop` and IP `10.10.0.33`.
 If you would like to change project name, you need to edit `Vagrantfile` and change value of

@@ -1,0 +1,14 @@
+[Unit]
+Description=Mailcatcher
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/mailcatcher --http-ip 0.0.0.0 --http-port 1080 --smtp-ip 0.0.0.0 --smtp-port 1025 -f
+TimeoutStopSec=0
+Restart=always
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target
