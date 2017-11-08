@@ -20,20 +20,18 @@ zed-test.de.demoshop.local
 static-test.demoshop.local
 ```
 
-## Version tree
-After release CI-119 we stop using auto-increment release numbers and switch to semantic versioning. Next version becomes "1.0.0."
-
-Branch `master` is the main branch for version `1.x.x`
-(not present yet)
-Branch `development` is the main branch for version `2.x.x`
+## Version tree and lifecycle
+After release CI-119 we stop using auto-increment release numbers and switch to semantic versioning. Next version becomes "1.0.0." Branch `master` is the main branch for version `1.x.x`. In future, branch `development` is the main branch for version `2.x.x`
 
 ### 1.x.x
-1.x.x is current stable version, recommended for everyone unless instructed specifically to use version 2.x.x for a reason.
+1.x.x is current stable version, recommended for everyone unless instructed specifically to use another version, for a reason.
 
 ### 2.x.x
 Improved support for multi-store
 Upgraded components: (tbd)
+Breaking changes: (tbd)
 Possibility of self-building the release for the project (documentation)
+
 
 ## Customizing the VM
 
