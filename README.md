@@ -20,15 +20,26 @@ zed-test.de.demoshop.local
 static-test.demoshop.local
 ```
 
+## Version tree
+After release CI-119 we stop using auto-increment release numbers and switch to semantic versioning. Next version becomes "1.0.0."
 
-## Updates to VM
+Branch `master` is the main branch for version `1.x.x`
+(not present yet)
+Branch `development` is the main branch for version `2.x.x`
+
+### 2.x.x
+Improved support for multi-store
+Upgraded components: (tbd)
+Possibility of self-building the release for the project (documentation)
+
+## Customizing the VM
 
 ### PHP development modules
 The PHP module `xdebug` are pre-installed on the DevVM, but not enabled by default. To enable it, use the following commands:
 ```
 # Enable XDebug
-sudo -i bash -c "phpenmod -v 7.0 -s cli -m xdebug; phpenmod -v 7.0 -s fpm -m xdebug; service php7.0-fpm restart"
+sudo -i bash -c "phpenmod -v 7.1 -s cli -m xdebug; phpenmod -v 7.1 -s fpm -m xdebug; service php7.1-fpm restart"
 
 # Disable XDebug
-sudo -i bash -c "phpdismod -v 7.0 -s cli -m xdebug; phpdismod -v 7.0 -s fpm -m xdebug; service php7.0-fpm restart"
+sudo -i bash -c "phpdismod -v 7.1 -s cli -m xdebug; phpdismod -v 7.1 -s fpm -m xdebug; service php7.1-fpm restart"
 ```
