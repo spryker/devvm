@@ -10,19 +10,35 @@ concepts of this technology. The best way to start is to read the official
 [SaltStack tutorials](http://docs.saltstack.com/en/latest/topics/tutorials/index.html).
 
 
-## Creating new Spryker project
+## Creating new Spryker project Dev VM
+The VM can be customized for custom project needs. It can be re-built and distributed within the team by sharing the `.box` file which is created. In order to build the box file for new machine (ie. after changing saltstack, pillar or Vagrantfile(s), proceed with following steps:
 
-1. Clone `spryker` code repository
+1. Clone `devvm` code repository
 
-1. Clone `saltstack` and `pillar` reference repositories. You should use names like `saltstack-PROJECT` and `pillar-PROJECT-dev` - where PROJECT is the project name (e.g. `toys`).
-Keep those repositories private. In future you will have more than one pillar repository - i.e. seperate for dev (development VMs), for qa (testing systems) and for production.
-You can always merge changes from the reference repositories, but from the beginning you should not use reference repositories directly.
+1. Edit the `Vagrantfile` *and* `Vagrantfile-quick` in your DevVM repository:
+    1. Change `VM_IP` parameter - use any other value other than the default one. You should pick up an address somewhere inside 10.0.0.0/8 network, which does not collide with your office / server address spaces. For example, you can use `10.10.1.34`. If you leave this unchanged, it will pick up a random IP address.
+    
+1. Start vagrant and provision the machine, install latest VirtualBox drivers:
+    ```
+    vagrant up
+    vagrant vbguest
+    ```
+    
+1. (optional) Cleanup filesystem blocks to optimize image size
+    ```
+    vagrant ssh -c 'sudo -i apt-get -y clean; sudo rm -fr /var/log/auth.log /var/log/daemon.log /var/log/messages /var/log/syslog /root/.bash_history /home/vagrant/.bash_history /var/cache/apt/archives/*'
+    vagrant ssh -c 'sudo dd if=/dev/zero of=/EMPTY bs=1M; sudo rm -f /EMPTY; sudo sync'
+    ```
+    
+1. Stop the VM and create a `.box` file with machine image:
+    ```
+    vagrant halt
+    vagrant package --output package.box --vagrantfile Vagrantfile-quick
+    ```
+    
 
-1. Edit the `Vagrantfile` in your Spryker repository:
-    1. Change `VM_IP` parameter - use any other value other than the default one. You should pick up an address somewhere inside 10.0.0.0/8 network, which does not collide with your
-    office / server address spaces. For example, you can use `10.10.1.34`.
-    1. Adjust the values of `SALT_REPOSITORY` and `PILLAR_REPOSITORY` variables, so that they point to repositories you just created.
 
+## Notes for saltstack/pillar usage for testing/staging/production
 1. Generate new SSH keys for checking out code:
     1. Create a temporary directory on your hard drive. In this directory create set of SSH keys, without password:
 
