@@ -1,0 +1,111 @@
+##############################################################################
+##       This file is managed by saltstack - DO NOT MANUALLY CHANGE IT      ##
+##############################################################################
+
+
+################################### Cluster ##################################
+
+cluster.name: spryker-{{ environment }}
+
+
+#################################### Node ####################################
+
+node.name: {{ grains.fqdn }}
+node.master: true
+node.data: true
+node.max_local_storage_nodes: 1
+
+
+#################################### Index ###################################
+
+index.number_of_shards: {{ settings.elasticsearch.shards }}
+index.number_of_replicas: {{ settings.elasticsearch.replicas }}
+
+
+#################################### Paths ###################################
+
+# path.conf: /path/to/conf
+# path.data: /path/to/data1,/path/to/data2
+# path.work: /path/to/work
+# path.logs: /path/to/logs
+# path.plugins: /path/to/plugins
+path.repo: ["/data/shop/{{ environment }}/shared/elasticsearch/snapshots"]
+
+################################### Memory ###################################
+
+bootstrap.mlockall: {{ salt['pillar.get']('elasticsearch.environments:mlockall', 'true') }}
+
+
+############################## Network And HTTP ##############################
+
+network.bind_host: 0.0.0.0
+network.publish_host: {{ settings.publish_ip }}
+http.port: {{ settings.environments[environment].elasticsearch.http_port }}
+transport.tcp.port: {{ settings.environments[environment].elasticsearch.transport_port }}
+transport.tcp.compress: false
+
+
+################################### Gateway ##################################
+
+gateway.recover_after_nodes: {{ settings.elasticsearch.minimum_nodes  }}
+gateway.recover_after_time: 3m
+gateway.expected_nodes: {{ settings.elasticsearch.total_nodes }}
+
+
+############################# Cluster management #############################
+
+cluster.routing.allocation.node_initial_primaries_recoveries: 4
+cluster.routing.allocation.node_concurrent_recoveries: 2
+cluster.routing.allocation.disk.watermark.low: 90%
+cluster.routing.allocation.disk.watermark.high: 95%
+
+
+################################### Indices ##################################
+
+indices.recovery.max_bytes_per_sec: 50mb
+indices.recovery.concurrent_streams: 5
+indices.store.throttle.max_bytes_per_sec: 100mb
+indices.cache.filter.size: 100M
+indices.fielddata.cache.size: 100M
+indices.fielddata.cache.expire: 30m
+
+
+################################## Discovery #################################
+discovery.zen.minimum_master_nodes: {{ settings.elasticsearch.minimum_nodes }}
+discovery.zen.ping.timeout: 5s
+
+{%- if ('dev' in grains.roles) %}
+discovery.zen.ping.multicast.enabled: false
+{%- else %}
+discovery.zen.ping.multicast.enabled: true
+{%- endif %}
+
+
+################################## Slow Log ##################################
+
+#index.search.slowlog.threshold.query.warn: 10s
+#index.search.slowlog.threshold.query.info: 5s
+#index.search.slowlog.threshold.query.debug: 2s
+#index.search.slowlog.threshold.query.trace: 500ms
+#index.search.slowlog.threshold.fetch.warn: 1s
+#index.search.slowlog.threshold.fetch.info: 800ms
+#index.search.slowlog.threshold.fetch.debug: 500ms
+#index.search.slowlog.threshold.fetch.trace: 200ms
+#index.indexing.slowlog.threshold.index.warn: 10s
+#index.indexing.slowlog.threshold.index.info: 5s
+#index.indexing.slowlog.threshold.index.debug: 2s
+#index.indexing.slowlog.threshold.index.trace: 500ms
+
+
+################################## GC Logging ################################
+
+monitor.jvm.gc.young.warn: 1000ms
+monitor.jvm.gc.young.info: 700ms
+monitor.jvm.gc.young.debug: 400ms
+
+monitor.jvm.gc.old.warn: 10s
+monitor.jvm.gc.old.info: 5s
+monitor.jvm.gc.old.debug: 2s
+
+################################### Safety####################################
+action.disable_delete_all_indices: true

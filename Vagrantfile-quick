@@ -73,6 +73,9 @@ else
   end
 end
 
+# Backward compatibility for .vm file
+VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
+
 HOSTS = []
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'

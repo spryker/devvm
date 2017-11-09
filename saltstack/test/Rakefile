@@ -1,0 +1,34 @@
+require 'rake'
+require 'rspec/core/rake_task'
+
+SPEC_SUITES = [
+  { id: 'server', pattern: 'spec/server/*_spec.rb' },
+]
+
+task :spec    => 'spec:all'
+task :default => :spec
+
+namespace :spec do
+  targets = ['localhost']
+
+  targets.each do |target|
+    original_target = target == "_default" ? target[1..-1] : target
+    ENV['TARGET_HOST'] = original_target
+
+    desc "Run all tests to #{original_target}"
+    RSpec::Core::RakeTask.new('all') do |t|
+      t.pattern = "spec/*/*_spec.rb"
+      t.verbose = false
+      t.fail_on_error = true
+    end
+
+    SPEC_SUITES.each do |suite|
+      desc "Run #{suite[:id]} tests to #{original_target}"
+      RSpec::Core::RakeTask.new("#{suite[:id]}") do |t|
+        t.pattern = suite[:pattern]
+        t.verbose = true
+        t.fail_on_error = true
+      end
+    end
+  end
+end

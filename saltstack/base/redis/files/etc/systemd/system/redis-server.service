@@ -1,0 +1,14 @@
+[Unit]
+Description=Spryker key-value store: {{ environment }}
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/redis-server /etc/redis/redis_{{ environment }}.conf
+TimeoutStopSec=0
+Restart=always
+User=redis
+Group=redis
+
+[Install]
+WantedBy=multi-user.target

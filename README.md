@@ -5,6 +5,11 @@ initial state of the Dev VM.
 
 Please refer to the [Installation guide](http://spryker.github.io/getting-started/installation/guide/) to install Spryker.
 
+This repository contains:
+ - [saltstack](saltstack) - SaltStack implementation of reference hosting for development
+ - [pillar](pillar) - Pillar configuration values used by SaltStack
+ - Vagrantfile(s) used by Vagrant for managing local virtual machine
+
 ## VM Settings
 The VM will start with the default configuration for project `demoshop` and IP `10.10.0.33`.
 If you would like to change project name, you need to edit `Vagrantfile` and change value of
@@ -20,15 +25,27 @@ zed-test.de.demoshop.local
 static-test.demoshop.local
 ```
 
+## Version tree and lifecycle
+After release `ci-119` we decided to stop using auto-incremented release numbers and switch to semantic versioning. Next version becomes `1.0.0`. Branch `master` is the main branch for version `1.x.x`. In future, branch `development` is the main branch for version `2.x.x`
 
-## Updates to VM
+### 1.x.x
+1.x.x is current stable version, recommended for everyone unless instructed specifically to use another version, for a reason.
+
+### 2.x.x
+Improved support for multi-store
+Upgraded components: (tbd)
+Breaking changes: (tbd)
+Possibility of self-building the release for the project (documentation)
+
+
+## Customizing the VM
 
 ### PHP development modules
 The PHP module `xdebug` are pre-installed on the DevVM, but not enabled by default. To enable it, use the following commands:
 ```
 # Enable XDebug
-sudo -i bash -c "phpenmod -v 7.0 -s cli -m xdebug; phpenmod -v 7.0 -s fpm -m xdebug; service php7.0-fpm restart"
+sudo -i bash -c "phpenmod -v 7.1 -s cli -m xdebug; phpenmod -v 7.1 -s fpm -m xdebug; service php7.1-fpm restart"
 
 # Disable XDebug
-sudo -i bash -c "phpdismod -v 7.0 -s cli -m xdebug; phpdismod -v 7.0 -s fpm -m xdebug; service php7.0-fpm restart"
+sudo -i bash -c "phpdismod -v 7.1 -s cli -m xdebug; phpdismod -v 7.1 -s fpm -m xdebug; service php7.1-fpm restart"
 ```
