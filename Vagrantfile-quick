@@ -48,7 +48,7 @@ else
   VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Amount of CPU cores for DEV VM
   VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
   VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
-  VM_STORES    = ENV['VM_STORES'].split(',') || ['de', 'at', 'us']         # Hostnames to be managed
+  VM_STORES    = (ENV['VM_STORES'] || 'de,at,us').split(',')               # Hostnames to be managed
 
   config=
     "VM_PROJECT =         '#{VM_PROJECT}'\n" +
