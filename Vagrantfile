@@ -39,7 +39,6 @@ else
   VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Amount of CPU cores for DEV VM
   VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
   VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
-  VM_STORES    = (ENV['VM_STORES'] || 'de,at,us').split(',')               # Hostnames to be managed
 
   config=
     "VM_PROJECT =         '#{VM_PROJECT}'\n" +
@@ -47,7 +46,6 @@ else
     "VM_MEMORY =          '#{VM_MEMORY}'\n" +
     "VM_CPUS =            '#{VM_CPUS}'\n" +
     "VM_NAME =            '#{VM_NAME}'\n" +
-    "VM_STORES =          '#{VM_STORES.join(',')}'\n" +
     "VM_SKIP_SF =         '#{VM_SKIP_SF}'\n" +
     "SPRYKER_BRANCH =     '#{SPRYKER_BRANCH}'\n" +
     "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
@@ -72,10 +70,12 @@ SALT_BRANCH        = ENV['SALT_BRANCH']        || "master"
 PILLAR_REPOSITORY  = ENV['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar.git"
 PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
 
+# Hostnames to be managed
+STORES = ['de', 'at', 'us']
 HOSTS = []
 ['', '-test'].each do |host_suffix|
   domain = VM_PROJECT + '.local'
-  VM_STORES.each do |store|
+  STORES.each do |store|
     HOSTS.push [ "www#{host_suffix}.#{store}.#{domain}", "zed#{host_suffix}.#{store}.#{domain}",]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
