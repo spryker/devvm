@@ -10,12 +10,22 @@ This repository contains:
  - [pillar](pillar) - Pillar configuration values used by SaltStack
  - Vagrantfile(s) used by Vagrant for managing local virtual machine
 
+## Requirements
+ - VirtualBox >= 5.2.x
+ - Vagrant >= 2.0.1
+ - `vagrant-hostmanager` plugin
+
 ## VM Settings
 The VM will start with the default configuration for project `demoshop` and IP `10.10.0.33`.
 If you would like to change project name, you need to edit `Vagrantfile` and change value of
 variable `VM_PROJECT` (ie. to demoshop, project) and `VM_IP` - last digit. The IP address must
-be unique, so each VM on your workstation must have unique IP address. The generated hostnames
-will be using value of `VM_PROJECT`, so by default the hostnames will be:
+be unique, so each VM on your workstation must have unique IP address.
+You should also adjust VM_DOMAIN to the value that corresponds to your config_default-development
+hostnames. If you do not specify value of `VM_DOMAIN`, it will take the value
+from `VM_PROJECT`.
+
+As an example, for default `VM_PROJECT=demoshop` - following hostnames will
+be generated:
 ```
 www.de.demoshop.local
 zed.de.demoshop.local
