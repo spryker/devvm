@@ -16,5 +16,5 @@ nvm_profile:
     - append_if_not_found: true
     - content: |
         if [ -f "/opt/nvm/nvm.sh" ]; then
-          source {{ install_path }}/nvm.sh
+          source /opt/nvm/nvm.sh
         fi
