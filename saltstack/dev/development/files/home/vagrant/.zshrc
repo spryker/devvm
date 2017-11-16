@@ -12,6 +12,10 @@ export PS1='%n@${prompt_hostname} ${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]
 export LC_ALL="en_US.UTF-8"
 if [ "$LC_CTYPE" = "UTF-8" ]; then export LC_CTYPE=C; fi
 
+if [ -f "/opt/nvm/nvm.sh" ]; then
+  source /opt/nvm/nvm.sh
+fi
+
 set-vm-name() {
   echo "prompt_hostname=\"$1\"" > $HOME/.zsh_prompt
   echo "OK, changes will be visible after next login"
