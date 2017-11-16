@@ -6,9 +6,9 @@ initial state of the Dev VM.
 Please refer to the [Installation guide](http://spryker.github.io/getting-started/installation/guide/) to install Spryker.
 
 This repository contains:
- - [saltstack](saltstack) - SaltStack implementation of reference hosting for development
+ - [saltstack](saltstack) - SaltStack implementation for provisioning reference infrastructure for development
  - [pillar](pillar) - Pillar configuration values used by SaltStack
- - Vagrantfile(s) used by Vagrant for managing local virtual machine
+ - Vagrantfile(s) used by Vagrant for managing local VirtualBox VMs
 
 ## Requirements
  - VirtualBox >= 5.2.x
