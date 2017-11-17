@@ -53,23 +53,13 @@
 
 # If we do not use cloud object storage, then this directory should be shared
 # between servers (using technology like NFS or GlusterFS, not included here).
-/data/storage/{{ environment }}/static:
+/data/shop/{{ environment }}/shared/data/static:
   file.directory:
     - user: www-data
     - group: www-data
     - dir_mode: 755
-    - file_mode: 755
-    - makedirs: true
-    - require:
-      - file: /data/storage
-
-/data/shop/{{ environment }}/shared/data/static:
-  file.symlink:
-    - target: /data/storage/{{ environment }}/static
-    - force: true
     - require:
       - file: /data/shop/{{ environment }}/shared/data/common
-      - file: /data/storage/{{ environment }}/static
 
 # Application environment config
 /data/shop/{{ environment }}/shared/config_local.php:
@@ -104,7 +94,7 @@
     - target: {{ environment_details.code_symlink }}
 {%- endif %}
 
-{%- if 'web' in grains.roles %}
+{%- if ('web' in salt['grains.get']('roles', [])) or (salt['grains.get']('role', '') in ['spryker_single_host'] %}
 # Configure PHP-FPM pools
 /etc/php/7.1/fpm/pool.d/{{ environment }}-zed.conf:
   file.managed:
