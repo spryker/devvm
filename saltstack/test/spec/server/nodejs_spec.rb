@@ -10,7 +10,7 @@ describe 'nodejs' do
   end
 
   describe file('/opt/nvm/nvm.sh') do
-    it { should be_readable ) }
+    it { should be_readable }
   end
 
 end
