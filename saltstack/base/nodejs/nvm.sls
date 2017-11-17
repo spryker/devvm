@@ -6,7 +6,6 @@ https://github.com/creationix/nvm.git:
   git.latest:
     - rev: master
     - target: /opt/nvm
-    - force: True
 
 nvm_profile:
   file.blockreplace:
