@@ -26,6 +26,7 @@ from `VM_PROJECT`.
 
 As an example, for default `VM_PROJECT=demoshop` - following hostnames will
 be generated:
+
 ```
 www.de.demoshop.local
 zed.de.demoshop.local
