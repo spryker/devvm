@@ -61,3 +61,4 @@ sudo -i bash -c "phpenmod -v 7.1 -s cli -m xdebug; phpenmod -v 7.1 -s fpm -m xde
 sudo -i bash -c "phpdismod -v 7.1 -s cli -m xdebug; phpdismod -v 7.1 -s fpm -m xdebug; service php7.1-fpm restart"
 ```
 
+
