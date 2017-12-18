@@ -94,7 +94,7 @@
     - target: {{ environment_details.code_symlink }}
 {%- endif %}
 
-{%- if ('web' in salt['grains.get']('roles', [])) or (salt['grains.get']('role', '') in ['spryker_single_host'] %}
+{%- if ('web' in salt['grains.get']('roles', [])) or (salt['grains.get']('role', '') in ['spryker_single_host']) %}
 # Configure PHP-FPM pools
 /etc/php/7.1/fpm/pool.d/{{ environment }}-zed.conf:
   file.managed:
