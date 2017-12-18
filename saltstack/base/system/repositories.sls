@@ -32,10 +32,9 @@ dotdeb:
 docker-repo:
  pkgrepo.managed:
    - humanname: Official Docker Repository
-   - name: deb https://apt.dockerproject.org/repo debian-{{ grains.lsb_distrib_codename }} main
+   - name: deb [arch=amd64] https://download.docker.com/linux/debian {{ grains.lsb_distrib_codename }} stable
    - file: /etc/apt/sources.list.d/docker.list
-   - keyid: 58118E89F3A912897C070ADBF76221572C52609D
-   - keyserver: p80.pool.sks-keyservers.net
+   - key_url: https://download.docker.com/linux/debian/gpg
    - refresh_db: False
    - watch_in:
       - cmd: apt-get-update
@@ -92,9 +91,9 @@ yarn-repo:
 jenkins-repo:
   pkgrepo.managed:
     - humanname: Jenkins repository
-    - name: deb http://pkg.jenkins-ci.org/debian binary/
+    - name: deb http://pkg.jenkins.io/debian binary/
     - file: /etc/apt/sources.list.d/jenkins.list
-    - key_url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+    - key_url: https://pkg.jenkins.io/debian/jenkins.io.key
     - refresh_db: False
     - watch_in:
        - cmd: apt-get-update

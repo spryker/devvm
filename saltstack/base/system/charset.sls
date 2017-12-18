@@ -4,4 +4,3 @@
     - user: root
     - group: root
     - mode: 644
-
