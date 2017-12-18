@@ -11,5 +11,17 @@ Please do not tag if release is not tested.
 Keep in mind that "just" tagging will not create a new build (if the last commit hash
 didn't change). So to make sure that build happens, please do commit + tag and then push.
 
+Sample commands:
+```
+# Make sure everything is commited
+git commit --all
 
+# Create "annotated tag"
+git tag -a 'v1.0.3' -m 'v1.0.3'
 
+# Push the code and commit
+git push
+
+# Push tags
+git push --tags
+```
