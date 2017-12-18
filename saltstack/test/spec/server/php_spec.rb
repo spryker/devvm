@@ -4,13 +4,10 @@ describe 'php' do
   let(:path) { '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' }
   PHP_VERSION = '7.1'
 
+  # Check php-fpm service
   describe service("php#{PHP_VERSION}-fpm") do
     it { should be_enabled }
     it { should be_running }
-  end
-
-  describe port(80) do
-    it { should be_listening }
   end
 
   # Check composer
