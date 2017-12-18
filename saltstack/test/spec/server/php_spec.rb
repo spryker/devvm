@@ -14,8 +14,9 @@ describe 'php' do
   end
 
   # Check composer
-  describe command('composer') do
-    its(:stdout) { should include('Package Management for PHP') }
+  describe command('composer -V') do
+    its(:stdout) { should include('Composer') }
+    its(:stdout) { should include('version') }
   end
 
   # Check default opcache / xdebug setup
@@ -44,7 +45,6 @@ describe 'php' do
   describe command("phpenmod -v #{PHP_VERSION} -s cli xdebug; phpenmod -v #{PHP_VERSION} -s fpm xdebug && service php#{PHP_VERSION}-fpm restart && php -v") do
     its(:stdout) { should include('with Xdebug') }
   end
-
   describe command("phpdismod -v #{PHP_VERSION} -s cli xdebug; phpdismod -v #{PHP_VERSION} -s fpm xdebug; service php#{PHP_VERSION}-fpm restart; php -v") do
     its(:stdout) { should_not include('with Xdebug') }
   end
