@@ -13,19 +13,26 @@ describe 'php' do
     it { should be_listening }
   end
 
-  # By default xdebug is disabled
+  # Check composer
+  describe command('composer') do
+    its(:stdout) { should include('Package Management for PHP') }
+  end
+
+  # Check default opcache / xdebug setup
   describe command('php -v') do
     its(:stdout) { should include("PHP #{PHP_VERSION}") }
     its(:stdout) { should include('with Zend OPcache') }
     its(:stdout) { should_not include('with Xdebug') }
   end
 
+  # Check default CLI configs / errors
   describe command('php -i') do
     its(:stderr) { should_not include('NOTICE') }
     its(:stderr) { should_not include('WARNING') }
     its(:stderr) { should_not include('ERROR') }
   end
 
+  # Check default FPM configs / errors
   describe command("php-fpm#{PHP_VERSION} -i") do
     its(:stdout) { should include('opcache.enable => On => On') }
     its(:stderr) { should_not include('NOTICE') }
