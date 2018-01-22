@@ -3,7 +3,7 @@
 # Setup ZSH with oh-my-zsh
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
-plugins=(gitfast redis-cli spryker sudo composer docker nom)
+plugins=(gitfast redis-cli spryker sudo composer docker npm)
 source $ZSH/oh-my-zsh.sh
 
 # Prompt
