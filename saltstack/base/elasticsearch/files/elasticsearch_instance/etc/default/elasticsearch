@@ -1,3 +1,5 @@
+ES_HOME=/usr/share/elasticsearch
+PID_DIR=/var/run/elasticsearch
 LOG_DIR=/data/logs/{{ environment }}/elasticsearch
 DATA_DIR=/data/shop/{{ environment }}/shared/elasticsearch
 WORK_DIR=/tmp/elasticsearch-{{ environment }}

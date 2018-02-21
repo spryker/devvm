@@ -5,10 +5,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-Environment=ES_HOME=/usr/share/elasticsearch
-Environment=PID_DIR=/var/run
 EnvironmentFile=-/etc/default/elasticsearch-{{ environment }}
-
 WorkingDirectory=/usr/share/elasticsearch
 User=elasticsearch
 Group=elasticsearch
