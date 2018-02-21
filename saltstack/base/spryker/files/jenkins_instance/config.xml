@@ -1,7 +1,7 @@
-{%- if environment == "production" -%}
-{%- set number_of_processes = grains.num_cpus * 4 -%}
+{%- if salt['grains.get']('role', '') in ["spryker_app","spryker_single_host"] -%}
+{%-   set number_of_processes = grains.num_cpus * 4 -%}
 {%- else -%}
-{%- set number_of_processes = 2 -%}
+{%-   set number_of_processes = 8 -%}
 {%- endif -%}
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
