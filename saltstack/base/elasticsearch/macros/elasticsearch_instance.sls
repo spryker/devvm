@@ -44,10 +44,10 @@
       - service: elasticsearch-{{ environment }}
 
 # Service init script
-/etc/init.d/elasticsearch-{{ environment }}:
+/etc/systemd/system/elasticsearch-{{ environment }}.service:
   file.managed:
-    - source: salt://elasticsearch/files/elasticsearch_instance/etc/init.d/elasticsearch
-    - mode: 755
+    - source: salt://elasticsearch/files/elasticsearch_instance/etc/systemd/system/elasticsearch.service
+    - mode: 644
     - user: root
     - group: root
     - template: jinja
@@ -59,7 +59,7 @@ elasticsearch-{{ environment }}-systemctl-reload:
   cmd.wait:
     - name: systemctl daemon-reload
     - watch:
-      - file: /etc/init.d/elasticsearch-{{ environment }}
+      - file: /etc/systemd/system/elasticsearch-{{ environment }}.service
 
 # Configuration directory
 /etc/elasticsearch-{{ environment }}:
@@ -86,16 +86,32 @@ elasticsearch-{{ environment }}-systemctl-reload:
       - service: elasticsearch-{{ environment }}
 
 
-# Configuration - logging yaml file
-/etc/elasticsearch-{{ environment }}/logging.yml:
+# Configuration - jvm options
+# this will work only with one env per server, as es startup script
+# uses hardcoded locations: "$ES_HOME"/config/jvm.options, /etc/elasticsearch/jvm.options
+/etc/elasticsearch-{{ environment }}/jvm.options:
   file.managed:
-    - source: salt://elasticsearch/files/elasticsearch_instance/etc/elasticsearch/logging.yml
+    - name: /etc/elasticsearch/jvm.options
+    - source: salt://elasticsearch/files/elasticsearch_instance/etc/elasticsearch/jvm.options
     - mode: 644
     - user: root
     - group: root
     - template: jinja
     - context:
       environment: {{ environment }}
+      settings: {{ settings }}
+    - require:
+      - file: /etc/elasticsearch-{{ environment }}
+    - watch_in:
+      - service: elasticsearch-{{ environment }}
+
+/etc/elasticsearch-{{ environment }}/log4j2.properties:
+  file.managed:
+    - source: salt://elasticsearch/files/elasticsearch_instance/etc/elasticsearch/log4j2.properties
+    - mode: 644
+    - user: root
+    - group: root
+    - template: jinja
     - require:
       - file: /etc/elasticsearch-{{ environment }}
     - watch_in:
@@ -121,13 +137,14 @@ elasticsearch-{{ environment }}:
     - enable: True
     - require:
       - pkg: elasticsearch
-      - file: /etc/init.d/elasticsearch-{{ environment }}
+      - file: /etc/systemd/system/elasticsearch-{{ environment }}.service
       - file: /data/shop/{{ environment }}/shared/elasticsearch
       - file: /data/logs/{{ environment }}/elasticsearch
       - file: /etc/default/elasticsearch-{{ environment }}
       - file: /etc/elasticsearch/{{ environment }}
       - file: /etc/elasticsearch-{{ environment }}/elasticsearch.yml
-      - file: /etc/elasticsearch-{{ environment }}/logging.yml
+      - file: /etc/elasticsearch-{{ environment }}/log4j2.properties
+      - file: /etc/elasticsearch-{{ environment }}/jvm.options
       - file: /etc/elasticsearch-{{ environment }}/scripts
       - cmd: elasticsearch-{{ environment }}-systemctl-reload
 
