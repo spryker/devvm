@@ -2,7 +2,41 @@
 # Topfile - used by salt ... state.highstate
 #
 
-# Production-like setup - we apply specific states to machines
+base:
+  '*':
+    - system
+    - user
+
+dev:
+  # apply all states on a single machine, don't divide by roles
+  '*':
+    - system
+    - hosting
+    - user
+    - postfix
+    - docker
+    - mysql-server
+    - postgresql
+    - rabbitmq
+    - ruby
+    - nodejs
+    - php
+    - java
+    - development
+    - mailcatcher
+    - elk
+    - nginx
+    - pound
+    - jenkins
+    - redis
+    - samba
+    - elasticsearch
+    - serverspec
+    - spryker
+
+# Production-like setup - we apply specific states to machines, based on roles
+# the definitions above are just examples how to setup role-based environments.
+# It is not used to provision the dev vm.
 qa:
   # apply to all roles
   '*':
@@ -59,34 +93,3 @@ qa:
     - match: grain
     - mysql-server
 
-base:
-  '*':
-    - system
-    - user
-
-dev:
-  # apply all states on a single machine, don't divide by roles
-  '*':
-    - system
-    - hosting
-    - user
-    - postfix
-    - docker
-    - mysql-server
-    - postgresql
-    - rabbitmq
-    - ruby
-    - nodejs
-    - php
-    - java
-    - development
-    - mailcatcher
-    - elk
-    - nginx
-    - pound
-    - jenkins
-    - redis
-    - samba
-    - elasticsearch
-    - serverspec
-    - spryker
