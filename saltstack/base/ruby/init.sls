@@ -16,9 +16,6 @@ ruby:
       - libncurses5-dev
       - build-essential
 
-compass:
-  gem.installed
-
 psych:
   gem.installed
 
