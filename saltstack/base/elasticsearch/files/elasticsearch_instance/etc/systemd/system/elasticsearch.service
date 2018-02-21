@@ -1,0 +1,40 @@
+[Unit]
+Description=Elasticsearch ({{ environment }})
+Documentation=http://www.elastic.co
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=ES_HOME=/usr/share/elasticsearch
+Environment=PID_DIR=/var/run
+EnvironmentFile=-/etc/default/elasticsearch-{{ environment }}
+
+WorkingDirectory=/usr/share/elasticsearch
+User=elasticsearch
+Group=elasticsearch
+
+ExecStartPre=/usr/share/elasticsearch/bin/elasticsearch-systemd-pre-exec
+ExecStart=/usr/share/elasticsearch/bin/elasticsearch \
+                                                -p ${PID_DIR}/elasticsearch-{{ environment }}.pid \
+                                                --quiet \
+                                                -Edefault.path.logs=${LOG_DIR} \
+                                                -Edefault.path.data=${DATA_DIR} \
+                                                -Edefault.path.conf=${CONF_DIR}
+
+StandardOutput=journal
+StandardError=inherit
+
+LimitNOFILE=65536
+LimitNPROC=16384
+LimitMEMLOCK=infinity
+LimitAS=infinity
+LimitFSIZE=infinity
+
+TimeoutStopSec=0
+KillSignal=SIGTERM
+KillMode=process
+SendSIGKILL=no
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
