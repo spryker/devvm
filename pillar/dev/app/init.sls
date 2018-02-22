@@ -46,6 +46,9 @@ php:
   # Optional, default: enabled
   enable_opcache: true
 
+  # Major PHP version
+  major_version: 7.2
+
 # Newrelic credentials - leave empty for non-production setups
 newrelic:
   license_key:
@@ -163,7 +166,9 @@ environments:
         zed:
           hostname: '~^zed-test\.at\..+\.local$'
 
-# The key below is used for deployment - from deployment server user root must be able to log in to all other
+# The key below is used for deployment using deploy.rb (deprecated)
+#
+# From deployment server user root must be able to log in to all other
 # servers as user root.
 # If we're using salt-cloud to create cloud VM's - it will automatically generate /root/.ssh/id_rsa
 # on salt master and copy appropiate id_rsa.pub to minions to /root/.ssh/authorized_keys. Paste the content

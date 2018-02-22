@@ -15,7 +15,7 @@ Cmnd_Alias APP =	/etc/deploy/deploy.rb *, \
 			/bin/rm -f /data/deploy/.lock.production, \
 			/bin/rm -f /data/deploy/.lock.staging, \
 			/bin/rm -f /data/deploy/.lock.testing, \
-			/etc/init.d/php7.1-fpm restart
+			/etc/init.d/php{{ salt['pillar.get']('php:major_version') }}-fpm restart
 
 # User privilege specification
 root  ALL=(ALL) ALL

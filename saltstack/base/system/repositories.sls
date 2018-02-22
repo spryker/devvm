@@ -110,7 +110,7 @@ postgresql-repo:
 
 php-repo:
   pkgrepo.managed:
-    - humanname: PHP7.1 repository
+    - humanname: PHP repository
     - name: deb https://packages.sury.org/php/ {{ grains.lsb_distrib_codename }} main
     - file: /etc/apt/sources.list.d/php.list
     - key_url: https://packages.sury.org/php/apt.gpg

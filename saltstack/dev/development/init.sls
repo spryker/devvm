@@ -46,6 +46,7 @@ clone-oh-my-zsh:
     - source: salt://development/files/home/vagrant/bin
     - user: vagrant
     - group: vagrant
+    - template: jinja
     - file_mode: 755
     - dir_mode: 755
 
@@ -62,4 +63,3 @@ clone-oh-my-zsh:
 /etc/cron.d/vagrant-ntpdate:
   file.managed:
     - source: salt://development/files/etc/cron.d/vagrant-ntpdate
-

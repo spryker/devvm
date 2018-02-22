@@ -96,9 +96,9 @@
 
 {%- if ('web' in salt['grains.get']('roles', [])) or (salt['grains.get']('role', '') in ['spryker_single_host']) %}
 # Configure PHP-FPM pools
-/etc/php/7.1/fpm/pool.d/{{ environment }}-zed.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-zed.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/7.1/fpm/pool.d/zed.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/zed.conf
     - template: jinja
     - user: root
     - group: root
@@ -108,9 +108,9 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/7.1/fpm/pool.d/{{ environment }}-yves.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-yves.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/7.1/fpm/pool.d/yves.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/yves.conf
     - template: jinja
     - user: root
     - group: root

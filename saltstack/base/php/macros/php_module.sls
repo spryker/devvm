@@ -6,15 +6,15 @@
 {% if enable %}
 enable-php-module-{{ name }}-for-{{ sapi }}:
   cmd.run:
-    - name: phpenmod -v 7.1 -s {{ sapi }} {{ name }}
-    - unless: phpquery -v 7.1 -s {{ sapi }} -m {{ name }}
+    - name: phpenmod -v {{ salt['pillar.get']('php:major_version') }} -s {{ sapi }} {{ name }}
+    - unless: phpquery -v {{ salt['pillar.get']('php:major_version') }} -s {{ sapi }} -m {{ name }}
     - require:
-      - file: /etc/php/7.1/mods-available/{{ name }}.ini
+      - file: /etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/{{ name }}.ini
 {% else %}
 disable-php-module-{{ name }}-for-{{ sapi }}:
   cmd.run:
-    - name: phpdismod -v 7.1 -s {{ sapi }} {{ name }}
-    - onlyif: phpquery -v 7.1 -s {{ sapi }} -m {{ name }}
+    - name: phpdismod -v {{ salt['pillar.get']('php:major_version') }} -s {{ sapi }} {{ name }}
+    - onlyif: phpquery -v {{ salt['pillar.get']('php:major_version') }} -s {{ sapi }} -m {{ name }}
 {% endif %}
 
 {% endmacro %}

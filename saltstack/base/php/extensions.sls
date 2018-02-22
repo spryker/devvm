@@ -11,9 +11,9 @@ xdebug:
   pkg.installed:
     - name: php-xdebug
 
-/etc/php/7.1/mods-available/xdebug.ini:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/xdebug.ini:
   file.managed:
-    - source: salt://php/files/etc/php/7.1/mods-available/xdebug.ini
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/xdebug.ini
     - user: root
     - group: root
     - mode: 644
@@ -26,24 +26,24 @@ xdebug:
 
 
 # Configure Zend OpCache extension
-/etc/php/7.1/mods-available/opcache.ini:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/opcache.ini:
   file.managed:
-    - source: salt://php/files/etc/php/7.1/mods-available/opcache.ini
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/opcache.ini
     - template: jinja
     - user: root
     - group: root
     - mode: 644
 
-/etc/php/7.1/cli/conf.d/05-opcache.ini:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/cli/conf.d/05-opcache.ini:
   file.absent
 
-/etc/php/7.1/fpm/conf.d/05-opcache.ini:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/conf.d/05-opcache.ini:
   file.absent
 
-/var/lib/php/modules/7.1/cli/enabled_by_maint/opcache:
+/var/lib/php/modules/{{ salt['pillar.get']('php:major_version') }}/cli/enabled_by_maint/opcache:
   file.absent
 
-/var/lib/php/modules/7.1/fpm/enabled_by_maint/opcache:
+/var/lib/php/modules/{{ salt['pillar.get']('php:major_version') }}/fpm/enabled_by_maint/opcache:
   file.absent
 
 {{ php_module('opcache', salt['pillar.get']('php:enable_opcache', True), 'fpm') }}
