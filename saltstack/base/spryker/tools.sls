@@ -8,7 +8,7 @@
 
 reload-php-fpm:
   cmd.wait:
-    - name: service php7.1-fpm restart
+    - name: service php{{ salt['pillar.get']('php:major_version') }}-fpm restart
 
 reload-nginx:
   cmd.wait:

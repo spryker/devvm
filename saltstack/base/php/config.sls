@@ -3,15 +3,15 @@
 #
 
 # Web apps (FPM)
-/etc/php/7.1/fpm/php.ini:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/php.ini:
   file.managed:
-    - source: salt://php/files/etc/php/7.1/php.ini
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/php.ini
     - require:
       - pkg: php
 
 # CLI
-/etc/php/7.1/cli/php.ini:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/cli/php.ini:
   file.managed:
-    - source: salt://php/files/etc/php/7.1/php.ini
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/php.ini
     - require:
       - pkg: php
