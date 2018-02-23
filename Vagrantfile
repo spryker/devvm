@@ -153,7 +153,7 @@ if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryke
       raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
       "\n\n\033[0m"
     end
-  elsif not Dir.entries(SPRYKER_DIRECTORY).include? 'setup'
+  elsif not Dir.entries(SPRYKER_DIRECTORY).include? 'composer.json'
     raise "ERROR: The directory #{SPRYKER_DIRECTORY} isn't empty, yet it's not a clone of spryker repository!"
   end
 else
