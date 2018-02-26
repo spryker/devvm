@@ -37,16 +37,16 @@ static-test.demoshop.local
 ```
 
 ## Version tree and lifecycle
-After release `ci-119` we decided to stop using auto-incremented release numbers and switch to semantic versioning. Next version becomes `1.0.0`. Branch `master` is the main branch for version `1.x.x`. In future, branch `development` is the main branch for version `2.x.x`
+After release `ci-119` we decided to stop using auto-incremented release numbers and switch to semantic versioning. Next version becomes `1.0.0`.
+We follow git-flow - branch `master` is used to release tested features, where branch `develop` is used for release candidates (tags like `v2.0.0-RC1`)
+and is merged into master whenever we officialy release new version, after internal QA process.
+
 
 ### 1.x.x
-1.x.x is current stable version, recommended for everyone unless instructed specifically to use another version, for a reason.
+1.x.x is old stable version, with PHP 7.1 and Elasticsearch 2.x
 
 ### 2.x.x
-Improved support for multi-store
-Upgraded components: (tbd)
-Breaking changes: (tbd)
-Possibility of self-building the release for the project (documentation)
+2.x.x is non-backward-compatible version, which includes Elasticsearch 5.x.
 
 
 ## Customizing the VM
