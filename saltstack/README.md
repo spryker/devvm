@@ -134,6 +134,7 @@ The values from this document should be reflected in state base/settings/port_nu
 
 Where:
 
+
 #### L - Listener
 1 for applications with one / default listener only, 1/2/... for applications with more than one
 possible listenere (for example, Elasticsearch has both HTTP and Transport ports).
