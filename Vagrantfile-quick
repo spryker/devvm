@@ -199,5 +199,8 @@ Vagrant.configure(2) do |config|
       "--memory", VM_MEMORY,
       "--cpus", VM_CPUS,
     ])
+    if IS_WINDOWS
+      vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
+    end
   end
 end
