@@ -111,11 +111,11 @@ else
   if (/darwin/ =~ Vagrant::Util::Platform.platform)
     IS_LINUX = false
     IS_OSX = true
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs' }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'actimeo=1', 'fsc', 'noatime'] }
   else
     IS_LINUX = true
     IS_OSX = false
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', mount_options: ['nolock'] }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'actimeo=1', 'fsc', 'noatime'] }
   end
 end
 
@@ -146,8 +146,8 @@ File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # Not that the box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian93_12"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-12/debian93.box"
+  config.vm.box = "debian94_14"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-14/debian94.box"
   config.vm.hostname = "spryker-vagrant"
   config.vm.boot_timeout = 300
 
