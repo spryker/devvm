@@ -15,6 +15,7 @@ dev:
     - user
     - postfix
     - docker
+    - cachefilesd
     - mysql-server
     - postgresql
     - rabbitmq
