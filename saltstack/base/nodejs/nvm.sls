@@ -2,10 +2,18 @@
 # Install NVM
 #
 
+/opt/nvm:
+  file.directory:
+    - user: vagrant
+    - group: vagrant
+
 https://github.com/creationix/nvm.git:
   git.latest:
     - rev: master
     - target: /opt/nvm
+    - user: vagrant
+    - require:
+      - file: /opt/nvm
 
 nvm_profile:
   file.blockreplace:
