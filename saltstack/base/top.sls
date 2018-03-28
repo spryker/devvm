@@ -34,6 +34,7 @@ dev:
     - elasticsearch
     - serverspec
     - spryker
+    - prestissimo
 
 # Production-like setup - we apply specific states to machines, based on roles
 # the definitions above are just examples how to setup role-based environments.
