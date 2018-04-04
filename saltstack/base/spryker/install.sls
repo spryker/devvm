@@ -8,7 +8,7 @@ install helper app utilities:
   pkg.installed:
     - pkgs:
       - graphviz
-      - libjpeg-progs
+      - libjpeg-turbo-progs
       - libavahi-compat-libdnssd-dev
 
 /data/shop:
