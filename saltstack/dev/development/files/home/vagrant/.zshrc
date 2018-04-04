@@ -3,6 +3,7 @@
 # Setup ZSH with oh-my-zsh
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
+export DISABLE_UNTRACKED_FILES_DIRTY=1
 plugins=(gitfast redis-cli spryker sudo composer docker npm)
 source $ZSH/oh-my-zsh.sh
 
