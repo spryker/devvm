@@ -2,7 +2,7 @@ master: localhost
 file_client: local
 state_events: false
 id: spryker-vm
-environment: dev
+saltenv: dev
 postgres.bins_dir: "/usr/lib/postgresql/9.4/bin/"
 grains:
   environment: dev
