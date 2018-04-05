@@ -20,3 +20,5 @@ cachefilesd:
       - file: /etc/default/cachefilesd
     - watch:
       - file: /etc/default/cachefilesd
+    - check_cmd:
+      - /bin/true
