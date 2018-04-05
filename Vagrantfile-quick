@@ -98,7 +98,8 @@ def bold(text); colorize(text, "\033[1;97m"); end
 
 # Check whether we are running UNIX or Windows-based machine
 if Vagrant::Util::Platform.windows?
-  HOSTS_PATH = 'c:\WINDOWS\system32\drivers\etc\hosts'
+  HOSTS_PATH = (ENV['windir'] || ENV['SYSTEM_ROOT'] || 'C:\Windows') +
+    '\system32\drivers\etc\hosts'
   IS_WINDOWS = true
   IS_UNIX = false
   IS_LINUX = false
