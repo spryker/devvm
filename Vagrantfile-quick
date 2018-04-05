@@ -173,11 +173,12 @@ Vagrant.configure(2) do |config|
     config.hostmanager.include_offline = true
     config.hostmanager.aliases = HOSTS
     config.vm.provision :hostmanager
-    puts "Using vagrant-hostmanager to set hostnames: " + HOSTS.join(', ')
   else
+    puts yellow "Warning: vagrant-hostmanager plugin not found"
     hosts_line = VM_IP + " " + HOSTS.join(' ')
     if not File.open(HOSTS_PATH).each_line.any? { |line| line.chomp == hosts_line }
-      puts bold "Please add the following entries to your #{HOSTS_PATH} file: \n\033[0m"
+      puts bold "Manual configuration of hosts is required."
+      puts "Please add the following entries to your #{HOSTS_PATH} file: \n\033[0m"
       puts hosts_line
     end
   end
