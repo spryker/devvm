@@ -9,16 +9,30 @@ install-nginx:
       - nginx-extras
       - libnginx-mod-http-headers-more-filter
 
-nginx:
-  service.running:
-    - require:
-      - pkg: install-nginx
-    - watch:
-      - file: /etc/nginx/nginx.conf
-
 # Apache Utilities - for tools like ab, htpasswd
 apache2-utils:
   pkg.installed
+
+# Systemd dropin
+/etc/systemd/system/nginx.service.d/spryker-env.conf:
+  file.managed:
+    - makedirs: True
+    - source: salt://nginx/files/etc/systemd/system/nginx.service.d/spryker-env.conf
+    - require:
+      - pkg: install-nginx
+    - watch_in:
+      - cmd: reload-reload-systemd
+
+reload-reload-systemd:
+  cmd.wait:
+    - name: systemctl daemon-reload
+    - watch_in:
+      - service: nginx
+
+/etc/spryker-vm-env:
+  file.managed:
+    - replace: False
+    - content: ''
 
 # Main nginx configurationf file
 /etc/nginx/nginx.conf:
@@ -27,6 +41,8 @@ apache2-utils:
     - template: jinja
     - require:
       - pkg: install-nginx
+    - watch_in:
+      - service: nginx
 
 # Global includes
 /etc/nginx/conf.d:
@@ -63,3 +79,13 @@ apache2-utils:
       - pkg: install-nginx
     - watch_in:
       - service: nginx
+
+# service
+nginx:
+  service.running:
+    - require:
+      - pkg: install-nginx
+      - cmd: reload-reload-systemd
+      - file: /etc/systemd/system/nginx.service.d/spryker-env.conf
+      - file: /etc/spryker-vm-env
+      - file: /etc/nginx/nginx.conf
