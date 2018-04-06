@@ -56,7 +56,7 @@ else
     puts bold "Press return to save it in file .vm, Ctrl+C to abort"
     puts "If the settings above are fine, they will be persisted on disk."
     puts "To change any setting, interrupt now and set environmental variable."
-    File.write(VM_SETTINGS_FILE, config)
+    File.write(VM_SETTINGS_FILE, config.gsub(/ *= */, '='))
   end
 end
 
