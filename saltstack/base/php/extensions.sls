@@ -5,7 +5,9 @@
 #
 {% from 'php/macros/php_module.sls' import php_module with context %}
 
+#
 # If pillar enables xdebug - install and configure it
+#
 {% if salt['pillar.get']('php:install_xdebug', False) %}
 xdebug:
   pkg.installed:
@@ -24,8 +26,10 @@ xdebug:
 {{ php_module('xdebug', salt['pillar.get']('php:enable_xdebug', False), 'cli') }}
 {% endif %}
 
-
+#
 # Configure Zend OpCache extension
+#
+
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/opcache.ini:
   file.managed:
     - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/opcache.ini
@@ -45,6 +49,12 @@ xdebug:
 
 /var/lib/php/modules/{{ salt['pillar.get']('php:major_version') }}/fpm/enabled_by_maint/opcache:
   file.absent
+
+/tmp/.opcache:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 1777
 
 {{ php_module('opcache', salt['pillar.get']('php:enable_opcache', True), 'fpm') }}
 {{ php_module('opcache', salt['pillar.get']('php:enable_opcache', True), 'cli') }}
