@@ -50,7 +50,7 @@ xdebug:
 /var/lib/php/modules/{{ salt['pillar.get']('php:major_version') }}/fpm/enabled_by_maint/opcache:
   file.absent
 
-/tmp/.opcache:
+/var/tmp/opcache:
   file.directory:
     - user: root
     - group: root
