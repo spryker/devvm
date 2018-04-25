@@ -11,6 +11,11 @@ source $ZSH/oh-my-zsh.sh
 [ -f $HOME/.zsh_prompt ] && source $HOME/.zsh_prompt
 export PS1='%n@${prompt_hostname} ${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
 
+# Check if running on vboxsf (windows)
+if mount | grep /data/shop/development/current | grep -q vboxsf; then
+  export PS1='%n@%m:~$ '
+fi
+
 # Local paths
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/vagrant/.composer/vendor/bin:/home/vagrant/bin
 
