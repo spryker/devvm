@@ -27,6 +27,7 @@ dead_services = [
   'redis-server',
   'elasticsearch',
   'jenkins',
+  'filebeat',
 ]
 
 describe 'Inactive services' do

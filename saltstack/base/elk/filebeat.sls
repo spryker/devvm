@@ -7,9 +7,9 @@ filebeat-install:
     - name: filebeat
 
 filebeat-service:
-  service.running:
+  service.dead:
     - name: filebeat
-    - enable: True
+    - enable: False
 
 /etc/filebeat/filebeat.yml:
   file.managed:
