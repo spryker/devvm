@@ -64,5 +64,4 @@ nginx:
   service.running:
     - require:
       - pkg: install-nginx
-      - cmd: reload-reload-systemd
       - file: /etc/nginx/nginx.conf
