@@ -13,27 +13,6 @@ install-nginx:
 apache2-utils:
   pkg.installed
 
-# Systemd dropin
-/etc/systemd/system/nginx.service.d/spryker-env.conf:
-  file.managed:
-    - makedirs: True
-    - source: salt://nginx/files/etc/systemd/system/nginx.service.d/spryker-env.conf
-    - require:
-      - pkg: install-nginx
-    - watch_in:
-      - cmd: reload-reload-systemd
-
-reload-reload-systemd:
-  cmd.wait:
-    - name: systemctl daemon-reload
-    - watch_in:
-      - service: nginx
-
-/etc/spryker-vm-env:
-  file.managed:
-    - replace: False
-    - content: ''
-
 # Main nginx configurationf file
 /etc/nginx/nginx.conf:
   file.managed:
@@ -87,5 +66,4 @@ nginx:
       - pkg: install-nginx
       - cmd: reload-reload-systemd
       - file: /etc/systemd/system/nginx.service.d/spryker-env.conf
-      - file: /etc/spryker-vm-env
       - file: /etc/nginx/nginx.conf

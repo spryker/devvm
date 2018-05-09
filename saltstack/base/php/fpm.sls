@@ -11,6 +11,26 @@
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/www.conf:
   file.absent
 
+# VM-specific environments via systemd dropin
+/etc/systemd/system/php{{ salt['pillar.get']('php:major_version') }}-fpm.service.d/spryker-env.conf:
+  file.managed:
+    - makedirs: True
+    - source: salt://php/files/etc/systemd/system/php{{ salt['pillar.get']('php:major_version') }}-fpm.service.d/spryker-env.conf
+    - watch_in:
+      - cmd: fpm-reload-systemd
+
+fpm-reload-systemd:
+  cmd.wait:
+    - name: systemctl daemon-reload
+    - watch_in:
+      - service: php{{ salt['pillar.get']('php:major_version') }}-fpm
+
+/etc/spryker-vm-env:
+  file.managed:
+    - replace: False
+    - content: ''
+
+
 # Enable or disable FPM service
 php{{ salt['pillar.get']('php:major_version') }}-fpm:
   service:
