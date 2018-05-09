@@ -1,5 +1,5 @@
 [Unit]
-Description=Kibana 4
+Description=Kibana
 
 [Service]
 Type=simple

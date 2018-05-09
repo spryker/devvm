@@ -4,12 +4,12 @@
 
 install-kibana:
   cmd.run:
-    - name: cd /opt && wget -q https://download.elastic.co/kibana/kibana/kibana-{{ pillar.elk.kibana.version }}-linux-x64.tar.gz && tar zxf kibana-{{ pillar.elk.kibana.version }}-*.tar.gz && rm -f kibana-{{ pillar.elk.kibana.version }}-*.tar.gz && chown -R www-data. /opt/kibana-{{ pillar.elk.kibana.version }}-linux-x64
-    - unless: test -d /opt/kibana-{{ pillar.elk.kibana.version }}-linux-x64
+    - name: cd /opt && wget -q https://artifacts.elastic.co/downloads/kibana/kibana-{{ pillar.elk.kibana.version }}-linux-x86_64.tar.gz && tar zxf kibana-{{ pillar.elk.kibana.version }}-*.tar.gz && rm -f kibana-{{ pillar.elk.kibana.version }}-*.tar.gz && chown -R www-data. /opt/kibana-{{ pillar.elk.kibana.version }}-linux-x86_64
+    - unless: test -d /opt/kibana-{{ pillar.elk.kibana.version }}-linux-x86_64
 
 /opt/kibana:
   file.symlink:
-    - target: /opt/kibana-{{ pillar.elk.kibana.version }}-linux-x64
+    - target: /opt/kibana-{{ pillar.elk.kibana.version }}-linux-x86_64
     - require:
       - cmd: install-kibana
 
