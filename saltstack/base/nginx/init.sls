@@ -65,5 +65,4 @@ nginx:
     - require:
       - pkg: install-nginx
       - cmd: reload-reload-systemd
-      - file: /etc/systemd/system/nginx.service.d/spryker-env.conf
       - file: /etc/nginx/nginx.conf
