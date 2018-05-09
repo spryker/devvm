@@ -27,9 +27,14 @@ if File.exists? VM_SETTINGS_FILE
 else
 
   # Project settings
-  VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                         # Name of the project
+  VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                             # Name of the project
+  VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
+
+  # Git parameters
   SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
+  
+  # Auto-generate IP address based on hash of VM_PROJECT  
   unique_byte = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
 
   # Settings for the Virtualbox VM
@@ -46,6 +51,7 @@ else
     "VM_MEMORY =          '#{VM_MEMORY}'\n" +
     "VM_CPUS =            '#{VM_CPUS}'\n" +
     "VM_NAME =            '#{VM_NAME}'\n" +
+    "VM_DOMAIN =          '#{VM_DOMAIN}'\n" +
     "VM_SKIP_SF =         '#{VM_SKIP_SF}'\n" +
     "SPRYKER_BRANCH =     '#{SPRYKER_BRANCH}'\n" +
     "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
@@ -73,7 +79,7 @@ PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
 STORES = ['de', 'at', 'us']
 HOSTS = []
 ['', '-test'].each do |host_suffix|
-  domain = VM_PROJECT + '.local'
+  domain = VM_DOMAIN + '.local'
   STORES.each do |store|
     HOSTS.push [ "www#{host_suffix}.#{store}.#{domain}", "zed#{host_suffix}.#{store}.#{domain}",]
   end
