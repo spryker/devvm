@@ -28,11 +28,13 @@ if [ -f "/opt/nvm/nvm.sh" ]; then
   source /opt/nvm/nvm.sh
 fi
 
+# Spryker VM environment
+if [ -f /vagrant/.vm ]; then
+  source /vagrant/.vm
+fi
+
 # Spryker aliases
 set-vm-name() {
   echo "prompt_hostname=\"$1\"" > $HOME/.zsh_prompt
   echo "OK, changes will be visible after next login"
 }
-
-# Spryker VM
-source /etc/spryker/spryker-vm-env
