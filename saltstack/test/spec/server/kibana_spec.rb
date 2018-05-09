@@ -8,6 +8,5 @@ describe 'Kibana' do
 
   describe http_get(5601, 'localhost', '/app/kibana') do
     its(:body) { should match /Kibana/ }
-    its(:body) { should match /good stuff/ }
   end
 end
