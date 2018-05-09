@@ -22,14 +22,6 @@
 fpm-reload-systemd:
   cmd.wait:
     - name: systemctl daemon-reload
-    - watch_in:
-      - service: php{{ salt['pillar.get']('php:major_version') }}-fpm
-
-/etc/spryker-vm-env:
-  file.managed:
-    - replace: False
-    - content: ''
-
 
 # Enable or disable FPM service
 php{{ salt['pillar.get']('php:major_version') }}-fpm:
