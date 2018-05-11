@@ -29,8 +29,8 @@ if [ -f "/opt/nvm/nvm.sh" ]; then
 fi
 
 # Spryker VM environment
-if [ -f /vagrant/.vm ]; then
-  source /vagrant/.vm
+if [ -f /etc/spryker-vm-env ]; then
+  source /etc/spryker-vm-env
 fi
 
 # Spryker aliases

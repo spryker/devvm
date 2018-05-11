@@ -11,7 +11,7 @@
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/www.conf:
   file.absent
 
-# VM-specific environments via systemd dropin
+# VM-specific environments via systemd dropin via EnvironmentFile
 /etc/systemd/system/php{{ salt['pillar.get']('php:major_version') }}-fpm.service.d/spryker-env.conf:
   file.managed:
     - makedirs: True
@@ -19,6 +19,15 @@
     - watch_in:
       - cmd: fpm-reload-systemd
 
+# Make sure that the vm environment file exists (is at least empty) for systemd EnvironmentFile
+/etc/spryker-vm-env:
+  file.managed:
+    - replace: False
+    - content: ''
+    - require_in:
+      - cmd: fpm-reload-systemd
+
+# Reload service on changes
 fpm-reload-systemd:
   cmd.wait:
     - name: systemctl daemon-reload

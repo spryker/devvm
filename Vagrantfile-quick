@@ -197,6 +197,10 @@ Vagrant.configure(2) do |config|
     end
   end
 
+  # Copy VM env after creating the VM
+  config.vm.provision "shell",
+    inline: "cp /vagrant/.vm /etc/spryker-vm-env; service php7.2-fpm restart"
+
   # Configure VirtualBox VM resources (CPU and memory)
   config.vm.provider :virtualbox do |vb|
     vb.name = VM_NAME
