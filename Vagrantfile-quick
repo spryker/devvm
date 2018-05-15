@@ -71,6 +71,15 @@ else
     puts "If the settings above are fine, they will be persisted on disk."
     puts "To change any setting, interrupt now and set environmental variable."
     STDIN.gets unless Vagrant::Util::Platform.windows?
+    
+    # Adding credentials later, so that they are not exposed to stdout
+    ['VM_SMB_USERNAME', 'VM_SMB_PASSWORD'].each do |var|
+      if ENV.has_key? var
+        statement = "#{var} = '#{ENV[var]}'"
+        config += "#{statement}\n"
+        eval statement
+      end
+    end
     File.write(VM_SETTINGS_FILE, config.gsub(/ *= */, '='))
   end
 end
@@ -108,7 +117,35 @@ if Vagrant::Util::Platform.windows?
   IS_UNIX = false
   IS_LINUX = false
   IS_OSX = false
-  SYNCED_FOLDER_OPTIONS = { type: 'virtualbox' }
+  
+  if defined? VM_SMB_USERNAME
+    SYNCED_FOLDER_OPTIONS = { type: 'smb' }
+    username, domain = VM_SMB_USERNAME.split('@', 2)
+    SYNCED_FOLDER_OPTIONS[:mount_options] = [
+      "vers=3.02",
+      "sec=ntlmssp",
+      "iocharset=utf8",
+      "mapchars",
+      "noperm",
+      "soft",
+      "actimeo=3",
+      "fsc",
+      "async",
+      "cache=loose",
+      "username=#{username}",
+      "password=#{VM_SMB_PASSWORD}",
+      "credentials=/dev/null",
+    ]
+    SYNCED_FOLDER_OPTIONS[:mount_options].push("domain=#{domain}") if domain
+    SYNCED_FOLDER_OPTIONS[:smb_username] = VM_SMB_USERNAME
+    SYNCED_FOLDER_OPTIONS[:smb_password] = VM_SMB_PASSWORD
+  else
+    puts yellow "Warning: VM_SMB_USERNAME and VM_SMB_PASSWORD variables are not set"
+    puts "This can lead to mount error: Permission denied while using SMB."
+    puts "If you want to fix this issue, please add those to .vm file"
+    puts yellow "Falling back to VirtualBox shared folders. This can be slower than SMB."
+    SYNCED_FOLDER_OPTIONS = { type: 'virtualbox' }
+  end
 else
   HOSTS_PATH = '/etc/hosts'
   IS_WINDOWS = false
