@@ -128,7 +128,7 @@ if Vagrant::Util::Platform.windows?
       "mapchars",
       "noperm",
       "soft",
-      "actimeo=3",
+      "actimeo=65",
       "fsc",
       "async",
       "cache=loose",
@@ -140,10 +140,9 @@ if Vagrant::Util::Platform.windows?
     SYNCED_FOLDER_OPTIONS[:smb_username] = VM_SMB_USERNAME
     SYNCED_FOLDER_OPTIONS[:smb_password] = VM_SMB_PASSWORD
   else
-    puts yellow "Warning: VM_SMB_USERNAME and VM_SMB_PASSWORD variables are not set"
-    puts "This can lead to mount error: Permission denied while using SMB."
-    puts "If you want to fix this issue, please add those to .vm file"
-    puts yellow "Falling back to VirtualBox shared folders. This can be slower than SMB."
+    puts bold "VM_SMB_USERNAME and VM_SMB_PASSWORD variables are not set"
+    puts "Falling back to VirtualBox shared folders."
+    puts "If you want to change thie, please add those variables to .vm file"
     SYNCED_FOLDER_OPTIONS = { type: 'virtualbox' }
   end
 else
