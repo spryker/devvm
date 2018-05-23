@@ -124,7 +124,7 @@ if Vagrant::Util::Platform.windows?
     SYNCED_FOLDER_OPTIONS = { type: 'smb' }
     username, domain = VM_SMB_USERNAME.split('@', 2)
     SYNCED_FOLDER_OPTIONS[:mount_options] = [
-      "vers=2.1",
+      "vers=3.02",
       "sec=ntlmssp",
       "iocharset=utf8",
       "mapchars",
@@ -236,7 +236,7 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  # Copy VM env after creating the VM
+  # Copy VM env file to the VM, so that settings can be read by PHP
   config.vm.provision "shell",
     inline: "cp /vagrant/.vm /etc/spryker-vm-env; service php7.2-fpm restart"
 
