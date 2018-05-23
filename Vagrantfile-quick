@@ -122,16 +122,17 @@ if Vagrant::Util::Platform.windows?
     SYNCED_FOLDER_OPTIONS = { type: 'smb' }
     username, domain = VM_SMB_USERNAME.split('@', 2)
     SYNCED_FOLDER_OPTIONS[:mount_options] = [
-      "vers=3.02",
+      "vers=2.1",
       "sec=ntlmssp",
       "iocharset=utf8",
       "mapchars",
       "noperm",
       "soft",
+      "async",
       "actimeo=65",
       "fsc",
-      "async",
       "cache=loose",
+      "mfsymlinks",
       "username=#{username}",
       "password=#{VM_SMB_PASSWORD}",
       "credentials=/dev/null",
