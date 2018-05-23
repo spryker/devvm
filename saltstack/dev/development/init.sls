@@ -2,6 +2,11 @@
 # Tools and settings for local development
 #
 
+# Performance tuning for samba client
+/etc/modprobe.d/cifs.conf:
+  file.managed:
+    - source: salt://development/files/etc/modprobe.d/cifs.conf
+
 # Pre-fetch SSH key for git repository
 get-github-ssh-hostkey:
   cmd.run:
