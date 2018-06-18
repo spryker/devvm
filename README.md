@@ -1,7 +1,7 @@
-# Reference vagrant repository for Spryker SaltStack
+# Spryker OS - Reference repository for DevVM
 
 This repository contains Vagrantfile which is responsible for setting up
-initial state of the Dev VM.
+initial state of the Dev VM. Provisioning of the machine is done using SaltStack.
 
 Please refer to the [Installation guide](http://spryker.github.io/getting-started/installation/guide/) to install Spryker.
 

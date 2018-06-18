@@ -1,4 +1,4 @@
-# How to release
+# Spryker OS - DevVM - How to release
 
 ## Manual release
 To manally build the dev vm and prepare `.box` file for the development team,
