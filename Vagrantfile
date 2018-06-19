@@ -9,14 +9,14 @@ def bold(text); colorize(text, "\033[1;97m"); end
 ### BEGINNING OF CONFIGURATION
 ###
 
-# Local locations of reposities
+# Local directories and files to use
 BASE_DIRECTORY     = File.expand_path(File.dirname(__FILE__))
 SALT_DIRECTORY     = BASE_DIRECTORY + "/saltstack"
 PILLAR_DIRECTORY   = BASE_DIRECTORY + "/pillar"
 SPRYKER_DIRECTORY  = BASE_DIRECTORY + "/project"
 VM_SETTINGS_FILE   = BASE_DIRECTORY + "/.vm"
 
-# Check if there is VM configuration already saved
+# Check if a VM configuration is already available
 if File.exists? VM_SETTINGS_FILE
   puts bold "Loading VM settings file: .vm"
   load(VM_SETTINGS_FILE)
@@ -27,7 +27,7 @@ if File.exists? VM_SETTINGS_FILE
 else
 
   # Project settings
-  VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                             # Name of the project
+  VM_PROJECT = ENV['VM_PROJECT'] || 'demoshop'                             # Project name
   VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
 
   # Git parameters
@@ -40,9 +40,9 @@ else
   # Settings for the Virtualbox VM
   VM_IP_PREFIX = ENV['VM_IP_PREFIX'] || '10.10.0.'                         # Prefix for IP address of DEV VM
   VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
-  VM_MEMORY    = ENV['VM_MEMORY']    || '3200'                             # Amount of memory for DEV VM, in MB
-  VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Amount of CPU cores for DEV VM
-  VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Visible name in VirtualBox
+  VM_MEMORY    = ENV['VM_MEMORY']    || '3200'                             # Number of memory for DEV VM, in MB
+  VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Number of CPU cores for DEV VM
+  VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
   VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
 
   config=
@@ -57,11 +57,11 @@ else
     "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
 
   unless (ARGV & ['up', 'reload', 'provision']).empty?
-    puts yellow "New VM settings will be used:"
+    puts yellow "The following settings will be used for the new VM:"
     puts config
-    puts bold "Press return to save it in file .vm, Ctrl+C to abort"
-    puts "If the settings above are fine, they will be persisted on disk."
-    puts "To change any setting, interrupt now and set environmental variable."
+    puts bold "Press return to save the settings or Ctrl+C to abort"
+    puts "If you save the settings, they will be stored in a .vm file on your hard drive."
+    puts "To change a setting, interrupt now and modify the respective environmental variables."
     File.write(VM_SETTINGS_FILE, config.gsub(/ *= */, '='))
   end
 end
@@ -90,7 +90,7 @@ end
 ### END OF CONFIGURATION
 ###
 
-# Check whether we are running UNIX or Windows-based machine
+# Check whether we are running in a UNIX or Windows-based machine
 if Vagrant::Util::Platform.windows?
   HOSTS_PATH = 'c:\WINDOWS\system32\drivers\etc\hosts'
   IS_WINDOWS = true
@@ -143,11 +143,11 @@ if not Dir.exists?(PILLAR_DIRECTORY)
 end
 
 if has_fresh_repos
-  puts yellow "Fresh repositories have been cloned. If you just cloned example repository, then please read README.md in salt repository"
+  puts yellow "Fresh repositories have been cloned. If you just cloned the sample repository, have a look at the README.md file in the salt repository"
   sleep 5
 end
 
-if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryker (if repository is given)
+if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryker repository (if specified)
   # This line is giving exception: Message: TypeError: no implicit conversion of false into Array
   #if (not Dir.exists?(SPRYKER_DIRECTORY)) or Dir.entries(SPRYKER_DIRECTORY) - %w{ . .. }.empty? # Only clone if it's empty folder
   if (not Dir.exists?(SPRYKER_DIRECTORY))
@@ -162,31 +162,31 @@ if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryke
     raise "ERROR: The directory #{SPRYKER_DIRECTORY} isn't empty, yet it's not a clone of spryker repository!"
   end
 else
-  puts yellow "Spryker repository is not defined or empty in Vagrantfile - can't clone the repository..."
+  puts yellow "Spryker repository is not defined in Vagrantfile and the SPRYKER_REPOSITORY is empty - no repository to clone..."
 end
 
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
-  # Not that the box file should have virtualbox guest additions installed, otherwise shared folders will not work
+  # The box should have Virtualbox guest additions installed, otherwise shared folders will not work
   config.vm.box = "debian94_14"
   config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-14/debian94.box"
   config.vm.hostname = "spryker-vagrant"
   config.vm.boot_timeout = 300
 
-  # Enable ssh agent forwarding
+  # Enable SSH agent forwarding
   config.ssh.forward_agent = true
 
-  # The VirtualBox IP-address for the browser
+  # Set the VirtualBox IP address for the browser
   config.vm.network :private_network, ip: VM_IP, nic_type: "virtio"
 
-  # Port forwarding for services running on VM
+  # Port forwarding for services running on the VM
   config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
   config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
   config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
   config.vm.network "forwarded_port", guest: 5601,  host: 5601,  auto_correct: true   # Kibana
   config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
 
-  # install required, but missing dependencies into the base box
+  # Install required, but missing dependencies in the base box
   config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
 
   # SaltStack masterless setup
@@ -202,7 +202,7 @@ Vagrant.configure(2) do |config|
     raise "ERROR: Salt (#{SALT_DIRECTORY}) or Pillar (#{PILLAR_DIRECTORY}) directory not found.\n\n\033[0m"
   end
 
-  # add hosts to /etc/hosts
+  # Add hosts to /etc/hosts
   if Vagrant.has_plugin? 'vagrant-hostmanager'
     puts bold "Configuring vagrant-hostmanager (#{HOSTS.count} hostnames)..."
     config.hostmanager.enabled = true
@@ -221,7 +221,7 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  # Share the application code with VM
+  # Share the application code with the VM
   if not (VM_SKIP_SF == '1')
     config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
     if IS_UNIX
@@ -241,6 +241,7 @@ Vagrant.configure(2) do |config|
       "--nictype2", "virtio",
     ])
     if IS_WINDOWS
+      # Enable creation of symlinks
       vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
   end
