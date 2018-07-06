@@ -28,10 +28,13 @@ if [ -f "/opt/nvm/nvm.sh" ]; then
   source /opt/nvm/nvm.sh
 fi
 
-# Spryker VM environment
+# Spryker DevVM environment settings
 if [ -f /etc/spryker-vm-env ]; then
   source /etc/spryker-vm-env
 fi
+
+# Spryker default environment
+export APPLICATION_ENV=development
 
 # Spryker aliases
 set-vm-name() {
