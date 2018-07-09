@@ -1,7 +1,7 @@
 # GIT repository for getting the code source
 # Mandatory, default: no value
 deploy:
-  git_url: git@github.com:spryker/demoshop.git
+  git_url: git@github.com:winterhalter-fenner/akona.git
   git_hostname: github.com
 
 # Autoupdate mechanism updates packages automatically on each salt run, if
@@ -31,9 +31,11 @@ autoupdate:
 # each environment section (see below).
 # Mandatory, default: no value
 stores:
-  - DE
-  - US
-  - AT
+  - WF
+  - EL
+  - EP
+  - DY
+  - FA
 
 php:
   # PHP debugger. Enable only on local or QA environment, never
@@ -98,32 +100,36 @@ environments:
 
     stores:
       # List of stores and store-specific settings. Stores listed here has to be the same as configured above in "stores" key.
-      DE:
+      WF:
         yves:
           hostnames:
-            # List of hostnames for YVES NginX VHost.
-            # Mandatory, default: no value
-            - '~^www\.de\..+\.local$'
+            - '~^www\.wf\..+\.local$'
         zed:
-          # Hostname for ZED NginX VHost. Only one value is allowed.
-          # Mandatory, default: no value
-          hostname: '~^zed\.de\..+\.local$'
-
-          # Path to htpasswd file. Comment out to disable http auth.
-          # Optional, default: no value
-          # htpasswd_file:
-      US:
+          hostname: '~^zed\.wf\..+\.local$'
+      EL:
         yves:
           hostnames:
-            - '~^www\.us\..+\.local$'
+            - '~^www\.el\..+\.local$'
         zed:
-          hostname: '~^zed\.us\..+\.local$'
-      AT:
+          hostname: '~^zed\.el\..+\.local$'
+      EP:
         yves:
           hostnames:
-            - '~^www\.at\..+\.local$'
+            - '~^www\.ep\..+\.local$'
         zed:
-          hostname: '~^zed\.at\..+\.local$'
+          hostname: '~^zed\.ep\..+\.local$'
+      DY:
+        yves:
+          hostnames:
+            - '~^www\.dy\..+\.local$'
+        zed:
+          hostname: '~^zed\.dy\..+\.local$'
+      FA:
+        yves:
+          hostnames:
+            - '~^www\.fa\..+\.local$'
+        zed:
+          hostname: '~^zed\.fa\..+\.local$'
 
 
 
@@ -147,24 +153,36 @@ environments:
       enable_local_vhost: true
       hostname: '~^static-test\..+\.local$'
     stores:
-      DE:
+      WF:
         yves:
           hostnames:
-            - '~^www-test\.de\..+\.local$'
+            - '~^www-test\.wf\..+\.local$'
         zed:
-          hostname: '~^zed-test\.de\..+\.local$'
-      US:
+          hostname: '~^zed-test\.wf\..+\.local$'
+      EL:
         yves:
           hostnames:
-            - '~^www-test\.us\..+\.local$'
+            - '~^www-test\.el\..+\.local$'
         zed:
-          hostname: '~^zed-test\.us\..+\.local$'
-      AT:
+          hostname: '~^zed-test\.el\..+\.local$'
+      EP:
         yves:
           hostnames:
-            - '~^www-test\.at\..+\.local$'
+            - '~^www-test\.ep\..+\.local$'
         zed:
-          hostname: '~^zed-test\.at\..+\.local$'
+          hostname: '~^zed-test\.ep\..+\.local$'
+      DY:
+        yves:
+          hostnames:
+            - '~^www-test\.dy\..+\.local$'
+        zed:
+          hostname: '~^zed-test\.dy\..+\.local$'
+      FA:
+        yves:
+          hostnames:
+            - '~^www-test\.fa\..+\.local$'
+        zed:
+          hostname: '~^zed-test\.fa\..+\.local$'
 
 # The key below is used for deployment using deploy.rb (deprecated)
 #
