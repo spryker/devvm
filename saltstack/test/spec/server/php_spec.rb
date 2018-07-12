@@ -39,6 +39,9 @@ describe 'php' do
   end
 
   # Commands from README.md for enabling / disabling xdebug
+  # Note that the commands below change state of DevVM before packaging the .box file.
+  # In positive case, if the tests below pass, they should leave the system in original
+  # state (xdebug disabled)
   describe command("phpenmod -v #{PHP_VERSION} -s cli xdebug; phpenmod -v #{PHP_VERSION} -s fpm xdebug && service php#{PHP_VERSION}-fpm restart && php -v") do
     its(:stdout) { should include('with Xdebug') }
   end
