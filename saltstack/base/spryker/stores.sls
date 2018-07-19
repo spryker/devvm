@@ -3,6 +3,12 @@
 
 {%- for environment, environment_details in settings.environments.items() %}
 {%- for store in pillar.stores %}
+{%- set is_alternative_store = 0 %}
+{%- set spryker_store = store %}
+{%- if store == 'EL' %}
+    {%- set spryker_store = 'WF' %}
+    {%- set is_alternative_store = 1 %}
+{%- endif %}
 
 # Generate application store config - config_local_XX.php
 /data/shop/{{ environment }}/shared/config_local_{{ store }}.php:
@@ -38,6 +44,8 @@
       environment: {{ environment }}
       settings: {{ settings }}
       store: {{ store }}
+      spryker_store: {{ spryker_store }}
+      is_alternative_store: {{is_alternative_store}}
     - require:
       - file: /data/logs/{{ environment }}
     - watch_in:
@@ -54,6 +62,8 @@
       environment: {{ environment }}
       settings: {{ settings }}
       store: {{ store }}
+      spryker_store: {{ spryker_store }}
+      is_alternative_store: {{is_alternative_store}}
     - require:
       - file: /data/logs/{{ environment }}
     - watch_in:

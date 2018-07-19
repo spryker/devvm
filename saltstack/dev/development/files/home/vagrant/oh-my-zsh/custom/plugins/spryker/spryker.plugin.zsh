@@ -1,6 +1,6 @@
 # Shortcuts for Spryker binaries
 codecept () {
-    APPLICATION_ENV=development APPLICATION_STORE=DE /data/shop/development/current/vendor/bin/codecept $*
+    APPLICATION_ENV=development APPLICATION_STORE=WF /data/shop/development/current/vendor/bin/codecept $*
 }
 
 console () {
