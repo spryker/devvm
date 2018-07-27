@@ -41,3 +41,6 @@ set-vm-name() {
   echo "prompt_hostname=\"$1\"" > $HOME/.zsh_prompt
   echo "OK, changes will be visible after next login"
 }
+
+# Workaround for problem with number of open files, needed by ide-autogeneration
+ulimit -n 65535
