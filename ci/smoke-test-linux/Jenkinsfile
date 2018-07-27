@@ -1,0 +1,146 @@
+pipeline {
+    parameters {
+        string(description: 'Version of the box file to run tests on, must be exported to /var/www/get/spryker', name: 'box_version')
+    }
+
+    agent {
+        label 'linux'
+    }
+
+    stages {
+        stage('prepare') {
+            steps {
+                sh """
+                    # Make sure there are no side effects from other builds
+                    rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
+
+                    # Make sure that nfs server is up and running. This requires rights to run those commands with sudo
+                    sudo /usr/sbin/exportfs -ar
+                    sudo /bin/systemctl status --no-pager nfs-server.service && sudo /etc/init.d/nfs-kernel-server stop
+                    sudo /bin/systemctl start nfs-server.service
+                """
+            }
+        }
+
+        stage('start-vm') {
+            steps {
+                sh """#!/bin/bash -xe
+                    [ ${params.box_version} == null ] && exit 1
+                    function cleanup {
+                      vagrant destroy --force || true
+                      vagrant box remove spryker-devvm-${params.box_version} || true
+                      rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
+                    }
+
+                    vagrant init spryker-devvm-${params.box_version} /var/www/get/spryker/spryker-devvm*-${params.box_version}.box || (cleanup; exit 1)
+                    VM_NAME="jenkins-${env.JOB_NAME}-${env.BUILD_NUMBER}" vagrant up || (cleanup; exit 1)
+                """
+            }
+        }
+
+        stage('composer') {
+            steps {
+                sh """#!/bin/bash -xe
+                    function cleanup {
+                      vagrant destroy --force || true
+                      vagrant box remove spryker-devvm-${params.box_version} || true
+                      rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
+                    }
+
+                    vagrant ssh -c 'cd /data/shop/development/current; composer install --no-progress' || (cleanup; exit 1)
+                """
+            }
+        }
+
+        stage('install') {
+            steps {
+                sh """#!/bin/bash -xe
+                    function cleanup {
+                      vagrant destroy --force || true
+                      vagrant box remove spryker-devvm-${params.box_version} || true
+                      rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
+                    }
+
+                    vagrant ssh -c 'cd /data/shop/development/current; vendor/bin/install' || (cleanup; exit 1)
+                """
+            }
+        }
+
+
+        stage('test') {
+            steps {
+                sh """#!/bin/bash -x
+                    function cleanup {
+                      vagrant destroy --force || true
+                      vagrant box remove spryker-devvm-${params.box_version} || true
+                      rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
+                    }
+
+                    # Smoke tests
+                    VM_IP=`ruby -e 'load ".vm"; puts VM_IP'`
+                    echo ""
+                    echo "###"
+                    echo "### Smoke tests"
+                    echo "###"
+                    echo ""
+
+                    ERR=0
+
+                    echo "Checking Yves response - http://www.de.demoshop.local/"
+                    curl -s -i -H 'Host: www.de.demoshop.local' http://\${VM_IP}/ | grep "Spryker Shop"
+                    if [ \$? -eq 0 ]; then
+                      echo "SUCCESS"
+                    else
+                      echo "FAILED"
+                      ERR=1
+                      echo "Received response did not match:"
+                      curl -s -i -H 'Host: www.de.demoshop.local' http://\${VM_IP}/
+                      echo ""
+                    fi
+
+                    echo "Checking Zed response - http://zed.de.demoshop.local"
+                    curl -s -i -H 'Host: zed.de.demoshop.local' http://\${VM_IP}/ | grep "Location: /auth/login"
+                    if [ \$? -eq 0 ]; then
+                      echo "SUCCESS"
+                    else
+                      echo "FAILED"
+                      ERR=1
+                      echo "Received response did not match:"
+                      curl -s -i -H 'Host: zed.de.demoshop.local' http://\${VM_IP}/
+                      echo ""
+                    fi
+
+                    if [ \$ERR == "1" ]; then
+                        cleanup
+                        exit 1
+                    fi
+
+                    echo "Checking response times"
+
+                    echo "http://www.de.demoshop.local/"
+                    ab -c1 -n20 -H 'Host: www.de.demoshop.local' http://\${VM_IP}/
+                    echo "   ---"
+
+
+                    echo "http://zed.de.demoshop.local/auth/login"
+                    ab -c1 -n20 -H 'Host: zed.de.demoshop.local' http://\${VM_IP}/auth/login
+                    echo "   ---"
+                """
+            }
+        }
+
+        stage('cleanup') {
+            steps {
+                sh """#!/bin/bash -xe
+                    function cleanup {
+                      vagrant destroy --force || true
+                      vagrant box remove spryker-devvm-${params.box_version} || true
+                      rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
+                    }
+
+                    cleanup
+                """
+            }
+        }
+    }
+}
