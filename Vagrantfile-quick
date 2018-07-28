@@ -196,7 +196,7 @@ Vagrant.configure(2) do |config|
   # The box should have Virtualbox guest additions installed, otherwise shared folders will not work
   config.vm.box = "debian95_15"
   config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-15/debian95.box"
-  config.vm.hostname = "spryker-vagrant"
+  config.vm.hostname = "spryker-vm-${VM_PROJECT}"
   config.vm.boot_timeout = 300
 
   # Enable SSH agent forwarding
