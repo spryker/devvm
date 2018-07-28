@@ -31,6 +31,7 @@ dev:
     - jenkins
     - redis
     - samba
+    - avahi
     - elasticsearch
     - serverspec
     - spryker
@@ -94,4 +95,3 @@ qa:
   'roles:mysql':
     - match: grain
     - mysql-server
-

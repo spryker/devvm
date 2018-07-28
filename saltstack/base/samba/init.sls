@@ -12,9 +12,18 @@ install-smb-server:
     - require:
       - pkg: install-smb-server
 
-samba:
-  service.dead:
-    - enable: False
+smbd:
+  service.running:
+    - enable: True
+    - require:
+      - pkg: install-smb-server
+      - file: /etc/samba/smb.conf
+    - watch:
+      - file: /etc/samba/smb.conf
+
+nmbd:
+  service.running:
+    - enable: True
     - require:
       - pkg: install-smb-server
       - file: /etc/samba/smb.conf
