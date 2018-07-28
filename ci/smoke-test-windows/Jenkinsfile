@@ -124,7 +124,7 @@ pipeline {
                     }
 
 
-                    vagrant ssh -c 'cd /data/shop/development/current; vendor/bin/install --exclude=jenkins-up'
+                    vagrant ssh -c 'cd /data/shop/development/current; ulimit -n 65535; vendor/bin/install --exclude=jenkins-up'
                     If (-Not (\$LastExitCode -eq 0)) {
                         vagrant destroy --force
                         vagrant box remove spryker-devvm-${params.box_version}
