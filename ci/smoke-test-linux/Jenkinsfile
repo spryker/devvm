@@ -94,27 +94,29 @@ pipeline {
 
                         ERR=0
 
-                        echo "Checking Yves response - http://www.de.demoshop.local/"
-                        curl -s -i -H 'Host: www.de.demoshop.local' http://\${VM_IP}/ | grep "Spryker Shop"
+                        echo "Checking Yves response - http://www.de.suite.local/"
+                        curl -s -i -H 'Host: www.de.suite.local' http://\${VM_IP}/ | grep "Spryker Shop"
                         if [ \$? -eq 0 ]; then
                           echo "SUCCESS"
                         else
                           echo "FAILED"
                           ERR=1
                           echo "Received response did not match:"
-                          curl -s -i -H 'Host: www.de.demoshop.local' http://\${VM_IP}/
+                          curl -s -i -H 'Host: www.de.suite.local' http://\${VM_IP}/
+                          echo ""
                           echo ""
                         fi
 
-                        echo "Checking Zed response - http://zed.de.demoshop.local"
-                        curl -s -i -H 'Host: zed.de.demoshop.local' http://\${VM_IP}/ | grep "Location: /auth/login"
+                        echo "Checking Zed response - http://zed.de.suite.local"
+                        curl -s -i -H 'Host: zed.de.suite.local' http://\${VM_IP}/ | grep "Location: /auth/login"
                         if [ \$? -eq 0 ]; then
                           echo "SUCCESS"
                         else
                           echo "FAILED"
                           ERR=1
                           echo "Received response did not match:"
-                          curl -s -i -H 'Host: zed.de.demoshop.local' http://\${VM_IP}/
+                          curl -s -i -H 'Host: zed.de.suite.local' http://\${VM_IP}/
+                          echo ""
                           echo ""
                         fi
 
@@ -125,13 +127,13 @@ pipeline {
 
                         echo "Checking response times"
 
-                        echo "http://www.de.demoshop.local/"
-                        ab -c1 -n20 -H 'Host: www.de.demoshop.local' http://\${VM_IP}/
+                        echo "http://www.de.suite.local/"
+                        ab -c1 -n20 -H 'Host: www.de.suite.local' http://\${VM_IP}/
                         echo "   ---"
 
 
-                        echo "http://zed.de.demoshop.local/auth/login"
-                        ab -c1 -n20 -H 'Host: zed.de.demoshop.local' http://\${VM_IP}/auth/login
+                        echo "http://zed.de.suite.local/auth/login"
+                        ab -c1 -n20 -H 'Host: zed.de.suite.local' http://\${VM_IP}/auth/login
                         echo "   ---"
                     """
                 }

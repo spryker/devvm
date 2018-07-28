@@ -165,9 +165,9 @@ pipeline {
 
                     \$Success = \$TRUE
 
-                    echo "Checking Yves response - http://www.de.demoshop.local/ - 2 retries..."
-                    \$WebResponse = Invoke-WebRequest http://www.de.demoshop.local/
-                    \$WebResponse = Invoke-WebRequest http://www.de.demoshop.local/
+                    echo "Checking Yves response - http://www.de.suite.local/ - 2 retries..."
+                    \$WebResponse = Invoke-WebRequest http://www.de.suite.local/
+                    \$WebResponse = Invoke-WebRequest http://www.de.suite.local/
 
                     \$Result = \$WebResponse.RawContent | Select-String -Pattern 'Spryker Shop' -Quiet
                     if (\$Result) {
@@ -177,9 +177,9 @@ pipeline {
                         \$Success = \$FALSE
                     }
 
-                    echo "Checking Zed response - http://zed.de.demoshop.local/ - 2 retries..."
-                    \$WebResponse = Invoke-WebRequest http://zed.de.demoshop.local/
-                    \$WebResponse = Invoke-WebRequest http://zed.de.demoshop.local/
+                    echo "Checking Zed response - http://zed.de.suite.local/ - 2 retries..."
+                    \$WebResponse = Invoke-WebRequest http://zed.de.suite.local/
+                    \$WebResponse = Invoke-WebRequest http://zed.de.suite.local/
                     \$Result = \$WebResponse.RawContent | Select-String -Pattern 'Location: /auth/login' -Quiet
                     if (\$Result) {
                         echo "SUCCESS"
