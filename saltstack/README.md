@@ -205,7 +205,7 @@ salt/base/settings/port_numbering.sls
 | ------ | ----------------------------------------- |
 | 0      | Yves                                      |
 | 1      | Zed                                       |
-| 2      | Static web content                        |
+| 2      | Glue                                      |
 | 3      |                                           |
 | 4      |                                           |
 | 5      | Search (elasticsearch)                    |
