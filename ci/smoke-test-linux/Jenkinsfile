@@ -6,7 +6,7 @@ pipeline {
     agent {
         label 'linux'
     }
-    ansicolor {
+    ansiColor {
         stages {
             stage('prepare') {
                 steps {
