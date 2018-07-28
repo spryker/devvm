@@ -77,7 +77,7 @@ PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
 
 # Hostnames to be managed
 STORES = ['de', 'at', 'us']
-HOSTS = []
+HOSTS = [ 'spryker-vagrant' ]
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'
   STORES.each do |store|
