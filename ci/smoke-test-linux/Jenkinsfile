@@ -23,7 +23,7 @@ pipeline {
 
         stage('start-vm') {
             steps {
-                ansiColor {
+                ansiColor('XTerm') {
                     sh """#!/bin/bash -xe
                         [ ${params.box_version} == null ] && exit 1
                         function cleanup {
