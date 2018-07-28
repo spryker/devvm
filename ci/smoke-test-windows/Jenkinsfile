@@ -12,7 +12,7 @@ pipeline {
                 powershell """
                     cd ${env.WORKSPACE}
                     If (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
-                    { 
+                    {
                         echo "* Respawning PowerShell child process with elevated privileges"
                         \$pinfo = New-Object System.Diagnostics.ProcessStartInfo
                         \$pinfo.FileName = "powershell"
@@ -33,7 +33,7 @@ pipeline {
                         echo "Child process starting with admin privileges"
                         Start-Transcript -Path "C:/jenkins/transcript-${env.JOB_NAME}-${env.BUILD_NUMBER}.txt"
                     }
-                    
+
                     mkdir dummy | Out-Null
                     Cmd /C "rmdir /S /Q project"
                     Remove-Item -Recurse -Force Vagrantfile,.vm,.vagrant,dummy
@@ -41,7 +41,7 @@ pipeline {
                       echo 'WARNING: project directory still exists, unable to delete it. Renaming it.'
                       mv project project.old.${env.BUILD_NUMBER}
                     }
-                    
+
                     vagrant init spryker-devvm-${params.box_version} ${params.box_url}
                     If (-Not (\$LastExitCode -eq 0)) { Exit 1 }
                     \$env:VM_NAME = "jenkins-${env.JOB_NAME}-${env.BUILD_NUMBER}"
@@ -56,13 +56,13 @@ pipeline {
                 """
             }
         }
-        
+
         stage('composer') {
             steps {
                 powershell """
                     cd ${env.WORKSPACE}
                     If (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
-                    { 
+                    {
                         echo "* Respawning PowerShell child process with elevated privileges"
                         \$pinfo = New-Object System.Diagnostics.ProcessStartInfo
                         \$pinfo.FileName = "powershell"
@@ -84,9 +84,9 @@ pipeline {
                         Start-Transcript -Path "C:/jenkins/transcript-${env.JOB_NAME}-${env.BUILD_NUMBER}.txt"
                     }
 
-                
+
                     vagrant ssh -c 'cd /data/shop/development/current; composer install'
-                    If (-Not (\$LastExitCode -eq 0)) { 
+                    If (-Not (\$LastExitCode -eq 0)) {
                         vagrant destroy --force
                         vagrant box remove spryker-devvm-${params.box_version}
                         Cmd /C "rmdir /S /Q project"
@@ -101,7 +101,7 @@ pipeline {
                 powershell """
                     cd ${env.WORKSPACE}
                     If (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
-                    { 
+                    {
                         echo "* Respawning PowerShell child process with elevated privileges"
                         \$pinfo = New-Object System.Diagnostics.ProcessStartInfo
                         \$pinfo.FileName = "powershell"
@@ -125,7 +125,7 @@ pipeline {
 
 
                     vagrant ssh -c 'cd /data/shop/development/current; vendor/bin/install --exclude=jenkins-up'
-                    If (-Not (\$LastExitCode -eq 0)) { 
+                    If (-Not (\$LastExitCode -eq 0)) {
                         vagrant destroy --force
                         vagrant box remove spryker-devvm-${params.box_version}
                         Cmd /C "rmdir /S /Q project"
@@ -140,7 +140,7 @@ pipeline {
                 powershell """
                     cd ${env.WORKSPACE}
                     If (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
-                    { 
+                    {
                         echo "* Respawning PowerShell child process with elevated privileges"
                         \$pinfo = New-Object System.Diagnostics.ProcessStartInfo
                         \$pinfo.FileName = "powershell"
@@ -162,13 +162,13 @@ pipeline {
                         Start-Transcript -Path "C:/jenkins/transcript-${env.JOB_NAME}-${env.BUILD_NUMBER}.txt"
                     }
 
-                
+
                     \$Success = \$TRUE
-                    
+
                     echo "Checking Yves response - http://www.de.demoshop.local/ - 2 retries..."
                     \$WebResponse = Invoke-WebRequest http://www.de.demoshop.local/
                     \$WebResponse = Invoke-WebRequest http://www.de.demoshop.local/
-                    
+
                     \$Result = \$WebResponse.RawContent | Select-String -Pattern 'Spryker Shop' -Quiet
                     if (\$Result) {
                         echo "SUCCESS"
@@ -176,7 +176,7 @@ pipeline {
                         echo "FAILED"
                         \$Success = \$FALSE
                     }
-                    
+
                     echo "Checking Zed response - http://zed.de.demoshop.local/ - 2 retries..."
                     \$WebResponse = Invoke-WebRequest http://zed.de.demoshop.local/
                     \$WebResponse = Invoke-WebRequest http://zed.de.demoshop.local/
@@ -203,7 +203,7 @@ pipeline {
                 powershell """
                     cd ${env.WORKSPACE}
                     If (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
-                    { 
+                    {
                         echo "* Respawning PowerShell child process with elevated privileges"
                         \$pinfo = New-Object System.Diagnostics.ProcessStartInfo
                         \$pinfo.FileName = "powershell"
@@ -225,7 +225,7 @@ pipeline {
                         Start-Transcript -Path "C:/jenkins/transcript-${env.JOB_NAME}-${env.BUILD_NUMBER}.txt"
                     }
 
-                
+
                     vagrant destroy --force
                     vagrant box remove spryker-devvm-${params.box_version}
                     Cmd /C "rmdir /S /Q project"
