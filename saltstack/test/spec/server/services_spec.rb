@@ -5,7 +5,7 @@ services = [
   'vboxadd-service',
   'cron',
   'ntp',
-  'docker',
+  #'docker', # Temporarly disabled until docker containerd does not cause issues
   # App services
   'postgresql',
   'mysql',
