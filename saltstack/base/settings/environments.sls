@@ -53,11 +53,16 @@
 {%- if grains_hostname_zed != None %}
 {%-   do environments[environment]['stores'][store].zed.update ({ 'hostname': grains_hostname_zed}) %}
 {%- endif %}
+{%- set grains_hostname_glue  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':glue:hostname', None) %}
+{%- if grains_hostname_glue != None %}
+{%-   do environments[environment]['stores'][store].glue.update ({ 'hostname': grains_hostname_glue}) %}
+{%- endif %}
 
 
 # Generate Yves/Zed ports
 {%- do environments[environment]['stores'][store].yves.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '0' }) %}
 {%- do environments[environment]['stores'][store].zed.update  ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '1' }) %}
+{%- do environments[environment]['stores'][store].glue.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '2' }) %}
 
 # Generate store locale settings
 {%- do environments[environment]['stores'][store].update ({ 'locale': port['store'][store]['locale'], 'appdomain': port['store'][store]['appdomain'] }) %}

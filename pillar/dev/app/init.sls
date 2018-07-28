@@ -112,19 +112,24 @@ environments:
           # Path to htpasswd file. Comment out to disable http auth.
           # Optional, default: no value
           # htpasswd_file:
+        glue:
+          hostname: '~^glue\.de\..+\.local$'
       US:
         yves:
           hostnames:
             - '~^www\.us\..+\.local$'
         zed:
           hostname: '~^zed\.us\..+\.local$'
+        glue:
+          hostname: '~^glue\.us\..+\.local$'
       AT:
         yves:
           hostnames:
             - '~^www\.at\..+\.local$'
         zed:
           hostname: '~^zed\.at\..+\.local$'
-
+        glue:
+          hostname: '~^glue\.at\..+\.local$'
 
 
   devtest:
@@ -153,19 +158,24 @@ environments:
             - '~^www-test\.de\..+\.local$'
         zed:
           hostname: '~^zed-test\.de\..+\.local$'
+        glue:
+          hostname: '~^glue-test\.de\..+\.local$'
       US:
         yves:
           hostnames:
             - '~^www-test\.us\..+\.local$'
         zed:
           hostname: '~^zed-test\.us\..+\.local$'
+        glue:
+          hostname: '~^glue-test\.us\..+\.local$'
       AT:
         yves:
           hostnames:
             - '~^www-test\.at\..+\.local$'
         zed:
           hostname: '~^zed-test\.at\..+\.local$'
-
+        glue:
+          hostname: '~^glue-test\.at\..+\.local$'
 # The key below is used for deployment using deploy.rb (deprecated)
 #
 # From deployment server user root must be able to log in to all other

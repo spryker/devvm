@@ -73,7 +73,7 @@ else
     puts "If you save the settings, they will be stored in a .vm file on your hard drive."
     puts "To change a setting, interrupt now and modify the respective environmental variables."
     STDIN.gets unless Vagrant::Util::Platform.windows?
-    
+
     # Adding credentials later, so that they are not exposed to stdout
     ['VM_SMB_USERNAME', 'VM_SMB_PASSWORD'].each do |var|
       if ENV.has_key? var
@@ -95,7 +95,11 @@ HOSTS = []
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'
   STORES.each do |store|
-    HOSTS.push [ "www#{host_suffix}.#{store}.#{domain}", "zed#{host_suffix}.#{store}.#{domain}",]
+    HOSTS.push [
+      "www#{host_suffix}.#{store}.#{domain}",
+      "zed#{host_suffix}.#{store}.#{domain}",
+      "glue#{host_suffix}.#{store}.#{domain}"
+    ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
 end
@@ -119,7 +123,7 @@ if Vagrant::Util::Platform.windows?
   IS_UNIX = false
   IS_LINUX = false
   IS_OSX = false
-  
+
   if defined? VM_SMB_USERNAME
     SYNCED_FOLDER_OPTIONS = { type: 'smb' }
     username, domain = VM_SMB_USERNAME.split('@', 2)

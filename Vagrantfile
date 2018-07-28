@@ -33,8 +33,8 @@ else
   # Git parameters
   SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker-shop/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
-  
-  # Auto-generate IP address based on hash of VM_PROJECT  
+
+  # Auto-generate IP address based on hash of VM_PROJECT
   unique_byte = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
 
   # Settings for the Virtualbox VM
@@ -81,7 +81,11 @@ HOSTS = []
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'
   STORES.each do |store|
-    HOSTS.push [ "www#{host_suffix}.#{store}.#{domain}", "zed#{host_suffix}.#{store}.#{domain}",]
+    HOSTS.push [
+      "www#{host_suffix}.#{store}.#{domain}",
+      "zed#{host_suffix}.#{store}.#{domain}",
+      "glue#{host_suffix}.#{store}.#{domain}"
+    ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
 end
@@ -246,4 +250,3 @@ Vagrant.configure(2) do |config|
     end
   end
 end
-

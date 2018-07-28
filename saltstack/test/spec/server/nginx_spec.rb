@@ -17,5 +17,6 @@ describe 'nginx' do
     its(:stderr) { should include('test is successful') }
     its(:stdout) { should match(/server_name.*www.*de.*local/) }
     its(:stdout) { should match(/server_name.*zed.*de.*local/) }
+    its(:stdout) { should match(/server_name.*glue.*de.*local/) }
   end
 end
