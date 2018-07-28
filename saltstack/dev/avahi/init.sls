@@ -12,9 +12,9 @@ install-avahi:
     - require:
       - pkg: install-avahi
 
-/etc/avahi/services/smb.conf:
+/etc/avahi/services/smb.service:
   file.managed:
-    - source: salt://avahi/files/etc/avahi/services/smb.conf
+    - source: salt://avahi/files/etc/avahi/services/smb.service
     - require:
       - pkg: install-avahi
 
@@ -25,4 +25,4 @@ avahi-daemon:
       - pkg: install-avahi
     - watch:
       - file: /etc/avahi/avahi-daemon.conf
-      - file: /etc/avahi/services/smb.conf
+      - file: /etc/avahi/services/smb.service
