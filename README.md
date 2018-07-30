@@ -46,7 +46,7 @@ and is merged into master whenever we officialy release new version, after inter
 1.x.x is old stable version, with PHP 7.1 and Elasticsearch 2.x
 
 ### 2.x.x
-2.x.x is non-backward-compatible version, which includes Elasticsearch 5.x.
+2.x.x is non-backward-compatible version, which includes PHP 7.2 and Elasticsearch 5.x
 
 
 ## Customizing the VM
@@ -55,10 +55,10 @@ and is merged into master whenever we officialy release new version, after inter
 The PHP module `xdebug` are pre-installed on the DevVM, but not enabled by default. To enable it, use the following commands:
 ```
 # Enable XDebug
-sudo -i bash -c "phpenmod -v 7.1 -s cli -m xdebug; phpenmod -v 7.1 -s fpm -m xdebug; service php7.1-fpm restart"
+sudo -i bash -c "phpenmod -v 7.2 -s cli -m xdebug; phpenmod -v 7.2 -s fpm -m xdebug; service php7.2-fpm restart"
 
 # Disable XDebug
-sudo -i bash -c "phpdismod -v 7.1 -s cli -m xdebug; phpdismod -v 7.1 -s fpm -m xdebug; service php7.1-fpm restart"
+sudo -i bash -c "phpdismod -v 7.2 -s cli -m xdebug; phpdismod -v 7.2 -s fpm -m xdebug; service php7.2-fpm restart"
 ```
 
 
