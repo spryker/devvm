@@ -25,8 +25,8 @@ describe 'rabbitmq' do
 
   # Validate users
   describe command('/usr/sbin/rabbitmqctl list_users') do
-    its(:stdout) { should match(/admin *\[administrator\]/) }
-    its(:stdout) { should include('/DE_development') }
-    its(:stdout) { should include('/DE_testing') }
+    its(:stdout) { should match(/admin.*administrator/) }
+    its(:stdout) { should include('DE_development') }
+    its(:stdout) { should include('DE_devtest') }
   end
 end

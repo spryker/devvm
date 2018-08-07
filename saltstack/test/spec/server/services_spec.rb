@@ -9,7 +9,6 @@ services = [
   # App services
   'postgresql',
   'mysql',
-  'rabbitmq-server',
   'redis-server-development',
   'elasticsearch-development',
 ]
