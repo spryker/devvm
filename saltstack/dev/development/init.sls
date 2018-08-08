@@ -75,7 +75,3 @@ vagrant-user:
     - name: vagrant
     - gid: www-data
     - allow_gid_change: True
-    - optional_groups:
-      - dev
-      - adm
-      - vagrant
