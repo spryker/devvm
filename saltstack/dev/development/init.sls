@@ -68,3 +68,14 @@ clone-oh-my-zsh:
 /etc/cron.d/vagrant-ntpdate:
   file.managed:
     - source: salt://development/files/etc/cron.d/vagrant-ntpdate
+
+# Assign user to www-data group
+vagrant-user:
+  user.present:
+    - name: vagrant
+    - gid: www-data
+    - allow_gid_change: True
+    - optional_groups:
+      - dev
+      - adm
+      - vagrant
