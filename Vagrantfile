@@ -202,7 +202,7 @@ Vagrant.configure(2) do |config|
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
       # Workaround for https://github.com/saltstack/salt/issues/50311
-      salt.version = "git saltstack:2018.3" # "v2017.7.4"
+      salt.version = "git 2018.3" # "v2017.7.4"
     end
   else
     raise "ERROR: Salt (#{SALT_DIRECTORY}) or Pillar (#{PILLAR_DIRECTORY}) directory not found.\n\n\033[0m"
