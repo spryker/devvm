@@ -36,6 +36,9 @@ fi
 # Spryker default environment
 export APPLICATION_ENV=development
 
+# Composer settings
+export COMPOSER_PROCESS_TIMEOUT=3600
+
 # Spryker aliases
 set-vm-name() {
   echo "prompt_hostname=\"$1\"" > $HOME/.zsh_prompt
