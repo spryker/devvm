@@ -12,7 +12,7 @@ This repository contains:
 
 ## Requirements
  - VirtualBox >= 5.2.x
- - Vagrant >= 2.0.1
+ - Vagrant >= 2.2.0
  - `vagrant-hostmanager` plugin
 
 ## VM Settings
