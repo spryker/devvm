@@ -17,6 +17,12 @@ describe 'rabbitmq' do
     it { should be_listening }
   end
 
+  # Validate configuration and node name
+  describe command('/usr/sbin/rabbitmqctl node_health_check') do
+    its(:stdout) { should include('Health check passed') }
+    its(:stdout) { should include('rabbit@localhost') }
+  end
+
   # Validate vhosts
   describe command('/usr/sbin/rabbitmqctl list_vhosts') do
     its(:stdout) { should include('/DE_development_zed') }
