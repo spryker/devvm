@@ -51,7 +51,7 @@ pipeline {
                           rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
                         }
 
-                        vagrant ssh -c 'cd /data/shop/development/current; composer install --no-progress' || (cleanup; exit 1)
+                        vagrant ssh -c 'cd /data/shop/development/current; composer install --no-progress --optimize-autoloader' || (cleanup; exit 1)
                     """
                 }
             }
