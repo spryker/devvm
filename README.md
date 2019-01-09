@@ -3,7 +3,7 @@
 This repository contains Vagrantfile which is responsible for setting up
 initial state of the Dev VM. Provisioning of the machine is done using SaltStack.
 
-Please refer to the [Installation guide](http://spryker.github.io/getting-started/installation/guide/) to install Spryker.
+Please refer to the [Installation guide - B2C](https://documentation.spryker.com/installation/installation-guide-b2c.htm) or [Installation guide - B2B](https://documentation.spryker.com/installation/installation-guide-b2b.htm) to install Spryker.
 
 This repository contains:
  - [saltstack](saltstack) - SaltStack implementation for provisioning reference infrastructure for development
