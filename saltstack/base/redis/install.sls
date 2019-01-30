@@ -3,8 +3,8 @@
 #
 
 redis-server:
-  pkg:
-    - installed
+  pkg.installed:
+    - fromrepo: stretch-backports
 
 # Make sure that redis bgsave can overcommit virtual memory
 vm.overcommit_memory:
