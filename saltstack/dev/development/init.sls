@@ -60,7 +60,6 @@ clone-oh-my-zsh:
     - source: salt://development/files/home/vagrant/es6
     - user: vagrant
     - group: vagrant
-    - template: jinja
     - file_mode: 644
     - dir_mode: 755
 
