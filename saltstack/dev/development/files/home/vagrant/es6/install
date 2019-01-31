@@ -1,6 +1,6 @@
 #!/bin/bash
-# For migration time ES5 -> ES6, devvm is provided with ES5
-# This can be executed to do an in-place upgrade to version 6.
+# During migration time of ES5 to ES6, devvm is provided with ES5 (by default).
+# This installer can be executed to do an in-place upgrade to version 6.
 # There is no way to downgrade back to es5.
 
 CONF_SOURCE=/home/vagrant/es6/conf
@@ -11,11 +11,17 @@ function info() {
   echo -ne "\e[0m"
 }
 
+if [[ $EUID != 0 ]]; then
+  info "ERROR: You need to run this command with root privileges:"
+  echo "sudo bash $0"
+  exit 1
+fi
+
 info "------------------"
 CURRENT_VERSION=$(dpkg -l | grep elasticsearch | awk '{print $3}')
 info "Current Elasticsearch version: ${CURRENT_VERSION}"
-if [[ ! $N =~ ^5\. ]]; then
-  info "Warning, Currently installed Elasticsearch version is not 5.x"
+if [[ ! ${CURRENT_VERSION} =~ ^5\. ]]; then
+  info "WARNING: Currently installed Elasticsearch version is not 5.x"
   info "Press ENTER to continue, Ctrl+C to cancel"
   read something
 fi
@@ -27,44 +33,59 @@ info "Press ENTER to continue..."
 read something
 
 info "------------------"
-info "Stopping Jenkins"
+info "Stop Jenkins"
 systemctl stop jenkins-devtest
-info "Stopping Elasticsearch"
+
+info "Stop Elasticsearch"
 systemctl stop elasticsearch-development
-info "Clearing elasticsearch data"
+
+info "Clear elasticsearch data in /data/shop/development/shared/elasticsearch"
 rm -rf /data/shop/development/shared/elasticsearch/*
 
-info "Disabling APT repo for es5"
+info "Disable APT repo for es5"
 mv /etc/apt/sources.list.d/elasticsearch5.list /etc/apt/sources.list.d/elasticsearch5.list.bak
-info "Adding APT repo for es6"
+
+info "Add APT repo for es6"
 echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" > /etc/apt/sources.list.d/elasticsearch6.list
-info "apt-get update"
+
+info "Run: apt-get update"
 apt-get -qqy update 2>&1 | grep -v '^W:'
-info "apt-get install elasticsearch"
-apt-get -qy install elasticsearch
+
+info "Run: apt-get install elasticsearch"
+apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install elasticsearch
+
 info "Stop elasticsearch service"
 systemctl stop elasticsearch
+
 info "Disable elasticsearch service"
 systemctl disable elasticsearch
 
-info "Delete elasticsearch-development configuration"
+info "Delete old elasticsearch-development configuration"
 rm -rf /etc/elasticsearch-development/*
-info "Copy configuration"
+
+info "Copy elasticsearch configuration"
 rsync -r ${CONF_SOURCE}/etc/elasticsearch-development/ /etc/elasticsearch-development/
 chown -R elasticsearch: /etc/elasticsearch-development/
-info "Configure service runtime"
+
+info "Configure service runtime options"
 cp -f ${CONF_SOURCE}/etc/default/elasticsearch-development /etc/default/elasticsearch-development
 chown -R root: /etc/default/elasticsearch-development
 ln -sf /etc/default/elasticsearch-development /etc/default/elasticsearch
+
 info "Configure systemd service"
 cp -f ${CONF_SOURCE}/etc/systemd/system/elasticsearch-development.service /etc/systemd/system/elasticsearch-development.service
 chown -R root: /etc/systemd/system/elasticsearch-development.service
+
 info "Reload systemd"
 systemctl daemon-reload
-info "Adjusting filesystem permissions"
+
+info "Adjust filesystem permissions"
 chmod -R o+rX /etc/elasticsearch*
 
 info "Start Elasticsearch 6.x"
 systemctl start elasticsearch-development
+
 info "Start Jenkins"
-systemctl start start jenkins-development
+systemctl start jenkins-development
+
+info "Finished"
