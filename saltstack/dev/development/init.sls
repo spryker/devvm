@@ -55,6 +55,15 @@ clone-oh-my-zsh:
     - file_mode: 755
     - dir_mode: 755
 
+/home/vagrant/es6:
+  file.recurse:
+    - source: salt://development/files/home/vagrant/es6
+    - user: vagrant
+    - group: vagrant
+    - template: jinja
+    - file_mode: 644
+    - dir_mode: 755
+
 /home/vagrant/.oh-my-zsh/custom/plugins/spryker:
   file.recurse:
     - source: salt://development/files/home/vagrant/oh-my-zsh/custom/plugins/spryker
