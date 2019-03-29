@@ -163,7 +163,7 @@ mysql-tools-repo:
 #    - key_url: https://jenkins.korekontrol.net/get/key/mysql-apt-repo.gpg
     - keyid: 5072E1F5
 #    - keyserver: pool.sks-keyservers.net
-    - ha.pool.sks-keyservers.net
+#    - keyserver: ha.pool.sks-keyservers.net
     - refresh_db: False
     - watch_in:
        - cmd: apt-get-update
