@@ -144,11 +144,8 @@ mysql-server-repo:
     - humanname: Official MySQL server repository
     - name: deb http://repo.mysql.com/apt/debian/ {{ grains.lsb_distrib_codename }} mysql-5.7
     - file: /etc/apt/sources.list.d/mysql-server.list
-    - key_url: https://jenkins.korekontrol.net/get/key/mysql-apt-repo.gpg
-# We're regularly having trouble with fetching this key from original location via GPG,
-# so we use mirrored key instead.
-#    - keyid: 5072E1F5
-#    - keyserver: pool.sks-keyservers.net
+    - keyid: 5072E1F5
+    - keyserver: ha.pool.sks-keyservers.net
     - refresh_db: False
     - watch_in:
        - cmd: apt-get-update
@@ -163,7 +160,7 @@ mysql-tools-repo:
 #    - key_url: https://jenkins.korekontrol.net/get/key/mysql-apt-repo.gpg
     - keyid: 5072E1F5
 #    - keyserver: pool.sks-keyservers.net
-#    - keyserver: ha.pool.sks-keyservers.net
+    - keyserver: ha.pool.sks-keyservers.net
     - refresh_db: False
     - watch_in:
        - cmd: apt-get-update
