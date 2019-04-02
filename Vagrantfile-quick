@@ -147,9 +147,6 @@ if Vagrant::Util::Platform.windows?
     SYNCED_FOLDER_OPTIONS[:smb_username] = VM_SMB_USERNAME
     SYNCED_FOLDER_OPTIONS[:smb_password] = VM_SMB_PASSWORD
   else
-    puts bold "VM_SMB_USERNAME and VM_SMB_PASSWORD variables are not set"
-    puts "Falling back to VirtualBox shared folders."
-    puts "If you want to use SMB shares instead, set the VM_SMB_USERNAME and VM_SMB_PASSWORD variables in the .vm file"
     SYNCED_FOLDER_OPTIONS = { type: 'virtualbox' }
   end
 else
