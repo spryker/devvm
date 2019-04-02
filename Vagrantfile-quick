@@ -253,6 +253,7 @@ Vagrant.configure(2) do |config|
       "--cpus", VM_CPUS,
       "--nictype1", "virtio",
       "--nictype2", "virtio",
+      "--audio", "none",
     ])
     if IS_WINDOWS
       # Enable creation of symlinks
