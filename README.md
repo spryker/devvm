@@ -41,12 +41,13 @@ In order to use opcache for CLI calls as well, the VM ships with PHP opcache fil
 ```
 sudo rm -rf /var/tmp/opcache/*; sudo systemctl restart php7.2-fpm
 ```
-Using `xdebug` and `opcache` at the same time might be dangerous and is not recommended.
 
 ## Customizing the VM
 
 ### PHP development modules
-The PHP module `xdebug` are pre-installed on the DevVM, but not enabled by default. To enable it, use the following commands:
+The PHP module `xdebug` are pre-installed on the DevVM, but not enabled by default.
+Using `xdebug` and `opcache` at the same time might be dangerous and is not recommended.
+To enable xdebug, use the following commands:
 ```
 # Enable XDebug, disable OpCache, clear disk cache, restart FPM
 sudo -i bash -c " \
@@ -57,7 +58,11 @@ sudo -i bash -c " \
   rm -rf /var/tmp/opcache/*; \
   systemctl restart php7.2-fpm \
   "
+```
 
+Running with xdebug enabled and opcache disabled will cause the application to be slower, so consider
+enabling it only when you need. To disable xdebug and re-enable opcache, use the following commands:
+```
 # Disable XDebug, enable OpCache, clear disk cache, restart FPM
 sudo -i bash -c " \
   phpdismod -v 7.2 -s cli -m xdebug; \
@@ -67,8 +72,6 @@ sudo -i bash -c " \
   rm -rf /var/tmp/opcache/*; \
   systemctl restart php7.2-fpm \
   "
-
-
 ```
 
 
