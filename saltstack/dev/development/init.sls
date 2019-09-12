@@ -55,6 +55,14 @@ clone-oh-my-zsh:
     - file_mode: 755
     - dir_mode: 755
 
+/home/vagrant/es6:
+  file.recurse:
+    - source: salt://development/files/home/vagrant/es6
+    - user: vagrant
+    - group: vagrant
+    - file_mode: 644
+    - dir_mode: 755
+
 /home/vagrant/.oh-my-zsh/custom/plugins/spryker:
   file.recurse:
     - source: salt://development/files/home/vagrant/oh-my-zsh/custom/plugins/spryker
@@ -68,3 +76,10 @@ clone-oh-my-zsh:
 /etc/cron.d/vagrant-ntpdate:
   file.managed:
     - source: salt://development/files/etc/cron.d/vagrant-ntpdate
+
+# Assign user to www-data group
+vagrant-user:
+  user.present:
+    - name: vagrant
+    - gid: www-data
+    - allow_gid_change: True

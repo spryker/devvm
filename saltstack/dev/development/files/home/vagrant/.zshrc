@@ -28,13 +28,22 @@ if [ -f "/opt/nvm/nvm.sh" ]; then
   source /opt/nvm/nvm.sh
 fi
 
-# Spryker VM environment
+# Spryker DevVM environment settings
 if [ -f /etc/spryker-vm-env ]; then
   source /etc/spryker-vm-env
 fi
+
+# Spryker default environment
+export APPLICATION_ENV=development
+
+# Composer settings
+export COMPOSER_PROCESS_TIMEOUT=3600
 
 # Spryker aliases
 set-vm-name() {
   echo "prompt_hostname=\"$1\"" > $HOME/.zsh_prompt
   echo "OK, changes will be visible after next login"
 }
+
+# Workaround for problem with number of open files, needed by ide-autogeneration
+ulimit -n 65535

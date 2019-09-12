@@ -69,6 +69,22 @@
     - watch_in:
       - cmd: reload-nginx
 
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_glue:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-glue.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings }}
+      store: {{ store }}
+    - require:
+      - file: /data/logs/{{ environment }}
+    - watch_in:
+      - cmd: reload-nginx
+
 /etc/nginx/sites-enabled/{{ store }}_{{ environment }}_zed:
   file.symlink:
     - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zed
@@ -86,6 +102,15 @@
     - force: true
     - require:
       - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_yves
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_glue:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue
     - watch_in:
       - cmd: reload-nginx
 

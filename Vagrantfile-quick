@@ -73,7 +73,7 @@ else
     puts "If you save the settings, they will be stored in a .vm file on your hard drive."
     puts "To change a setting, interrupt now and modify the respective environmental variables."
     STDIN.gets unless Vagrant::Util::Platform.windows?
-    
+
     # Adding credentials later, so that they are not exposed to stdout
     ['VM_SMB_USERNAME', 'VM_SMB_PASSWORD'].each do |var|
       if ENV.has_key? var
@@ -91,11 +91,15 @@ VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
 
 # Hostnames to be managed
 STORES = ['wf', 'el', 'ep', 'dy', 'fa']
-HOSTS = []
+HOSTS = [ 'spryker-vagrant' ]
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'
   STORES.each do |store|
-    HOSTS.push [ "www#{host_suffix}.#{store}.#{domain}", "zed#{host_suffix}.#{store}.#{domain}",]
+    HOSTS.push [
+      "www#{host_suffix}.#{store}.#{domain}",
+      "zed#{host_suffix}.#{store}.#{domain}",
+      "glue#{host_suffix}.#{store}.#{domain}"
+    ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
 end
@@ -119,7 +123,7 @@ if Vagrant::Util::Platform.windows?
   IS_UNIX = false
   IS_LINUX = false
   IS_OSX = false
-  
+
   if defined? VM_SMB_USERNAME
     SYNCED_FOLDER_OPTIONS = { type: 'smb' }
     username, domain = VM_SMB_USERNAME.split('@', 2)
@@ -143,9 +147,6 @@ if Vagrant::Util::Platform.windows?
     SYNCED_FOLDER_OPTIONS[:smb_username] = VM_SMB_USERNAME
     SYNCED_FOLDER_OPTIONS[:smb_password] = VM_SMB_PASSWORD
   else
-    puts bold "VM_SMB_USERNAME and VM_SMB_PASSWORD variables are not set"
-    puts "Falling back to VirtualBox shared folders."
-    puts "If you want to use SMB shares instead, set the VM_SMB_USERNAME and VM_SMB_PASSWORD variables in the .vm file"
     SYNCED_FOLDER_OPTIONS = { type: 'virtualbox' }
   end
 else
@@ -190,9 +191,9 @@ File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box should have Virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian94_14"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-14/debian94.box"
-  config.vm.hostname = "spryker-vagrant"
+  config.vm.box = "debian96_16"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-16/debian96.box"
+  config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
   # Enable SSH agent forwarding
@@ -249,6 +250,7 @@ Vagrant.configure(2) do |config|
       "--cpus", VM_CPUS,
       "--nictype1", "virtio",
       "--nictype2", "virtio",
+      "--audio", "none",
     ])
     if IS_WINDOWS
       # Enable creation of symlinks
