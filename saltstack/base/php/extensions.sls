@@ -58,3 +58,39 @@ xdebug:
 
 {{ php_module('opcache', salt['pillar.get']('php:enable_opcache', True), 'fpm') }}
 {{ php_module('opcache', salt['pillar.get']('php:enable_opcache', True), 'cli') }}
+
+#
+# Configure sqlsrv and pdo_sqlsrv
+#
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/sqlsrv.ini:
+  file.managed:
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/sqlsrv.ini
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/cli/sqlsrv.ini:
+  file.managed:
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/sqlsrv.ini
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/pdo_sqlsrv.ini:
+  file.managed:
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/pdo_sqlsrv.ini
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/cli/pdo_sqlsrv.ini:
+  file.managed:
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/pdo_sqlsrv.ini
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+
