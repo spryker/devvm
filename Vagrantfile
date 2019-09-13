@@ -27,11 +27,11 @@ if File.exists? VM_SETTINGS_FILE
 else
 
   # Project settings
-  VM_PROJECT = ENV['VM_PROJECT'] || 'suite'                                # Project name
+  VM_PROJECT = ENV['VM_PROJECT'] || 'akona'                                # Project name
   VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
 
   # Git parameters
-  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker-shop/#{VM_PROJECT}.git"
+  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:winterhalter-fenner/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
 
   # Auto-generate IP address based on hash of VM_PROJECT
@@ -42,7 +42,7 @@ else
   VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
   VM_MEMORY    = ENV['VM_MEMORY']    || '3200'                             # Number of memory for DEV VM, in MB
   VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Number of CPU cores for DEV VM
-  VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
+  VM_NAME      = ENV['VM_NAME']      || "Akona Dev VM (#{VM_PROJECT})"     # Display name for VirtualBox
   VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
 
   config=
@@ -77,7 +77,7 @@ PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
 
 # Hostnames to be managed
 STORES = ['wf', 'el', 'ep', 'dy', 'fa']
-HOSTS = [ 'spryker-vagrant' ]
+HOSTS = [ 'akona-vagrant' ]
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'
   STORES.each do |store|
