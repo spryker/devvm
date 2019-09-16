@@ -1,0 +1,150 @@
+Script started on 2019-09-16 14:57:52+02:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="130" LINES="50"]
+[1m[7m%[27m[1m[0m                                                                                                                                  ]2;srtw@srtw: /data/projects/w-f/wf-devvm]1;../w-f/wf-devvm[0m[27m[24m[J
+[1m[34m#[00m [36msrtw [37m@ [32msrtw [37min [1m[33m/data/projects/w-f/wf-devvm[00m [37mon[00m git:[36mupstream/Update_to_latest_spryker_devvm [31mx[00m [37m[14:57:52] 
+[1m[31m$ [00m[K[?1h=[?2004hvvagrant up[?1l>[?2004l
+]2;vagrant up]1;vagrant[33mThe following settings will be used for the new VM:[0m
+VM_PROJECT =         'akona'
+VM_IP =              '10.10.0.159'
+VM_MEMORY =          '3200'
+VM_CPUS =            '4'
+VM_NAME =            'Akona Dev VM (akona)'
+VM_DOMAIN =          'akona'
+VM_SKIP_SF =         '0'
+SPRYKER_BRANCH =     'master'
+SPRYKER_REPOSITORY = 'git@github.com:winterhalter-fenner/akona.git'
+[1;97mPress return to save the settings or Ctrl+C to abort[0m
+If you save the settings, they will be stored in a .vm file on your hard drive.
+To change a setting, interrupt now and modify the respective environmental variables.
+[1;97mConfiguring vagrant-hostmanager (13 hostnames)...[0m
+Using vagrant-hostmanager to set hostnames: akona-vagrant, www.wf.akona.local, zed.wf.akona.local, glue.wf.akona.local, www.el.akona.local, zed.el.akona.local, glue.el.akona.local, www.ep.akona.local, zed.ep.akona.local, glue.ep.akona.local, www.dy.akona.local, zed.dy.akona.local, glue.dy.akona.local, www.fa.akona.local, zed.fa.akona.local, glue.fa.akona.local, static.akona.local, www-test.wf.akona.local, zed-test.wf.akona.local, glue-test.wf.akona.local, www-test.el.akona.local, zed-test.el.akona.local, glue-test.el.akona.local, www-test.ep.akona.local, zed-test.ep.akona.local, glue-test.ep.akona.local, www-test.dy.akona.local, zed-test.dy.akona.local, glue-test.dy.akona.local, www-test.fa.akona.local, zed-test.fa.akona.local, glue-test.fa.akona.local, static-test.akona.local
+[0mBringing machine 'default' up with 'virtualbox' provider...[0m
+[1m==> default: Importing base box 'debian96_16'...[0m
+[0m[K[0m[0mProgress: 20%[0m[0m[K[0m[0mProgress: 40%[0m[0m[K[0m[0mProgress: 70%[0m[0m[K[0m[0mProgress: 80%[0m[0m[K[0m[0mProgress: 90%[0m[0m[K[0m[1m==> default: Matching MAC address for NAT networking...[0m
+[1m==> default: Setting the name of the VM: Akona Dev VM (akona)[0m
+[1m==> default: Clearing any previously set network interfaces...[0m
+[1m==> default: Preparing network interfaces based on configuration...[0m
+[0m    default: Adapter 1: nat[0m
+[0m    default: Adapter 2: hostonly[0m
+[1m==> default: Forwarding ports...[0m
+[0m    default: 1080 (guest) => 1080 (host) (adapter 1)[0m
+[0m    default: 3306 (guest) => 3306 (host) (adapter 1)[0m
+[0m    default: 5432 (guest) => 5432 (host) (adapter 1)[0m
+[0m    default: 5601 (guest) => 5601 (host) (adapter 1)[0m
+[0m    default: 10007 (guest) => 10007 (host) (adapter 1)[0m
+[0m    default: 22 (guest) => 2222 (host) (adapter 1)[0m
+[1m==> default: Running 'pre-boot' VM customizations...[0m
+[1m==> default: Booting VM...[0m
+[1m==> default: Waiting for machine to boot. This may take a few minutes...[0m
+[0m    default: SSH address: 127.0.0.1:2222[0m
+[0m    default: SSH username: vagrant[0m
+[0m    default: SSH auth method: private key[0m
+[0m    default: 
+    default: Vagrant insecure key detected. Vagrant will automatically replace
+    default: this with a newly generated keypair for better security.[0m
+[0m    default: 
+    default: Inserting generated public key within guest...[0m
+[0m    default: Removing insecure key from the guest if it's present...[0m
+[0m    default: Key inserted! Disconnecting and reconnecting using new SSH key...[0m
+[1m==> default: Machine booted and ready![0m
+[0;33m[default] GuestAdditions versions on your host (6.0.10) and guest (5.2.22) do not match.[0m
+[0mReading package lists...[0m[0m
+[0m[0mBuilding dependency tree...[0m[0m
+[0m[0mReading state information...[0m[0m
+[0m[0mdkms is already the newest version (2.3-2).
+linux-headers-4.9.0-8-amd64 is already the newest version (4.9.130-2).
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+[0m[0mCopy iso file /usr/share/virtualbox/VBoxGuestAdditions.iso into the box /tmp/VBoxGuestAdditions.iso[0m
+[0mMounting Virtualbox Guest Additions ISO to: /mnt[0m
+[0mmount: /dev/loop0 is write-protected, mounting read-only
+[0m[0;33mInstalling Virtualbox Guest Additions 6.0.10 - guest version is 5.2.22[0m
+[0mVerifying archive integrity...[0m[0m All good.
+[0m[0mUncompressing VirtualBox 6.0.10 Guest Additions for Linux[0m[0m..[0m[0m.[0m[0m.[0m[0m..[0m[0m.[0m[0m.[0m[0m
+[0m[0mVirtualBox Guest Additions installer
+[0m[0mRemoving installed version 5.2.22 of VirtualBox Guest Additions...
+[0m[0mupdate-initramfs: Generating /boot/initrd.img-4.9.0-8-amd64
+[0m[0mCopying additional installer modules ...
+[0m[0mInstalling additional modules ...
+[0m[0mVirtualBox Guest Additions: Starting.
+[0m[0mVirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel 
+modules.  This may take a while.
+[0m[0mVirtualBox Guest Additions: To build modules for other installed kernels, run
+[0m[0mVirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup <version>
+[0m[0mVirtualBox Guest Additions: or
+[0m[0mVirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup all
+[0m[0mVirtualBox Guest Additions: Building the modules for kernel 4.9.0-8-amd64.
+[0m[0mupdate-initramfs: Generating /boot/initrd.img-4.9.0-8-amd64
+[0m[0mVirtualBox Guest Additions: Running kernel modules will not be replaced until 
+the system is restarted
+[0m[0;33mAn error occurred during installation of VirtualBox Guest Additions 6.0.10. Some functionality may not work as intended.
+In most cases it is OK that the "Window System drivers" installation failed.[0m
+[0mUnmounting Virtualbox Guest Additions ISO from: /mnt[0m
+[0;33mGot different reports about installed GuestAdditions version:
+Virtualbox on your host claims:   5.2.22
+VBoxService inside the vm claims: 6.0.10
+Going on, assuming VBoxService is correct...[0m
+[0;33mGot different reports about installed GuestAdditions version:
+Virtualbox on your host claims:   5.2.22
+VBoxService inside the vm claims: 6.0.10
+Going on, assuming VBoxService is correct...[0m
+[1m==> default: Checking for guest additions in VM...[0m
+[0m    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the
+    default: virtual machine match the version of VirtualBox you have installed on
+    default: your host and reload your VM.
+    default: 
+    default: Guest Additions Version: 5.2.22
+    default: VirtualBox Version: 6.0[0m
+[1m==> default: Setting hostname...[0m
+[1m==> default: Configuring and enabling network interfaces...[0m
+[1m==> default: Exporting NFS shared folders...[0m
+[1m==> default: Preparing to edit /etc/exports. Administrator privileges will be required...[0m
+[sudo] password for srtw: 
+[1m==> default: Mounting NFS shared folders...[0m
+[1m==> default: Mounting shared folders...[0m
+[0m    default: /vagrant => /data/projects/w-f/wf-devvm[0m
+[1m==> default: [vagrant-hostmanager:guests] Updating hosts file on active guest virtual machines...[0m
+[1m==> default: [vagrant-hostmanager:host] Updating hosts file on your workstation (password may be required)...[0m
+[1m==> default: Running provisioner: shell...[0m
+[0m    default: Running: inline script[0m
+[1m==> default: Running provisioner: salt...[0m
+[0mCopying salt minion config to vm.[0m
+[0mChecking if salt-minion is installed[0m
+[0msalt-minion was not found.[0m
+[0mChecking if salt-call is installed[0m
+[0msalt-call was not found.[0m
+[0mBootstrapping Salt... (this may take a while)[0m
+[0mSalt successfully configured and installed![0m
+[0mrun_overstate set to false. Not running state.overstate.[0m
+[0mCalling state.highstate... (this may take a while)[0m
+[0morchestrate is nil. Not running state.orchestrate.[0m
+[1m==> default: Running provisioner: hostmanager...[0m
+[1m[7m%[27m[1m[0m                                                                                                                                  ]2;srtw@srtw: /data/projects/w-f/wf-devvm]1;../w-f/wf-devvm[0m[27m[24m[J
+[1m[34m#[00m [36msrtw [37m@ [32msrtw [37min [1m[33m/data/projects/w-f/wf-devvm[00m [37mon[00m git:[36mupstream/Update_to_latest_spryker_devvm [31mx[00m [37m[15:08:21] 
+[1m[31m$ [00m[K[?1h=[?2004hvvagrant ssh[?1l>[?2004l
+]2;vagrant ssh]1;vagrant[1;97mLoading VM settings file: .vm[0m
+[1;97mConfiguring vagrant-hostmanager (13 hostnames)...[0m
+Using vagrant-hostmanager to set hostnames: akona-vagrant, www.wf.akona.local, zed.wf.akona.local, glue.wf.akona.local, www.el.akona.local, zed.el.akona.local, glue.el.akona.local, www.ep.akona.local, zed.ep.akona.local, glue.ep.akona.local, www.dy.akona.local, zed.dy.akona.local, glue.dy.akona.local, www.fa.akona.local, zed.fa.akona.local, glue.fa.akona.local, static.akona.local, www-test.wf.akona.local, zed-test.wf.akona.local, glue-test.wf.akona.local, www-test.el.akona.local, zed-test.el.akona.local, glue-test.el.akona.local, www-test.ep.akona.local, zed-test.ep.akona.local, glue-test.ep.akona.local, www-test.dy.akona.local, zed-test.dy.akona.local, glue-test.dy.akona.local, www-test.fa.akona.local, zed-test.fa.akona.local, glue-test.fa.akona.local, static-test.akona.local
+Linux vm-akona 4.9.0-8-amd64 #1 SMP Debian 4.9.130-2 (2018-10-27) x86_64
+Welcome to
+   ______                   _
+  / _____)                 | |
+ ( (____  ____   ____ _   _| |  _ _____  ____
+  \____ \|  _ \ / ___) | | | |_/ ) ___ |/ ___)
+  _____) ) |_| | |   | |_| |  _ (| ____| |
+ (______/|  __/|_|    \__  |_| \_)_____)_|
+         |_|         (____/
+
+[1m[7m%[27m[1m[0m                                                                                                                                  ]2;vagrant@vm-akona: /data/shop/development/current]1;..pment/current[0m[27m[24m[Jvagrant@vm-akona [01;32m [36mcurrent [01;34m[01;34mgit:([31mmaster[34m) [33m✗[00m [01;34m [00m[K[?1h=[?2004hppecl list[?1l>[?2004l
+]2;pecl list]1;pecl[1mInstalled packages, channel pecl.php.net:[m
+=========================================
+[1mPackage[m [1mVersion[m [1mState[m
+sqlsrv  5.6.1   stable
+[1m[7m%[27m[1m[0m                                                                                                                                  ]2;vagrant@vm-akona: /data/shop/development/current]1;..pment/current[0m[27m[24m[Jvagrant@vm-akona [01;32m [36mcurrent [01;34m[01;34mgit:([31mmaster[34m) [33m✗[00m [01;34m [00m[K[?1h=[?2004heexit[?1l>[?2004l
+]2;exit]1;exitConnection to 127.0.0.1 closed.
+[1m[7m%[27m[1m[0m                                                                                                                                  ]2;srtw@srtw: /data/projects/w-f/wf-devvm]1;../w-f/wf-devvm[0m[27m[24m[J
+[1m[34m#[00m [36msrtw [37m@ [32msrtw [37min [1m[33m/data/projects/w-f/wf-devvm[00m [37mon[00m git:[36mupstream/Update_to_latest_spryker_devvm [31mx[00m [37m[15:09:10] 
+[1m[31m$ [00m[K[?1h=[?2004heexit[?1l>[?2004l
+]2;exit]1;exit
+Script done on 2019-09-16 15:09:12+02:00 [COMMAND_EXIT_CODE="0"]
