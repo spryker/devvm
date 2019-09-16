@@ -72,7 +72,7 @@ xdebug:
 
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/cli/sqlsrv.ini:
   file.managed:
-    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/sqlsrv.ini
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/cli/conf.d/sqlsrv.ini
     - template: jinja
     - user: root
     - group: root
@@ -88,7 +88,7 @@ xdebug:
 
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/cli/pdo_sqlsrv.ini:
   file.managed:
-    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/mods-available/pdo_sqlsrv.ini
+    - source: salt://php/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/cli/conf.d/pdo_sqlsrv.ini
     - template: jinja
     - user: root
     - group: root
