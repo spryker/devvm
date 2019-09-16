@@ -28,7 +28,14 @@ php:
       - php-msgpack
       - php-redis
       - php-ssh2
+      - unixodbc-dev
+
+sqlsrv:
   pecl.installed:
-    - require:
-      - pkg: sqlsrv
-      - pkg: pdo_sqlsrv
+    - pkgs:
+       - sqlsrv
+
+pdo_sqlsrv:
+  pecl.installed:
+    - pkgs:
+       - pdo_sqlsrv
