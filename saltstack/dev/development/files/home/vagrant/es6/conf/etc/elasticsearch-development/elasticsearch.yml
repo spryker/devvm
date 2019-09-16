@@ -1,0 +1,57 @@
+################################### Cluster ##################################
+cluster.name: spryker-development
+
+
+#################################### Node ####################################
+node.name: vm-suite
+node.master: true
+node.data: true
+node.ingest: true
+node.max_local_storage_nodes: 1
+
+
+#################################### Paths ###################################
+path.data: /data/shop/development/shared/elasticsearch
+path.logs: /data/logs/development/elasticsearch
+path.repo: ["/data/shop/development/shared/elasticsearch/snapshots"]
+
+################################### Memory ###################################
+bootstrap.memory_lock: true
+
+
+############################## Network And HTTP ##############################
+network.bind_host: 0.0.0.0
+network.publish_host: localhost
+http.port: 10005
+transport.tcp.port: 20005
+transport.tcp.compress: false
+
+
+################################### Gateway ##################################
+gateway.recover_after_nodes: 1
+gateway.recover_after_time: 3m
+gateway.expected_nodes: 1
+
+
+############################# Cluster management #############################
+cluster.routing.allocation.node_initial_primaries_recoveries: 4
+cluster.routing.allocation.node_concurrent_recoveries: 2
+cluster.routing.allocation.disk.watermark.low: 90%
+cluster.routing.allocation.disk.watermark.high: 95%
+
+
+################################### Indices ##################################
+indices.recovery.max_bytes_per_sec: 50mb
+indices.fielddata.cache.size: 100M
+
+
+################################## Discovery #################################
+discovery.zen.minimum_master_nodes: 1
+discovery.zen.ping_timeout: 5s
+
+
+################################### Safety ###################################
+action.destructive_requires_name: true
+
+################################# Scripting ##################################
+#script.inline: true

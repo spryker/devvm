@@ -131,7 +131,7 @@ rabbitmq-repo:
 git-repo:
   pkgrepo.managed:
     - humanname: Official Git Ubuntu Repository
-    - name: deb http://ppa.launchpad.net/git-core/ppa/ubuntu lucid main
+    - name: deb http://ppa.launchpad.net/git-core/ppa/ubuntu artful main
     - file: /etc/apt/sources.list.d/git.list
     - keyid: E1DF1F24
     - keyserver: keyserver.ubuntu.com
@@ -145,7 +145,7 @@ mysql-server-repo:
     - name: deb http://repo.mysql.com/apt/debian/ {{ grains.lsb_distrib_codename }} mysql-5.7
     - file: /etc/apt/sources.list.d/mysql-server.list
     - keyid: 5072E1F5
-    - keyserver: pool.sks-keyservers.net
+    - keyserver: ha.pool.sks-keyservers.net
     - refresh_db: False
     - watch_in:
        - cmd: apt-get-update
@@ -155,8 +155,12 @@ mysql-tools-repo:
     - humanname: Official MySQL tools repository
     - name: deb http://repo.mysql.com/apt/debian/ {{ grains.lsb_distrib_codename }} mysql-tools
     - file: /etc/apt/sources.list.d/mysql-tools.list
+# We're regularly having trouble with fetching this key from original location via GPG,
+# so might use use mirrored key instead.
+#    - key_url: https://jenkins.korekontrol.net/get/key/mysql-apt-repo.gpg
     - keyid: 5072E1F5
-    - keyserver: pool.sks-keyservers.net
+#    - keyserver: pool.sks-keyservers.net
+    - keyserver: ha.pool.sks-keyservers.net
     - refresh_db: False
     - watch_in:
        - cmd: apt-get-update

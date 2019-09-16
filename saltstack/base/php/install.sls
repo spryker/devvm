@@ -21,9 +21,21 @@ php:
       - php{{ salt['pillar.get']('php:major_version') }}-xml
       - php{{ salt['pillar.get']('php:major_version') }}-zip
       - php{{ salt['pillar.get']('php:major_version') }}-opcache
+      - php{{ salt['pillar.get']('php:major_version') }}-soap
       - php-igbinary
       - php-imagick
       - php-memcached
       - php-msgpack
       - php-redis
       - php-ssh2
+      - unixodbc-dev
+
+sqlsrv:
+  pecl.installed:
+    - pkgs:
+       - sqlsrv
+
+pdo_sqlsrv:
+  pecl.installed:
+    - pkgs:
+       - pdo_sqlsrv

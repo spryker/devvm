@@ -12,7 +12,7 @@ debug-console () {
 }
 
 install () {
-    /data/shop/development/current/vendor/bin/install $*
+    APPLICATION_ENV=development /data/shop/development/current/vendor/bin/install $*
 }
 
 # XDebug

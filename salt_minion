@@ -16,8 +16,6 @@ grains:
     - redis
     - postgresql
 file_roots:
-  base:
-    - /srv/salt/base
   dev:
     - /srv/salt/dev
     - /srv/salt/base

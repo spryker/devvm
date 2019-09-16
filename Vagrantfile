@@ -27,14 +27,14 @@ if File.exists? VM_SETTINGS_FILE
 else
 
   # Project settings
-  VM_PROJECT = ENV['VM_PROJECT'] || 'suite'                                # Project name
+  VM_PROJECT = ENV['VM_PROJECT'] || 'akona'                                # Project name
   VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
 
   # Git parameters
-  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker-shop/#{VM_PROJECT}.git"
+  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:winterhalter-fenner/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
-  
-  # Auto-generate IP address based on hash of VM_PROJECT  
+
+  # Auto-generate IP address based on hash of VM_PROJECT
   unique_byte = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
 
   # Settings for the Virtualbox VM
@@ -42,7 +42,7 @@ else
   VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
   VM_MEMORY    = ENV['VM_MEMORY']    || '3200'                             # Number of memory for DEV VM, in MB
   VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Number of CPU cores for DEV VM
-  VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
+  VM_NAME      = ENV['VM_NAME']      || "Akona Dev VM (#{VM_PROJECT})"     # Display name for VirtualBox
   VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
 
   config=
@@ -77,11 +77,15 @@ PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
 
 # Hostnames to be managed
 STORES = ['wf', 'el', 'ep', 'dy', 'fa']
-HOSTS = []
+HOSTS = [ 'akona-vagrant' ]
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'
   STORES.each do |store|
-    HOSTS.push [ "www#{host_suffix}.#{store}.#{domain}", "zed#{host_suffix}.#{store}.#{domain}",]
+    HOSTS.push [
+      "www#{host_suffix}.#{store}.#{domain}",
+      "zed#{host_suffix}.#{store}.#{domain}",
+      "glue#{host_suffix}.#{store}.#{domain}"
+    ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
 end
@@ -167,13 +171,13 @@ end
 
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
-  # The box should have Virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian94_14"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-14/debian94.box"
-  config.vm.hostname = "spryker-vagrant"
+  # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
+  config.vm.box = "debian96_16"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-16/debian96.box"
+  config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
-  # Enable SSH agent forwarding
+  # Enable ssh agent forwarding
   config.ssh.forward_agent = true
 
   # Set the VirtualBox IP address for the browser
@@ -197,6 +201,9 @@ Vagrant.configure(2) do |config|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
+      # Workaround for https://github.com/saltstack/salt/issues/50311
+      salt.version = "v2017.7.4"
+      salt.install_type = "git"
     end
   else
     raise "ERROR: Salt (#{SALT_DIRECTORY}) or Pillar (#{PILLAR_DIRECTORY}) directory not found.\n\n\033[0m"
@@ -239,6 +246,7 @@ Vagrant.configure(2) do |config|
       "--cpus", VM_CPUS,
       "--nictype1", "virtio",
       "--nictype2", "virtio",
+      "--audio", "none",
     ])
     if IS_WINDOWS
       # Enable creation of symlinks
@@ -246,4 +254,3 @@ Vagrant.configure(2) do |config|
     end
   end
 end
-

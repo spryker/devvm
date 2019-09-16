@@ -10,8 +10,8 @@ install-docker:
     - name: docker-ce
 
 docker:
-  service.running:
-    - enable: True
+  service.dead:
+    - enable: False
     - require:
       - pkg: install-docker
 
