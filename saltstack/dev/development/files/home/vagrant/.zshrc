@@ -32,6 +32,7 @@ fi
 if [ -f /etc/spryker-vm-env ]; then
   source /etc/spryker-vm-env
 fi
+export VM_PROJECT
 
 # Spryker default environment
 export APPLICATION_ENV=development
