@@ -176,29 +176,29 @@ end
 # Clone Spryker repository
 require 'mkmf'
 
-if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryker repository (if specified)
-  # This line is giving exception: Message: TypeError: no implicit conversion of false into Array
-  #if (not Dir.exists?(SPRYKER_DIRECTORY)) or Dir.entries(SPRYKER_DIRECTORY) - %w{ . .. }.empty? # Only clone if it's empty folder
-  if (not Dir.exists?(SPRYKER_DIRECTORY))
-    puts bold "Cloning Spryker git repository..."
-    if find_executable 'git'
-      system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
-    else
-      raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
-      "\n\n\033[0m"
+if not (VM_SKIP_SF == '1')
+  if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty?
+    if (not Dir.exists?(SPRYKER_DIRECTORY))
+      puts bold "Cloning Spryker git repository..."
+      if find_executable 'git'
+        system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
+      else
+        raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
+        "\n\n\033[0m"
+      end
+    elsif not Dir.entries(SPRYKER_DIRECTORY).include? 'composer.json'
+      raise "ERROR: The directory #{SPRYKER_DIRECTORY} isn't empty, yet it's not a clone of spryker repository!"
     end
-  elsif not Dir.entries(SPRYKER_DIRECTORY).include? 'composer.json'
-    raise "ERROR: The directory #{SPRYKER_DIRECTORY} isn't empty, yet it's not a clone of spryker repository!"
+  else
+    puts yellow "Spryker repository is not defined in Vagrantfile and the SPRYKER_REPOSITORY is empty - no repository to clone..."
   end
-else
-  puts yellow "Spryker repository is not defined in Vagrantfile and the SPRYKER_REPOSITORY is empty - no repository to clone..."
 end
 
 # Cleanup mkmf log
 File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 
 Vagrant.configure(2) do |config|
-  # Base box for initial setup. Latest Debian (stable) is recommended.
+  # Base box for initial setup. Latest Debian (stretch) is recommended.
   # The box should have Virtualbox guest additions installed, otherwise shared folders will not work
   config.vm.box = "debian96_16"
   config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-16/debian96.box"
