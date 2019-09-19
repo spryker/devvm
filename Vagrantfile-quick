@@ -20,8 +20,17 @@ def bold(text); colorize(text, "\033[1;97m"); end
 ### BEGINNING OF CONFIGURATION
 ###
 
+# Determine project root directory
+base_dir = Dir.pwd
+while !File.file? "#{base_dir}/composer.json" do
+  base_dir = Pathname.new(base_dir + "/..").realpath.to_s
+  if (base_dir == "/") or (base_dir =~ /^[a-z]\:\/$/)
+    raise "ERR: File composer.json not found in current directory or its parents; can not determine BASE_DIRECTORY"
+  end
+end
+
 # Local directories to use
-BASE_DIRECTORY     = Dir.pwd
+BASE_DIRECTORY     = base_dir
 SPRYKER_DIRECTORY  = BASE_DIRECTORY + "/project"
 VM_SETTINGS_FILE   = BASE_DIRECTORY + "/.vm"
 
