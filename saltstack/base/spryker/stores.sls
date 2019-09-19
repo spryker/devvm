@@ -16,8 +16,8 @@
       - file: /data/shop/{{ environment }}/shared/data/common
     - context:
       environment: {{ environment }}
-      settings: {{ settings }}
       store: {{ store }}
+      settings: {{ settings|tojson }}
 
 # Create logs directory for environment
 /data/logs/{{ environment }}/{{ store }}:
@@ -36,8 +36,8 @@
     - mode: 644
     - context:
       environment: {{ environment }}
-      settings: {{ settings }}
       store: {{ store }}
+      settings: {{ settings|tojson }}
     - require:
       - file: /data/logs/{{ environment }}
     - watch_in:
@@ -52,8 +52,8 @@
     - mode: 644
     - context:
       environment: {{ environment }}
-      settings: {{ settings }}
       store: {{ store }}
+      settings: {{ settings|tojson }}
     - require:
       - file: /data/logs/{{ environment }}
     - watch_in:
@@ -68,8 +68,8 @@
     - mode: 644
     - context:
       environment: {{ environment }}
-      settings: {{ settings }}
       store: {{ store }}
+      settings: {{ settings|tojson }}
     - require:
       - file: /data/logs/{{ environment }}
     - watch_in:

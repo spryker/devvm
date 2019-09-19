@@ -39,7 +39,7 @@
     - template: jinja
     - context:
       environment: {{ environment }}
-      settings: {{ settings }}
+      settings: {{ settings|tojson }}
     - watch_in:
       - service: elasticsearch-{{ environment }}
 
@@ -78,8 +78,8 @@ elasticsearch-{{ environment }}-systemctl-reload:
     - template: jinja
     - context:
       environment: {{ environment }}
-      environment_details: {{ environment_details }}
-      settings: {{ settings }}
+      environment_details: {{ environment_details|tojson }}
+      settings: {{ settings|tojson }}
     - require:
       - file: /etc/elasticsearch-{{ environment }}
     - watch_in:
@@ -99,7 +99,7 @@ elasticsearch-{{ environment }}-systemctl-reload:
     - template: jinja
     - context:
       environment: {{ environment }}
-      settings: {{ settings }}
+      settings: {{ settings|tojson }}
     - require:
       - file: /etc/elasticsearch-{{ environment }}
     - watch_in:

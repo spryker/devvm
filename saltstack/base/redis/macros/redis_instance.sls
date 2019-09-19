@@ -53,8 +53,8 @@ redis-server-{{ environment }}:
     - source: salt://redis/files/redis_instance/etc/redis/redis.conf
     - context:
       environment: {{ environment }}
-      environment_details: {{ environment_details }}
-      settings: {{ settings }}
+      environment_details: {{ environment_details|tojson }}
+      settings: {{ settings|tojson }}
     - require:
       - file: /data/shop/{{ environment }}/shared/redis
       - file: /data/logs/{{ environment }}/redis
