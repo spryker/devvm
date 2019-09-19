@@ -131,7 +131,7 @@ rabbitmq-repo:
 git-repo:
   pkgrepo.managed:
     - humanname: Official Git Ubuntu Repository
-    - name: deb http://ppa.launchpad.net/git-core/ppa/ubuntu lucid main
+    - name: deb http://ppa.launchpad.net/git-core/ppa/ubuntu artful main
     - file: /etc/apt/sources.list.d/git.list
     - keyid: E1DF1F24
     - keyserver: keyserver.ubuntu.com
