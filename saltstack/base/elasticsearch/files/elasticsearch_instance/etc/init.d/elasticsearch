@@ -116,6 +116,14 @@ export ES_DIRECT_SIZE
 export ES_JAVA_OPTS
 export ES_GC_LOG_FILE
 
+# Ensure that the PID_DIR exists (it is cleaned at OS startup time)
+if [ -n "$PID_DIR" ] && [ ! -e "$PID_DIR" ]; then
+	mkdir -p "$PID_DIR" && chown "$ES_USER":"$ES_GROUP" "$PID_DIR"
+fi
+if [ -n "$PID_FILE" ] && [ ! -e "$PID_FILE" ]; then
+	touch "$PID_FILE" && chown "$ES_USER":"$ES_GROUP" "$PID_FILE"
+fi
+
 # Check DAEMON exists
 test -x $DAEMON || exit 0
 
