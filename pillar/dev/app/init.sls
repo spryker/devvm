@@ -19,7 +19,7 @@ autoupdate:
   php: true
 
   # Optional, default: False
-  mysql: true
+  mysql: false
 
   # Optional, default: False
   postgresql: true

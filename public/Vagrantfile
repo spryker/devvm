@@ -2,7 +2,7 @@
 # https://www.vagrantup.com/docs/vagrantfile/
 Vagrant.configure("2") do |config|
   config.vm.box = "winterhalter-fenner/akona-devvm"
-  config.vm.box_url = "https://github.com/winterhalter-fenner/devvm/releases/download/v0.3/akona-devvm.box"
+  config.vm.box_url = "https://github.com/winterhalter-fenner/devvm/releases/download/v0.3/akona-devvm.v03.box"
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
 end

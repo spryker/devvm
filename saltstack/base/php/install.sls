@@ -15,7 +15,6 @@ php:
       - php{{ salt['pillar.get']('php:major_version') }}-gmp
       - php{{ salt['pillar.get']('php:major_version') }}-intl
       - php{{ salt['pillar.get']('php:major_version') }}-mbstring
-      - php{{ salt['pillar.get']('php:major_version') }}-mysql
       - php{{ salt['pillar.get']('php:major_version') }}-pgsql
       - php{{ salt['pillar.get']('php:major_version') }}-sqlite3
       - php{{ salt['pillar.get']('php:major_version') }}-xml

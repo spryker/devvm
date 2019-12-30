@@ -16,7 +16,6 @@ dev:
     - postfix
     - docker
     - cachefilesd
-    - mysql-server
     - postgresql
     - rabbitmq
     - ruby
@@ -92,6 +91,3 @@ qa:
   'roles:postgresq':
     - match: grain
     - postgresql
-  'roles:mysql':
-    - match: grain
-    - mysql-server

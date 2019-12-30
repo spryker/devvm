@@ -12,10 +12,6 @@ hosting:
   # Optional, default: cloudfront.debian.net
   debian_mirror: ftp.de.debian.org
 
-  # Network part of created MySQL users
-  # Optional, default: %
-  mysql_network: "%"
-
   # Network allowed for PostgreSQL access (in pg_hba.conf)
   # Optional, default: none
   postgresql_network: 10.0.0.0/8
