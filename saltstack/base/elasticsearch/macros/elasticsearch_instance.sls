@@ -91,7 +91,7 @@ elasticsearch-{{ environment }}-systemctl-reload:
 # uses hardcoded locations: "$ES_HOME"/config/jvm.options, /etc/elasticsearch/jvm.options
 /etc/elasticsearch-{{ environment }}/jvm.options:
   file.managed:
-    - name: /etc/elasticsearch/jvm.options
+    - name: /etc/elasticsearch-{{ environment }}/jvm.options
     - source: salt://elasticsearch/files/elasticsearch_instance/etc/elasticsearch/jvm.options
     - mode: 644
     - user: root

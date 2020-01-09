@@ -12,11 +12,6 @@
   file.managed:
     - source: salt://elasticsearch/files/etc/logrotate.d/elasticsearch-instances
 
-# Update the default elasticsearch configuration file
-/etc/elasticsearch/elasticsearch.yml:
-  file.managed:
-    - source: salt://elasticsearch/files/elasticsearch_instance/etc/elasticsearch/elasticsearch.yml
-
 {%- for environment, environment_details in pillar.environments.items() %}
 {{ elasticsearch_instance(environment, environment_details, settings) }}
 {%- endfor %}
