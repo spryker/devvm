@@ -43,6 +43,13 @@
     - watch_in:
       - service: elasticsearch-{{ environment }}
 
+# Symlink for Elasticsearch default configuration
+/etc/default/elasticsearch:
+  file.symlink:
+    - target: /etc/default/elasticsearch-{{ environment }}
+    - require:
+      - file: /etc/default/elasticsearch-{{ environment }}
+
 # Service init script
 /etc/systemd/system/elasticsearch-{{ environment }}.service:
   file.managed:
