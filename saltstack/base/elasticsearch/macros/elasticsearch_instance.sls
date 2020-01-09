@@ -47,6 +47,7 @@
 /etc/default/elasticsearch:
   file.symlink:
     - target: /etc/default/elasticsearch-{{ environment }}
+    - force: True
     - require:
       - file: /etc/default/elasticsearch-{{ environment }}
 
