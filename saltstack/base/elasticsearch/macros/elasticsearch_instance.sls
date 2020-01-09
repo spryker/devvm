@@ -71,7 +71,7 @@ elasticsearch-{{ environment }}-systemctl-reload:
 # Configuration directory
 /etc/elasticsearch-{{ environment }}:
   file.directory:
-    - user: root
+    - user: elasticsearch
     - group: root
     - mode: 755
 
@@ -80,7 +80,7 @@ elasticsearch-{{ environment }}-systemctl-reload:
   file.managed:
     - source: salt://elasticsearch/files/elasticsearch_instance/etc/elasticsearch/elasticsearch.yml
     - mode: 644
-    - user: root
+    - user: elasticsearch
     - group: root
     - template: jinja
     - context:
@@ -101,7 +101,7 @@ elasticsearch-{{ environment }}-systemctl-reload:
     - name: /etc/elasticsearch-{{ environment }}/jvm.options
     - source: salt://elasticsearch/files/elasticsearch_instance/etc/elasticsearch/jvm.options
     - mode: 644
-    - user: root
+    - user: elasticsearch
     - group: root
     - template: jinja
     - context:
@@ -116,7 +116,7 @@ elasticsearch-{{ environment }}-systemctl-reload:
   file.managed:
     - source: salt://elasticsearch/files/elasticsearch_instance/etc/elasticsearch/log4j2.properties
     - mode: 644
-    - user: root
+    - user: elasticsearch
     - group: root
     - template: jinja
     - require:
