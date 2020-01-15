@@ -10,9 +10,9 @@ ufw:
   pkg.installed
 
 # Networking configuration: setup /etc/hosts, dns configuration
-/etc/resolv.conf:
-  file.managed:
-    - source: salt://hosting/files/vagrant/etc/resolv.conf
+##/etc/resolv.conf:
+##  file.managed:
+##    - source: salt://hosting/files/vagrant/etc/resolv.conf
 
 # Hosts file: nothing to do, we rely on vagrant-hostmanager
 
