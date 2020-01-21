@@ -42,8 +42,8 @@ docker-repo:
 elasticsearch-repo:
   pkgrepo.managed:
     - humanname: Official Elasticsearch Repository
-    - name: deb https://artifacts.elastic.co/packages/5.x/apt stable main
-    - file: /etc/apt/sources.list.d/elasticsearch5.list
+    - name: deb https://artifacts.elastic.co/packages/6.x/apt stable main
+    - file: /etc/apt/sources.list.d/elasticsearch6.list
     - key_url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
     - refresh_db: False
     - watch_in:

@@ -10,18 +10,16 @@ WorkingDirectory=/usr/share/elasticsearch
 User=elasticsearch
 Group=elasticsearch
 
-ExecStartPre=/usr/share/elasticsearch/bin/elasticsearch-systemd-pre-exec
+#ExecStartPre=/usr/share/elasticsearch/bin/elasticsearch-systemd-pre-exec
+ExecStartPre=/usr/bin/install -d ${PID_DIR} -m 755 -o elasticsearch -g elasticsearch
 ExecStart=/usr/share/elasticsearch/bin/elasticsearch \
                                                 -p ${PID_DIR}/elasticsearch-{{ environment }}.pid \
-                                                --quiet \
-                                                -Edefault.path.logs=${LOG_DIR} \
-                                                -Edefault.path.data=${DATA_DIR} \
-                                                -Edefault.path.conf=${CONF_DIR}
+                                                --quiet
 
 StandardOutput=journal
 StandardError=inherit
 
-LimitNOFILE=65536
+LimitNOFILE=65535
 LimitNPROC=16384
 LimitMEMLOCK=infinity
 LimitAS=infinity

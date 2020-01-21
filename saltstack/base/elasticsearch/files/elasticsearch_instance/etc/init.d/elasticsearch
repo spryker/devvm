@@ -44,7 +44,7 @@ ES_USER=elasticsearch
 ES_GROUP=elasticsearch
 
 # The first existing directory is used for JAVA_HOME (if JAVA_HOME is not defined in $DEFAULT)
-JDK_DIRS="/usr/lib/jvm/java-8-oracle/ /usr/lib/jvm/j2sdk1.8-oracle/ /usr/lib/jvm/jdk-7-oracle-x64 /usr/lib/jvm/java-7-oracle /usr/lib/jvm/j2sdk1.7-oracle/ /usr/lib/jvm/java-8-openjdk-amd64/ /usr/lib/jvm/java-8-openjdk/ /usr/lib/jvm/java-7-openjdk-amd64/ /usr/lib/jvm/java-7-openjdk/ /usr/lib/jvm/java-7-openjdk-armhf /usr/lib/jvm/java-7-openjdk-i386/ /usr/lib/jvm/default-java"
+JDK_DIRS="/usr/lib/jvm/java-8-openjdk-amd64/jre/ /usr/lib/jvm/java-8-oracle/ /usr/lib/jvm/j2sdk1.8-oracle/ /usr/lib/jvm/jdk-7-oracle-x64 /usr/lib/jvm/java-7-oracle /usr/lib/jvm/j2sdk1.7-oracle/ /usr/lib/jvm/java-8-openjdk-amd64/ /usr/lib/jvm/java-8-openjdk/ /usr/lib/jvm/java-7-openjdk-amd64/ /usr/lib/jvm/java-7-openjdk/ /usr/lib/jvm/java-7-openjdk-armhf /usr/lib/jvm/java-7-openjdk-i386/ /usr/lib/jvm/default-java"
 
 # Look for the right JVM to use
 for jdir in $JDK_DIRS; do
@@ -115,6 +115,14 @@ export ES_HEAP_NEWSIZE
 export ES_DIRECT_SIZE
 export ES_JAVA_OPTS
 export ES_GC_LOG_FILE
+
+# Ensure that the PID_DIR exists (it is cleaned at OS startup time)
+if [ -n "$PID_DIR" ] && [ ! -e "$PID_DIR" ]; then
+	mkdir -p "$PID_DIR" && chown "$ES_USER":"$ES_GROUP" "$PID_DIR"
+fi
+if [ -n "$PID_FILE" ] && [ ! -e "$PID_FILE" ]; then
+	touch "$PID_FILE" && chown "$ES_USER":"$ES_GROUP" "$PID_FILE"
+fi
 
 # Check DAEMON exists
 test -x $DAEMON || exit 0
