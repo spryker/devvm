@@ -67,7 +67,7 @@ pipeline {
                           rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
                         }
 
-                        vagrant ssh -c 'cd /data/shop/development/current; ulimit -n 65535; vendor/bin/install -r production' || (cleanup; exit 1)
+                        vagrant ssh -c 'cd /data/shop/development/current; ulimit -n 65535; vendor/bin/install -r development' || (cleanup; exit 1)
                     """
                 }
             }
