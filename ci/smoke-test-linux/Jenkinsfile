@@ -140,6 +140,32 @@ pipeline {
             }
         }
 
+        stage('benchmark') {
+            steps {
+                ansiColor('XTerm') {
+                    sh """#!/bin/bash -x
+                        function cleanup {
+                          vagrant destroy --force || true
+                          vagrant box remove spryker-devvm-${params.box_version} || true
+                          rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
+                        }
+
+                        # Smoke tests
+                        VM_IP=`ruby -e 'load ".vm"; puts VM_IP'`
+                        echo ""
+                        echo "###"
+                        echo "### Performance benchmark"
+                        echo "###"
+                        echo ""
+
+                        vagrant ssh -c 'cd /data/shop/development/current; patch -p0 < /vagrant/ci/smoke-test-linux/benchmark.patch && bash bin/benchmark || true'
+
+        
+                    """
+                }
+            }
+        }
+
         stage('cleanup') {
             steps {
                 ansiColor('XTerm') {
