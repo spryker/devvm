@@ -36,7 +36,7 @@ pipeline {
 
                         vagrant init spryker-devvm-${params.box_version} /var/www/get/spryker/spryker-devvm*-${params.box_version}.box || (cleanup; exit 1)
                         mv Vagrantfile Vagrantfile.bak
-                        awk '/^end/{print "  config.hostmanager.enabled = true\n  config.hostmanager.manage_host = false"}1' Vagrantfile.bak > Vagrantfile
+                        awk '/^end/{print "  config.hostmanager.enabled = true; config.hostmanager.manage_host = false"}1' Vagrantfile.bak > Vagrantfile
                         VM_NAME="jenkins-${env.JOB_NAME}-${env.BUILD_NUMBER}" vagrant up || (cleanup; exit 1)
                     """
                 }
