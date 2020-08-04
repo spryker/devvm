@@ -9,4 +9,4 @@ elk:
     port: 10005
 
   kibana:
-    version: 6.8.6
+    version: 7.8.1
