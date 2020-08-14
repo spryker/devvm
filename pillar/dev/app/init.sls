@@ -47,7 +47,7 @@ php:
   enable_opcache: true
 
   # Major PHP version
-  major_version: 7.2
+  major_version: 7.4
 
 # Newrelic credentials - leave empty for non-production setups
 newrelic:
