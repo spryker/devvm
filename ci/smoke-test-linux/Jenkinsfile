@@ -35,7 +35,9 @@ pipeline {
                         }
 
                         vagrant init spryker-devvm-${params.box_version} /var/www/get/spryker/spryker-devvm*-${params.box_version}.box || (cleanup; exit 1)
-                        VM_NAME="jenkins-${env.JOB_NAME}-${env.BUILD_NUMBER}" vagrant up || (cleanup; exit 1)
+                        mv Vagrantfile Vagrantfile.bak
+                        awk '/^end/{print "  config.hostmanager.enabled = true; config.hostmanager.manage_host = false"}1' Vagrantfile.bak > Vagrantfile
+                        VM_NAME="jenkins-${env.JOB_NAME}-${env.BUILD_NUMBER}" VM_DOMAIN="suite-nonsplit" vagrant up || (cleanup; exit 1)
                     """
                 }
             }
@@ -67,12 +69,26 @@ pipeline {
                           rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
                         }
 
-                        vagrant ssh -c 'cd /data/shop/development/current; ulimit -n 65535; vendor/bin/install' || (cleanup; exit 1)
+                        vagrant ssh -c 'cd /data/shop/development/current; ulimit -n 65535; vendor/bin/install -r development' || (cleanup; exit 1)
                     """
                 }
             }
         }
 
+        stage('sleep') {
+            steps {
+                ansiColor('XTerm') {
+                    sh """#!/bin/bash -x
+                        for x in $(seq 0 9); do
+                          echo ""
+                          vagrant ssh -c 'ps axuf | grep php | grep -v grep | grep -v fpm'
+                          echo "Sleeping for 1 minute to make sure that cronjobs are finished..."
+                          sleep 60
+                        done
+                    """
+                }
+            }
+        }
 
         stage('test') {
             steps {
@@ -135,6 +151,32 @@ pipeline {
                         echo "http://zed.de.suite.local/auth/login"
                         ab -c1 -n20 -H 'Host: zed.de.suite.local' http://\${VM_IP}/auth/login
                         echo "   ---"
+                    """
+                }
+            }
+        }
+
+        stage('benchmark') {
+            steps {
+                ansiColor('XTerm') {
+                    sh """#!/bin/bash -x
+                        function cleanup {
+                          vagrant destroy --force || true
+                          vagrant box remove spryker-devvm-${params.box_version} || true
+                          rm -rf Vagrantfile Vagrantfile.bak .vm .vagrant project
+                        }
+
+                        # Smoke tests
+                        VM_IP=`ruby -e 'load ".vm"; puts VM_IP'`
+                        echo ""
+                        echo "###"
+                        echo "### Performance benchmark"
+                        echo "###"
+                        echo ""
+
+                        vagrant ssh -c 'cd /data/shop/development/current; patch -p0 < /vagrant/ci/smoke-test-linux/benchmark.patch && bash bin/benchmark || true'
+
+        
                     """
                 }
             }
