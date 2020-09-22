@@ -1,9 +1,8 @@
 # Spryker OS - Reference repository for DevVM
 
-This repository contains Vagrantfile which is responsible for setting up
-initial state of the Dev VM. Provisioning of the machine is done using SaltStack.
+This repository contains the Vagrantfile for setting up initial state of the DevVM. Provisioning of the machine is done using SaltStack.
 
-Please refer to the [Installation guide - B2C](https://documentation.spryker.com/installation/installation-guide-b2c.htm) or [Installation guide - B2B](https://documentation.spryker.com/installation/installation-guide-b2b.htm) to install Spryker.
+To install Spryker, refer to [Installation guide - B2C](https://documentation.spryker.com/docs/en/b2c-demo-shop-installation-mac-os-or-linux-with-devvm) or [Installation guide - B2B](https://documentation.spryker.com/docs/en/installation-guide-b2b).
 
 This repository contains:
  - [saltstack](saltstack) - SaltStack implementation for provisioning reference infrastructure for development
@@ -16,16 +15,14 @@ This repository contains:
  - `vagrant-hostmanager` plugin
 
 ## VM Settings
-The VM will start with the default configuration for project `demoshop` and IP `10.10.0.33`.
-If you would like to change project name, you need to edit `Vagrantfile` and change value of
-variable `VM_PROJECT` (ie. to demoshop, project) and `VM_IP` - last digit only. The IP address must
-be unique, so each VM on your workstation must have unique IP address.
-You should also adjust `VM_DOMAIN` to the value that corresponds to your config_default-development
-hostnames. If you do not specify value of `VM_DOMAIN`, it will take the value
-from `VM_PROJECT`.
+The VM starts with the default configuration for project `demoshop` and IP `10.10.0.33`.
+To change project name, edit `Vagrantfile` and change the value of
+the `VM_PROJECT` (ie. to demoshop, project) and `VM_IP`(digits only) variables. The IP address must
+be unique, so each VM on your workstation has a unique IP address.
 
-As an example, for default `VM_PROJECT=demoshop` - following hostnames will
-be generated:
+Adjust the `VM_DOMAIN` variable value according to your config_default-development hostnames. 
+The default value is taken from the `VM_PROJECT` variable. For example, the following hostnames 
+are generated for the default value `VM_PROJECT=demoshop`:
 
 ```
 www.de.demoshop.local
@@ -36,8 +33,8 @@ zed-test.de.demoshop.local
 static-test.demoshop.local
 ```
 
-## Note on PHP opcache
-In order to use opcache for CLI calls as well, the VM ships with PHP opcache file cache enabled. Cache contents are stored in `/var/tmp/opcache` directory. After enabling/disabling PHP modules (and as a possible fix if you are getting unexpected PHP error, like Segmentation fault), you must clean the cache directory with:
+## Note on PHP OPcache
+To use OPcache for CLI calls, the VM ships with PHP opcache file cache enabled. Cache contents are stored in `/var/tmp/opcache`. After enabling or disabling PHP modules, for example to fix an unexpected PHP error like Segmentation fault, make sure to clear cache by running the command:
 ```
 sudo rm -rf /var/tmp/opcache/*; sudo systemctl restart php7.4-fpm
 ```
@@ -45,9 +42,9 @@ sudo rm -rf /var/tmp/opcache/*; sudo systemctl restart php7.4-fpm
 ## Customizing the VM
 
 ### PHP development modules
-The PHP module `xdebug` are pre-installed on the DevVM, but not enabled by default.
-Using `xdebug` and `opcache` at the same time might be dangerous and is not recommended.
-To enable xdebug, use the following commands:
+The PHP module `xdebug` is pre-installed on the DevVM, but not enabled by default.
+We do not recommend using `xdebug` and `opcache` simultaneously as it is dangerous.
+To enable Xdebug, run the commands:
 ```
 # Enable XDebug, disable OpCache, clear disk cache, restart FPM
 sudo -i bash -c " \
@@ -60,8 +57,8 @@ sudo -i bash -c " \
   "
 ```
 
-Running with xdebug enabled and opcache disabled will cause the application to be slower, so consider
-enabling it only when you need. To disable xdebug and re-enable opcache, use the following commands:
+Running with xdebug enabled and opcache disabled cause the application to be slower, so consider
+keeping it disabled when not needed. To disable Xdebug and re-enable OPcache, run the commands:
 ```
 # Disable XDebug, enable OpCache, clear disk cache, restart FPM
 sudo -i bash -c " \
@@ -76,9 +73,10 @@ sudo -i bash -c " \
 
 
 ## Version tree and lifecycle
-After release `ci-119` we decided to stop using auto-incremented release numbers and switch to semantic versioning. Next version becomes `1.0.0`.
-We follow git-flow - branch `master` is used to release tested features, where branch `develop` is used for release candidates (tags like `v2.0.0-RC1`)
-and is merged into master whenever we officialy release new version, after internal QA process.
+After release `ci-119`, we decided to stop using auto-incremented release numbers and switch to semantic versioning. Next version becomes `1.0.0`.
+We follow git-flow:
+* Branch `master` is used to release tested features.
+* Branch `develop` is used for release candidates (tags like `v2.0.0-RC1`) and is merged into master whenever we officialy release a new version, after internal QA process.
 
 
 ### 1.x.x
