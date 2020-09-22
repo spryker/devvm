@@ -82,9 +82,10 @@ and is merged into master whenever we officialy release new version, after inter
 
 
 ### 1.x.x
-1.x.x is old stable version, with PHP 7.1 and Elasticsearch 2.x
+PHP 7.1 and Elasticsearch 2.x [EOL]
 
 ### 2.x.x
-2.x.x is non-backward-compatible version, which includes PHP 7.2 and Elasticsearch 5.x
+Includes PHP 7.2 and Elasticsearch 5.x
 
-
+### 3.x.x
+Upgraded Elasticsearch to 6.8.6, Kibana to 6.8.6, since 3.1.0 also PHP 7.4
