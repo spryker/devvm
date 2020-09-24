@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nodejs' do
   describe command('/usr/bin/node -v') do
-    its(:stdout) { should include('v8.') }
+    its(:stdout) { should include('v12.') }
   end
 
   describe command('/usr/bin/yarn --version') do
