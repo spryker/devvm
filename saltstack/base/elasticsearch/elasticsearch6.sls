@@ -1,0 +1,34 @@
+#
+# Install Kibana
+#
+
+install-kibana:
+  cmd.run:
+    - name: cd /opt && wget -q https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.6.tar.gz && tar zxf elasticsearch-6.8.6.tar.gz && rm -f elasticsearch-6.8.6.tar.gz && chown -R elasticsearch. /opt/elasticsearch-6.8.6
+    - unless: test -d /opt/elasticsearch-6.8.6
+
+/opt/elasticsearch-6.8.6/config:
+  file.recurse:
+    - source: salt://elasticsearch/files/es6/config
+    - user: elasticsearch
+    - group: elasticsearch
+    - file_mode: 644
+    - dir_mode: 755
+
+/etc/systemd/system/elasticsearch6-development.service:
+  file.managed:
+    - source: salt://elasticsearch/files/es6/etc/systemd/system/elasticsearch6-development.service
+    - template: jinja
+
+/etc/default/elasticsearch6-{{ environment }}:
+  file.managed:
+    - source: salt://elasticsearch/files/es6/etc/default/elasticsearch6
+    - mode: 644
+    - user: root
+    - group: root
+    - template: jinja
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - service: elasticsearch-{{ environment }}

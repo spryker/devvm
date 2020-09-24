@@ -1,0 +1,54 @@
+#!/bin/bash
+# After migration from ES6 to ES7, devvm is provided with ES7 (by default).
+# This installer can be executed to run version 6.
+# There is the way to return back to es7 with es7.sh script.
+
+CONF_SOURCE=/home/vagrant/es6/conf
+
+function info() {
+  echo -ne "\e[1m### "
+  echo $*
+  echo -ne "\e[0m"
+}
+
+if [[ $EUID != 0 ]]; then
+  info "ERROR: You need to run this command with root privileges:"
+  echo "sudo bash $0"
+  exit 1
+fi
+
+info "------------------"
+info "This installer will switch you currently installed Elasticsearch 7.x"
+info "and run Elasticsearch 6.x. All data in Elasticsearch will be lost."
+info "Press ENTER to continue..."
+read something
+
+info "------------------"
+info "Stop Jenkins"
+systemctl stop jenkins-devtest
+
+info "Stop Elasticsearch"
+systemctl stop elasticsearch-development
+
+info "Clear elasticsearch data in /data/shop/development/shared/elasticsearch"
+rm -rf /data/shop/development/shared/elasticsearch/*
+
+info "Stop elasticsearch-development service"
+systemctl stop elasticsearch-development
+
+info "Disable elasticsearch-development service"
+systemctl disable elasticsearch-development
+
+info "Reload systemd"
+systemctl daemon-reload
+
+info "Enable elasticsearch6-development service"
+systemctl enable elasticsearch6-development
+
+info "Start Elasticsearch 6.x"
+systemctl start elasticsearch6-development
+
+info "Start Jenkins"
+systemctl start jenkins-development
+
+info "Finished"

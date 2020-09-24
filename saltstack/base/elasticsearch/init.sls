@@ -13,4 +13,5 @@ include:
 {%- if salt['pillar.get']('autoupdate:elasticsearch', False) %}
   - .update
 {%- endif %}
+  - .elasticsearch6
 {%- endif %}
