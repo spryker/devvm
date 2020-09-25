@@ -27,6 +27,3 @@ install-kibana:
     - user: root
     - group: root
     - template: jinja
-    - context:
-      environment: {{ environment }}
-
