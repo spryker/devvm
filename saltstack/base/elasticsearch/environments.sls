@@ -7,7 +7,7 @@
 #
 {% from 'settings/init.sls' import settings with context %}
 {% from 'elasticsearch/macros/elasticsearch_instance.sls' import elasticsearch_instance with context %}
-{% from 'elasticsearch/macros/elasticsearch6_instance.sls' import es6 with context %}
+{% from 'elasticsearch/macros/elasticsearch6_instance.sls' import elasticsearch6_instance with context %}
 
 
 /etc/logrotate.d/elasticsearch-instances:
@@ -16,4 +16,5 @@
 
 {%- for environment, environment_details in pillar.environments.items() %}
 {{ elasticsearch_instance(environment, environment_details, settings) }}
+{{ elasticsearch6_instance(environment, environment_details, settings) }}
 {%- endfor %}
