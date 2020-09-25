@@ -53,7 +53,6 @@ discovery.seed_hosts : ["{{ grains.fqdn }}"]
 
 ################################### Indices ##################################
 indices.recovery.max_bytes_per_sec: 50mb
-##indices.store.throttle.max_bytes_per_sec: 100mb
 indices.fielddata.cache.size: 100M
 
 
