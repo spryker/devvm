@@ -4,7 +4,7 @@
 
 install-elasticsearch6:
   cmd.run:
-    - name: cd /opt && wget -q https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.6.tar.gz && tar zxf elasticsearch-6.8.6.tar.gz && rm -f elasticsearch-6.8.6.tar.gz && chown -R elasticsearch. /opt/elasticsearch-6.8.6
+    - name: cd /opt && wget -q https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.6.tar.gz && tar zxf elasticsearch-6.8.6.tar.gz && rm -f elasticsearch-6.8.6.tar.gz && chown -R elasticsearch. /opt/elasticsearch-6.8.6 && rm -rf /opt/elasticsearch-6.8.6/config/*
     - unless: test -d /opt/elasticsearch-6.8.6
 
 {% macro elasticsearch6_instance(environment, environment_details, settings) -%}
