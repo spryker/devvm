@@ -33,7 +33,6 @@ dev:
     - samba
     - avahi
     - elasticsearch
-    - elasticsearch6
     - serverspec
     - spryker
     - prestissimo

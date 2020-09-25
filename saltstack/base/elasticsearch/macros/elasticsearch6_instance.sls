@@ -1,6 +1,9 @@
 #
-# Install Elasticsearch 6.8.6
+# Macro: Setup one Elasticsearch 6.8.6 instance
 #
+
+
+{% macro elasticsearch6_instance(environment, environment_details, settings) -%}
 
 install-elasticsearch6:
   cmd.run:
@@ -27,3 +30,5 @@ install-elasticsearch6:
     - user: root
     - group: root
     - template: jinja
+
+{%- endmacro %}
