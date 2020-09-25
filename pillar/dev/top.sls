@@ -8,4 +8,5 @@ dev:
     - postgresql
     - rabbitmq
     - elasticsearch
+    - elasticsearch6
     - elk
