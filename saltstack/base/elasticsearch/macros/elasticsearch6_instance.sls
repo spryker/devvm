@@ -2,13 +2,12 @@
 # Macro: Setup one Elasticsearch 6.8.6 instance
 #
 
-
-{% macro elasticsearch6_instance(environment, environment_details, settings) -%}
-
 install-elasticsearch6:
   cmd.run:
     - name: cd /opt && wget -q https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.6.tar.gz && tar zxf elasticsearch-6.8.6.tar.gz && rm -f elasticsearch-6.8.6.tar.gz && chown -R elasticsearch. /opt/elasticsearch-6.8.6
     - unless: test -d /opt/elasticsearch-6.8.6
+
+{% macro elasticsearch6_instance(environment, environment_details, settings) -%}
 
 /opt/elasticsearch-6.8.6/config:
   file.recurse:
@@ -21,7 +20,12 @@ install-elasticsearch6:
 /etc/systemd/system/elasticsearch6-{{ environment }}.service:
   file.managed:
     - source: salt://elasticsearch/files/elasticsearch6_instance/etc/systemd/system/elasticsearch6.service
+    - mode: 644
+    - user: root
+    - group: root
     - template: jinja
+    - context:
+      environment: {{ environment }}
 
 /etc/default/elasticsearch6-{{ environment }}:
   file.managed:
@@ -30,5 +34,7 @@ install-elasticsearch6:
     - user: root
     - group: root
     - template: jinja
+    - context:
+      environment: {{ environment }}
 
 {%- endmacro %}
