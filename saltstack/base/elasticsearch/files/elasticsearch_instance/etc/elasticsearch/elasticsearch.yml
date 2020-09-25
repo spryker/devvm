@@ -29,6 +29,7 @@ bootstrap.memory_lock: {{ salt['pillar.get']('elasticsearch.environments:mlockal
 
 ############################## Network And HTTP ##############################
 network.bind_host: 0.0.0.0
+network.host: 0.0.0.0
 network.publish_host: {{ settings.publish_ip }}
 http.port: {{ settings.environments[environment].elasticsearch.http_port }}
 transport.tcp.port: {{ settings.environments[environment].elasticsearch.transport_port }}
