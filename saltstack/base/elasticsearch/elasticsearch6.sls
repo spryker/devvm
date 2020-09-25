@@ -15,9 +15,9 @@ install-kibana:
     - file_mode: 644
     - dir_mode: 755
 
-/etc/systemd/system/elasticsearch6-development.service:
+/etc/systemd/system/elasticsearch6-{{ environment }}.service:
   file.managed:
-    - source: salt://elasticsearch/files/es6/etc/systemd/system/elasticsearch6-development.service
+    - source: salt://elasticsearch/files/es6/etc/systemd/system/elasticsearch6.service
     - template: jinja
 
 /etc/default/elasticsearch6-{{ environment }}:
@@ -29,6 +29,4 @@ install-kibana:
     - template: jinja
     - context:
       environment: {{ environment }}
-      settings: {{ settings|tojson }}
-    - watch_in:
-      - service: elasticsearch-{{ environment }}
+
