@@ -3,7 +3,7 @@
 # This installer can be executed to run version 6.
 # There is the way to return back to es7 with es7.sh script.
 
-CONF_SOURCE=/home/vagrant/es6/conf
+CONF_SOURCE=/opt/elasticsearch-6.8.6/config
 
 function info() {
   echo -ne "\e[1m### "
