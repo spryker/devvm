@@ -12,7 +12,7 @@ Group=elasticsearch
 
 # ExecStartPre=/usr/share/elasticsearch/bin/elasticsearch-systemd-pre-exec
 ExecStartPre=/usr/bin/install -d ${PID_DIR} -m 755 -o elasticsearch -g elasticsearch
-ExecStart=/usr/share/elasticsearch/bin/elasticsearch \
+ExecStart=/opt/elasticsearch-6.8.6/bin/elasticsearch \
                                                 -p ${PID_DIR}/elasticsearch6-development.pid \
                                                 --quiet
 
