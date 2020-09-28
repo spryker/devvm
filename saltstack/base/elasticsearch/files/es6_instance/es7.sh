@@ -25,11 +25,17 @@ info "------------------"
 info "Stop Jenkins"
 systemctl stop jenkins-devtest
 
+info "Stop Kibana6 service"
+systemctl stop kibana6
+
 info "Stop elasticsearch6-development service"
 systemctl stop elasticsearch6-development
 
 info "Disable elasticsearch6-development service"
 systemctl disable elasticsearch6-development
+
+info "Disable Kibana6 service"
+systemctl disable kibana6
 
 info "Clear elasticsearch data in /data/shop/development/shared/elasticsearch"
 rm -rf /data/shop/development/shared/elasticsearch/*
@@ -37,11 +43,17 @@ rm -rf /data/shop/development/shared/elasticsearch/*
 info "Enable elasticsearch-development service"
 systemctl enable elasticsearch-development
 
+info "Enable Kibana service"
+systemctl enable kibana
+
 info "Reload systemd"
 systemctl daemon-reload
 
 info "Start Elasticsearch 7.x"
 systemctl start elasticsearch-development
+
+info "Start Kibana 7.x"
+systemctl start kibana
 
 info "Start Jenkins"
 systemctl start jenkins-development
