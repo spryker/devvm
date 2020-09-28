@@ -60,3 +60,4 @@ systemctl start jenkins-development
 
 info "Finished"
 info "Please wait some seconds before starting using the ES service"
+info "Export to ES should be triggered with command: vendor/bin/console search:setup"
