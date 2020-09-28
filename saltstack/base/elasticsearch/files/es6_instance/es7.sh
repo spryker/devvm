@@ -1,7 +1,5 @@
 #!/bin/bash
-# After migration from ES6 to ES7, devvm is provided with ES7 (by default).
-# This installer can be executed to run version 6.
-# There is the way to return back to es7 with es7.sh script.
+# After switching from ES7 to ES6 with es6.sh you could return to ES7 version with this script
 
 CONF_SOURCE=/opt/elasticsearch-6.8.6/config
 
@@ -18,8 +16,8 @@ if [[ $EUID != 0 ]]; then
 fi
 
 info "------------------"
-info "This installer will switch you currently installed Elasticsearch 7.x"
-info "and run Elasticsearch 6.x. All data in Elasticsearch will be lost."
+info "This installer will switch back to Elasticsearch 7.x"
+info "All data in Elasticsearch will be lost."
 info "Press ENTER to continue..."
 read something
 
@@ -27,27 +25,26 @@ info "------------------"
 info "Stop Jenkins"
 systemctl stop jenkins-devtest
 
-info "Stop elasticsearch-development service"
-systemctl stop elasticsearch-development
+info "Stop elasticsearch6-development service"
+systemctl stop elasticsearch6-development
+
+info "Disable elasticsearch6-development service"
+systemctl disable elasticsearch6-development
 
 info "Clear elasticsearch data in /data/shop/development/shared/elasticsearch"
 rm -rf /data/shop/development/shared/elasticsearch/*
 
-info "Disable elasticsearch-development service"
-systemctl disable elasticsearch-development
-
-info "Enable elasticsearch6-development service"
-systemctl enable elasticsearch6-development
+info "Enable elasticsearch-development service"
+systemctl enable elasticsearch-development
 
 info "Reload systemd"
 systemctl daemon-reload
 
-info "Start Elasticsearch 6.x"
-systemctl start elasticsearch6-development
+info "Start Elasticsearch 7.x"
+systemctl start elasticsearch-development
 
 info "Start Jenkins"
 systemctl start jenkins-development
 
 info "Finished"
 info "Please wait some seconds before starting using the ES service"
-

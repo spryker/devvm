@@ -35,3 +35,10 @@ install-elasticsearch6:
     - mode: 744
     - user: root
     - group: root
+
+/home/vagrant/es7.sh:
+  file.managed:
+    - source: salt://elasticsearch/files/es6_instance/es7.sh
+    - mode: 744
+    - user: root
+    - group: root
