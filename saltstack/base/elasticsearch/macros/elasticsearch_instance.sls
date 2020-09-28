@@ -131,6 +131,13 @@ elasticsearch-{{ environment }}-systemctl-reload:
     - require:
       - file: /etc/elasticsearch-{{ environment }}
 
+# Directory for elasticsearch pid
+/var/run/elasticsearch:
+  file.directory:
+    - mode: 755
+    - user: elasticsearch
+    - group: elasticsearch
+
 # Symlink for easier location of ES configs
 /etc/elasticsearch/{{ environment }}:
   file.symlink:
