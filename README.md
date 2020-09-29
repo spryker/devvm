@@ -86,4 +86,4 @@ PHP 7.1 and Elasticsearch 2.x [EOL]
 Includes PHP 7.2 and Elasticsearch 5.x
 
 ### 3.x.x
-Upgraded Elasticsearch to 6.8.6, Kibana to 6.8.6, since 3.1.0 also PHP 7.4
+Upgraded Elasticsearch to 7.8.1, Kibana to 7.8.1, since 3.1.0 also PHP 7.4
