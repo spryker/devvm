@@ -29,6 +29,7 @@ bootstrap.memory_lock: {{ salt['pillar.get']('elasticsearch.environments:mlockal
 
 ############################## Network And HTTP ##############################
 network.bind_host: 0.0.0.0
+network.host: 0.0.0.0
 network.publish_host: {{ settings.publish_ip }}
 http.port: {{ settings.environments[environment].elasticsearch.http_port }}
 transport.tcp.port: {{ settings.environments[environment].elasticsearch.transport_port }}
@@ -46,11 +47,12 @@ cluster.routing.allocation.node_initial_primaries_recoveries: 4
 cluster.routing.allocation.node_concurrent_recoveries: 2
 cluster.routing.allocation.disk.watermark.low: 90%
 cluster.routing.allocation.disk.watermark.high: 95%
+cluster.initial_master_nodes : ["{{ grains.fqdn }}"]
+discovery.seed_hosts : ["{{ grains.fqdn }}"]
 
 
 ################################### Indices ##################################
 indices.recovery.max_bytes_per_sec: 50mb
-##indices.store.throttle.max_bytes_per_sec: 100mb
 indices.fielddata.cache.size: 100M
 
 
@@ -64,3 +66,9 @@ action.destructive_requires_name: true
 
 ################################# Scripting ##################################
 ##script.inline: true
+
+################################# Disable X-Pack extension ###################
+xpack.security.enabled: false
+xpack.watcher.enabled: false
+xpack.ml.enabled: false
+xpack.graph.enabled: false

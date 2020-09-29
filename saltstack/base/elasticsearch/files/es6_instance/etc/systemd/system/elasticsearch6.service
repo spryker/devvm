@@ -1,0 +1,35 @@
+[Unit]
+Description=Elasticsearch 6 (development)
+Documentation=http://www.elastic.co
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+EnvironmentFile=-/etc/default/elasticsearch6-development
+WorkingDirectory=/usr/share/elasticsearch
+User=elasticsearch
+Group=elasticsearch
+
+# ExecStartPre=/usr/share/elasticsearch/bin/elasticsearch-systemd-pre-exec
+ExecStartPre=/usr/bin/install -d ${PID_DIR} -m 755 -o elasticsearch -g elasticsearch
+ExecStart=/opt/elasticsearch-6.8.6/bin/elasticsearch \
+                                                -p ${PID_DIR}/elasticsearch6-development.pid \
+                                                --quiet
+
+StandardOutput=journal
+StandardError=inherit
+
+LimitNOFILE=65536
+LimitNPROC=16384
+LimitMEMLOCK=infinity
+LimitAS=infinity
+LimitFSIZE=infinity
+
+TimeoutStopSec=0
+KillSignal=SIGTERM
+KillMode=process
+SendSIGKILL=no
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
