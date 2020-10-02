@@ -1,6 +1,6 @@
 # Shortcuts for Spryker binaries
 codecept () {
-    APPLICATION_ENV=development APPLICATION_STORE=WF /data/shop/development/current/vendor/bin/codecept $*
+    APPLICATION_ENV=development APPLICATION_STORE=SO /data/shop/development/current/vendor/bin/codecept $*
 }
 
 console () {
@@ -8,7 +8,7 @@ console () {
 }
 
 debug-console () {
-    XDEBUG_CONFIG="remote_host=10.10.0.1" PHP_IDE_CONFIG="serverName=zed.spryker.dev" /data/shop/development/current/vendor/bin/console $*
+    XDEBUG_CONFIG="remote_host=10.10.0.1" PHP_IDE_CONFIG="serverName=zed.so.akona.local" /data/shop/development/current/vendor/bin/console $*
 }
 
 install () {
@@ -16,7 +16,7 @@ install () {
 }
 
 # XDebug
-alias debug='XDEBUG_CONFIG="remote_host=10.10.0.1" PHP_IDE_CONFIG="serverName=zed.de.spryker.dev"'
+alias debug='XDEBUG_CONFIG="remote_host=10.10.0.1" PHP_IDE_CONFIG="serverName=zed.so.akona.local"'
 
 # Composer aliases
 alias c='composer'
