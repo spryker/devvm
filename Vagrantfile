@@ -76,7 +76,7 @@ PILLAR_REPOSITORY  = ENV['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar
 PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
 
 # Hostnames to be managed
-STORES = ['wf', 'el', 'ep', 'dy', 'fa']
+STORES = ['wf', 'el', 'ep', 'dy', 'fa', 'so']
 HOSTS = [ 'akona-vagrant' ]
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'

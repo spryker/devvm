@@ -90,7 +90,7 @@ end
 VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
 
 # Hostnames to be managed
-STORES = ['wf', 'el', 'ep', 'dy', 'fa']
+STORES = ['wf', 'el', 'ep', 'dy', 'fa','so']
 HOSTS = [ 'akona-vagrant' ]
 ['', '-test'].each do |host_suffix|
   domain = VM_DOMAIN + '.local'
