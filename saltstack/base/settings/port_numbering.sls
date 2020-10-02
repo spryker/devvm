@@ -30,3 +30,6 @@ store:
   FA:
     locale: it_CH
     appdomain: '04'
+  SO:
+    locale: de_CH
+    appdomain: '05'

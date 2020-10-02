@@ -36,6 +36,7 @@ stores:
   - EP
   - DY
   - FA
+  - SO
 
 php:
   # PHP debugger. Enable only on local or QA environment, never
@@ -140,7 +141,14 @@ environments:
           hostname: '~^zed\.fa\..+\.local$'
         glue:
           hostname: '~^glue\.fa\..+\.local$'
-
+      SO:
+        yves:
+          hostnames:
+            - '~^www\.so\..+\.local$'
+        zed:
+          hostname: '~^zed\.so\..+\.local$'
+        glue:
+          hostname: '~^glue\.so\..+\.local$'
 
   devtest:
     code_symlink: /data/shop/development/current
@@ -202,6 +210,14 @@ environments:
           hostname: '~^zed-test\.fa\..+\.local$'
         glue:
           hostname: '~^glue-test\.fa\..+\.local$'
+      SO:
+        yves:
+          hostnames:
+            - '~^www-test\.so\..+\.local$'
+        zed:
+          hostname: '~^zed-test\.so\..+\.local$'
+        glue:
+          hostname: '~^glue-test\.so\..+\.local$'
 # The key below is used for deployment using deploy.rb (deprecated)
 #
 # From deployment server user root must be able to log in to all other
