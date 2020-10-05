@@ -132,6 +132,18 @@
     - context:
       environment: {{ environment }}
 
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-configurator.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/configurator.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
 # NginX configs
 /etc/nginx/conf.d/{{ environment }}-backend.conf:
   file.managed:
