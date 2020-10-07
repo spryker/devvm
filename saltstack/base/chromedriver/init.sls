@@ -49,7 +49,7 @@ chromedriver-dependencies:
       - cmd: apt-get-update
 
 {% from 'settings/init.sls' import settings with context %}
-{%- for environment in settings.environments.items() %}
+{%- for environment, environment_details in settings.environments.items() %}
 
 # Create Chromedriver symlink
 /usr/local/bin/chrome:
