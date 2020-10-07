@@ -47,3 +47,9 @@ chromedriver-dependencies:
       - xdg-utils
     - require:
       - cmd: apt-get-update
+
+# Create Chromedriver symlink
+/usr/local/bin/chrome:
+  file.symlink:
+    - target: /data/shop/{{ environment }}/current/vendor/bin/chrome
+    - force: true
