@@ -48,7 +48,7 @@ chromedriver-dependencies:
     - require:
       - cmd: apt-get-update
 
-{%- for environment, environment_details in pillar.environments.items() %}
+{%- for environment, environment_details in pillar.environments.items()|first %}
 
 # Create Chromedriver symlink
 /usr/local/bin/chrome:
