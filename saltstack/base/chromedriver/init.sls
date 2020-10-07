@@ -48,8 +48,13 @@ chromedriver-dependencies:
     - require:
       - cmd: apt-get-update
 
+{% from 'settings/init.sls' import settings with context %}
+{%- for environment in settings.environments.items() %}
+
 # Create Chromedriver symlink
 /usr/local/bin/chrome:
   file.symlink:
     - target: /data/shop/{{ environment }}/current/vendor/bin/chrome
     - force: true
+
+{%- endfor %}
