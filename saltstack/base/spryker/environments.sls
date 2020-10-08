@@ -184,6 +184,15 @@
 {%- endif %}
 {%- endif %}
 
+/etc/nginx/sites-enabled/{{ environment }}_configurator:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_configurator
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_configurator
+    - watch_in:
+      - cmd: reload-nginx
+
 {%- endif %}
 
 {%- if 'cronjobs' in grains.roles %}
