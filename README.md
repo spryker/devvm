@@ -23,7 +23,6 @@ be unique, so each VM on your workstation has a unique IP address.
 Adjust the `VM_DOMAIN` variable value according to your config_default-development hostnames. 
 The default value is taken from the `VM_PROJECT` variable. For example, the following hostnames 
 are generated for the default value `VM_PROJECT=demoshop`:
-
 ```
 www.de.demoshop.local
 zed.de.demoshop.local
