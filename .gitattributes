@@ -1,2 +1,0 @@
-spryker-devvm.box filter=lfs diff=lfs merge=lfs -text
-package.box filter=lfs diff=lfs merge=lfs -text
