@@ -197,14 +197,14 @@
     - watch_in:
       - cmd: reload-nginx
 
-##/etc/nginx/sites-enabled/{{ environment }}_configurator:
-##  file.symlink:
-##    - target: /etc/nginx/sites-available/{{ environment }}_configurator
-##    - force: true
-##    - require:
-##      - file: /etc/nginx/sites-available/{{ environment }}_configurator
-##    - watch_in:
-##      - cmd: reload-nginx
+/etc/nginx/sites-enabled/{{ environment }}_configurator:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_configurator
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_configurator
+    - watch_in:
+      - cmd: reload-nginx
 
 {%- endif %}
 
