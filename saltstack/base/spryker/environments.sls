@@ -184,18 +184,18 @@
 {%- endif %}
 {%- endif %}
 
-##/etc/nginx/sites-available/{{ environment }}_configurator:
-##  file.managed:
-##    - source: salt://spryker/files/etc/nginx/sites-available/configurator.conf
-##    - template: jinja
-##    - user: root
-##    - group: root
-##    - mode: 644
-##    - context:
-##      environment: {{ environment }}
-##      settings: {{ settings|tojson }}
-##    - watch_in:
-##      - cmd: reload-nginx
+/etc/nginx/sites-available/{{ environment }}_configurator:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/configurator.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
 
 ##/etc/nginx/sites-enabled/{{ environment }}_configurator:
 ##  file.symlink:
