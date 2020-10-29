@@ -7,7 +7,7 @@
     - user: vagrant
     - group: vagrant
 
-https://github.com/creationix/nvm.git:
+https://github.com/nvm-sh/nvm.git:
   git.latest:
     - rev: master
     - target: /opt/nvm
