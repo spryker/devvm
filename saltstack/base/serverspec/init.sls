@@ -8,5 +8,5 @@ rake:
 serverspec:
   gem.installed
 
-serverspec-extended-types:
-  gem.installed
+#serverspec-extended-types:
+#  gem.installed
