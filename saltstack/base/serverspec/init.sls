@@ -38,7 +38,6 @@ rspec-expectations:
 
 rspec-mocks:
   gem.installed:
-  gem.installed:
     - version: 3.9.1
 
 rspec:
