@@ -151,15 +151,10 @@ mysql-server-repo:
 
 mysql-tools-repo:
   pkgrepo.managed:
-    - humanname: Official MySQL tools repository
-    - name: deb http://repo.mysql.com/apt/debian/ {{ grains.lsb_distrib_codename }} mysql-tools
-    - file: /etc/apt/sources.list.d/mysql-tools.list
-# We're regularly having trouble with fetching this key from original location via GPG,
-# so might use use mirrored key instead.
-#    - key_url: https://jenkins.korekontrol.net/get/key/mysql-apt-repo.gpg
-    - keyid: 5072E1F5
-#    - keyserver: pool.sks-keyservers.net
-    - keyserver: ha.pool.sks-keyservers.net
+    - humanname: Official MariaDB tools repository
+    - name: deb [arch=amd64,i386,ppc64el] https://mirror.mva-n.net/mariadb/repo/10.4/debian {{ grains.lsb_distrib_codename }} mysql-tools
+    - file: /etc/apt/sources.list.d/mysql-server.list
+    - key_url: https://mariadb.org/mariadb_release_signing_key.asc
     - refresh_db: False
     - watch_in:
        - cmd: apt-get-update
