@@ -13,7 +13,7 @@ mysql-server:
       - dirmngr
       - apt-transport-https
 
-mysql:
+mysqld:
   service.running:
     - enable: True
     - watch:
