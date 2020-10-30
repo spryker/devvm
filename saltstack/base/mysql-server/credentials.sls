@@ -26,3 +26,5 @@ mysql_database_{{ store }}_{{ environment }}_zed_dump:
       - service: mysql
 {% endif %}
 
+{% endfor %}
+{% endfor %}
