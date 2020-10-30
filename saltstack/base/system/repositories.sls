@@ -141,11 +141,10 @@ git-repo:
 
 mysql-server-repo:
   pkgrepo.managed:
-    - humanname: Official MySQL server repository
-    - name: deb http://repo.mysql.com/apt/debian/ {{ grains.lsb_distrib_codename }} mysql-5.7
+    - humanname: Official MariaDB server repository
+    - name: deb [arch=amd64,i386,ppc64el] https://mirror.mva-n.net/mariadb/repo/10.4/debian {{ grains.lsb_distrib_codename }} main
     - file: /etc/apt/sources.list.d/mysql-server.list
-    - keyid: 5072E1F5
-    - keyserver: ha.pool.sks-keyservers.net
+    - key_url: https://mariadb.org/mariadb_release_signing_key.asc
     - refresh_db: False
     - watch_in:
        - cmd: apt-get-update
