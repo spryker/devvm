@@ -44,13 +44,13 @@ rspec:
   gem.installed:
     - version: 3.9.0
 
-net-ssh:
-  gem.installed:
-    - version: 6.1.0
+#net-ssh:
+#  gem.installed:
+#    - version: 6.1.0
 
-net-scp:
-  gem.installed:
-    - version: 3.0.0
+#net-scp:
+#  gem.installed:
+#    - version: 3.0.0
 
 net-telnet:
   gem.installed:
