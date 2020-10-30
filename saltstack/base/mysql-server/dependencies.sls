@@ -15,6 +15,8 @@ mysql_python_pkgs:
       - libmariadb3-compat
       - libmariadb-dev-compat
       - libmariadb-dev
+      - mariadb-common
+      - mysql-common
       - python-mysqldb
     - require:
       - pkg: server_pkgs
