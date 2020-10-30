@@ -5,6 +5,7 @@
 {%- from 'settings/init.sls' import settings with context %}
 {%- for environment, environment_details in settings.environments.items() %}
 {%- for store in pillar.stores %}
+
 # create database - zed
 mysql_database_{{ store }}_{{ environment }}_zed:
   mysql_database.present:
@@ -12,8 +13,9 @@ mysql_database_{{ store }}_{{ environment }}_zed:
     - require:
       - pkg: python-mysqldb
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
-      - service: mysql
+      - service: mysqld
 {% endif %}
+
 # create database - dump
 mysql_database_{{ store }}_{{ environment }}_zed_dump:
   mysql_database.present:
@@ -21,8 +23,9 @@ mysql_database_{{ store }}_{{ environment }}_zed_dump:
     - require:
       - pkg: python-mysqldb
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
-      - service: mysql
+      - service: mysqld
 {% endif %}
+
 # create database user
 mysql_users_{{ store }}_{{ environment }}:
   mysql_user.present:
@@ -30,10 +33,11 @@ mysql_users_{{ store }}_{{ environment }}:
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
     - password: {{ settings.environments[environment].stores[store].zed.database.password }}
     - require:
-      - pkg: python-mysqldb
+      - pkg: mysql_python_pkgs
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
-      - service: mysql
+      - service: mysqld
 {% endif %}
+
 # create database permissions (zed database)
 mysql_grants_{{ store }}_{{ environment }}_zed:
   mysql_grants.present:
@@ -41,8 +45,7 @@ mysql_grants_{{ store }}_{{ environment }}_zed:
     - database: {{ settings.environments[environment].stores[store].zed.database.database }}.*
     - user: {{ settings.environments[environment].stores[store].zed.database.username }}
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
-    - require:
-      - pkg: python-mysqldb
+
 # create database permissions (dump database)
 mysql_grants_{{ store }}_{{ environment }}_zed_dump:
   mysql_grants.present:
@@ -50,7 +53,5 @@ mysql_grants_{{ store }}_{{ environment }}_zed_dump:
     - database: {{ settings.environments[environment].stores[store].dump.database.database }}.*
     - user: {{ settings.environments[environment].stores[store].zed.database.username }}
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
-    - require:
-      - pkg: python-mysqldb
 {% endfor %}
 {% endfor %}
