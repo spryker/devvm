@@ -5,7 +5,6 @@
 {%- from 'settings/init.sls' import settings with context %}
 {%- for environment, environment_details in settings.environments.items() %}
 {%- for store in pillar.stores %}
-
 # create database - zed
 mysql_database_{{ store }}_{{ environment }}_zed:
   mysql_database.present:
@@ -15,7 +14,6 @@ mysql_database_{{ store }}_{{ environment }}_zed:
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysql
 {% endif %}
-
 # create database - dump
 mysql_database_{{ store }}_{{ environment }}_zed_dump:
   mysql_database.present:
@@ -25,7 +23,6 @@ mysql_database_{{ store }}_{{ environment }}_zed_dump:
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysql
 {% endif %}
-
 # create database user
 mysql_users_{{ store }}_{{ environment }}:
   mysql_user.present:
@@ -37,14 +34,6 @@ mysql_users_{{ store }}_{{ environment }}:
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysql
 {% endif %}
-
-mysql_users_{{ store }}_{{ environment }}:
-  module.run:
-    - mysql.user_create:
-      - user: {{ settings.environments[environment].stores[store].zed.database.username }}
-      - password: {{ settings.environments[environment].stores[store].zed.database.password }}
-      - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
-
 # create database permissions (zed database)
 mysql_grants_{{ store }}_{{ environment }}_zed:
   mysql_grants.present:
@@ -52,8 +41,6 @@ mysql_grants_{{ store }}_{{ environment }}_zed:
     - database: {{ settings.environments[environment].stores[store].zed.database.database }}.*
     - user: {{ settings.environments[environment].stores[store].zed.database.username }}
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
-##   - connection_charset: utf8
-
 # create database permissions (dump database)
 mysql_grants_{{ store }}_{{ environment }}_zed_dump:
   mysql_grants.present:
