@@ -201,7 +201,7 @@ Vagrant.configure(2) do |config|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
-      salt.version = "v2019.2.5"
+      salt.version = "v3000.1"
       salt.install_type = "git"
     end
   else
