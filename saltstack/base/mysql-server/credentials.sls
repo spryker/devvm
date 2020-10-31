@@ -3,6 +3,13 @@
 #
 
 {%- from 'settings/init.sls' import settings with context %}
+
+Create root user:
+  mysql_user.present:
+    - host: "localhost"
+    - name: root
+    - password: {{ settings.environments[environment].stores[store].zed.database.password }}
+
 {%- for environment, environment_details in settings.environments.items() %}
 {%- for store in pillar.stores %}
 
@@ -32,8 +39,8 @@ mysql_users_{{ store }}_{{ environment }}:
     - name: {{ settings.environments[environment].stores[store].zed.database.username }}
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
     - password: {{ settings.environments[environment].stores[store].zed.database.password }}
-    - connection_host: {{ settings.environments[environment].stores[store].zed.database.hostname }}
-    - connection_user: {{ settings.environments[environment].stores[store].zed.database.username }}
+    - connection_host: "localhost"
+    - connection_user: root
     - connection_pass: {{ settings.environments[environment].stores[store].zed.database.password }}
     - connection_charset: utf8
     - require:
