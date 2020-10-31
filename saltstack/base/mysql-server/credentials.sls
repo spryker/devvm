@@ -32,6 +32,10 @@ mysql_users_{{ store }}_{{ environment }}:
     - name: {{ settings.environments[environment].stores[store].zed.database.username }}
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
     - password: {{ settings.environments[environment].stores[store].zed.database.password }}
+    - connection_host: {{ settings.environments[environment].stores[store].zed.database.hostname }}
+    - connection_user: {{ settings.environments[environment].stores[store].zed.database.username }}
+    - connection_pass: {{ settings.environments[environment].stores[store].zed.database.password }}
+    - connection_charset: utf8
     - require:
       - pkg: mysql_python_pkgs
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
