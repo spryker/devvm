@@ -55,6 +55,9 @@ mysql_grants_{{ store }}_{{ environment }}_zed:
     - database: {{ settings.environments[environment].stores[store].zed.database.database }}.*
     - user: {{ settings.environments[environment].stores[store].zed.database.username }}
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
+    - connection_host: "localhost"
+    - connection_user: root
+    - connection_pass: "mate20mg"
 
 # create database permissions (dump database)
 mysql_grants_{{ store }}_{{ environment }}_zed_dump:
@@ -63,5 +66,8 @@ mysql_grants_{{ store }}_{{ environment }}_zed_dump:
     - database: {{ settings.environments[environment].stores[store].dump.database.database }}.*
     - user: {{ settings.environments[environment].stores[store].zed.database.username }}
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
+    - connection_host: "localhost"
+    - connection_user: root
+    - connection_pass: "mate20mg"
 {% endfor %}
 {% endfor %}
