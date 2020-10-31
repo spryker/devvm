@@ -7,11 +7,10 @@
     - user: vagrant
     - group: vagrant
 
-https://github.com/nvm-sh/nvm.git:
+https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh:
   git.latest:
     - rev: master
     - target: /opt/nvm
-    - force: True
     - user: vagrant
     - require:
       - file: /opt/nvm
