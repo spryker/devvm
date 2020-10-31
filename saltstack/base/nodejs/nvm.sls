@@ -11,6 +11,7 @@ https://github.com/nvm-sh/nvm.git:
   git.latest:
     - rev: master
     - target: /opt/nvm
+    - force: True
     - user: vagrant
     - require:
       - file: /opt/nvm
