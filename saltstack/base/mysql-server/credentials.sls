@@ -2,14 +2,13 @@
 # Create MySQL databases, users and privileges
 #
 
-{%- from 'settings/init.sls' import settings with context %}
-
-Create root user:
+mysql_root_user:
   mysql_user.present:
     - host: "localhost"
     - name: root
-    - password: {{ settings.environments[environment].stores[store].zed.database.password }}
+    - password: "mate20mg"
 
+{%- from 'settings/init.sls' import settings with context %}
 {%- for environment, environment_details in settings.environments.items() %}
 {%- for store in pillar.stores %}
 
@@ -41,7 +40,7 @@ mysql_users_{{ store }}_{{ environment }}:
     - password: {{ settings.environments[environment].stores[store].zed.database.password }}
     - connection_host: "localhost"
     - connection_user: root
-    - connection_pass: {{ settings.environments[environment].stores[store].zed.database.password }}
+    - connection_pass: "mate20mg"
     - connection_charset: utf8
     - require:
       - pkg: mysql_python_pkgs
