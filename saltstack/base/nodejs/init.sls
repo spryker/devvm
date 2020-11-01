@@ -9,7 +9,7 @@ yarn:
   pkg.installed
 
 include:
-  - .nvm
+#  - .nvm
 # Include autoupdate if configured to do so
 {% if salt['pillar.get']('autoupdate:nodejs', False) %}
   - .update
