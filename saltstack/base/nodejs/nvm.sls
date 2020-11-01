@@ -14,7 +14,7 @@ git_config_fixing:
     - multivar:
       - '[filter "lfs"]'
       - '  clean = ""'
-    - is_global: True
+    - globalFalse: True
     - require:
       - pkg: git
 
