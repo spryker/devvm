@@ -7,7 +7,7 @@
     - user: vagrant
     - group: vagrant
 
-https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh:
+https://github.com/nvm-sh/nvm.git:
   git.latest:
     - rev: master
     - target: /opt/nvm
