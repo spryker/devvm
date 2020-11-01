@@ -9,7 +9,7 @@
 
 # Salt git bug fix: https://github.com/saltstack/salt/issues/54817
 git_config_fixing:
-  git.config:
+  git.config_set:
     - name: lfs-config
     - multivar:
       - '[filter "lfs"]'
