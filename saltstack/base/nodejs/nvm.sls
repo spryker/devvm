@@ -10,7 +10,7 @@
 # Salt git bug fix: https://github.com/saltstack/salt/issues/54817
 git_config_fixing:
   cmd.run:
-    - name: echo '[filter "lfs"] \n   clean = ""' >> ~/.gitconfig
+    - name: echo '[filter "lfs"] \n   clean = ""' >> /home/vagrant/.gitconfig
 
 https://github.com/nvm-sh/nvm.git:
   git.latest:
