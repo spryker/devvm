@@ -9,15 +9,8 @@
 
 # Salt git bug fix: https://github.com/saltstack/salt/issues/54817
 git_config_fixing:
-  git.config_set:
-    - name: lfs-config
-    - multivar:
-      - '[filter "lfs"]'
-      - '  clean = ""'
-    - global: True
-    - require:
-      - pkg: git
-
+  cmd.run:
+    - name: echo '[filter "lfs"] \n   clean = ""' >> ~/.gitconfig
 
 https://github.com/nvm-sh/nvm.git:
   git.latest:
