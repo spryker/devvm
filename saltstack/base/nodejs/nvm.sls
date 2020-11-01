@@ -7,6 +7,18 @@
     - user: vagrant
     - group: vagrant
 
+# Salt git bug fix: https://github.com/saltstack/salt/issues/54817
+git_config_fixing:
+  git.config:
+    - name: lfs-config
+    - multivar:
+      - '[filter "lfs"]'
+      - '  clean = ""'
+    - is_global: True
+    - require:
+      - pkg: git
+
+
 https://github.com/nvm-sh/nvm.git:
   git.latest:
     - rev: master
