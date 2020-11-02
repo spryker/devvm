@@ -3,7 +3,7 @@
 #
 
 include:
-#  - .dependencies
+  - .dependencies
   - .install
   - .config
   - .extensions
