@@ -34,7 +34,7 @@ dev:
     - samba
     - avahi
     - elasticsearch
-#    - serverspec
+    - serverspec
     - spryker
 
 # Production-like setup - we apply specific states to machines, based on roles
