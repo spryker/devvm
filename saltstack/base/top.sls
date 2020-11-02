@@ -21,7 +21,7 @@ dev:
     - postgresql
     - rabbitmq
     - ruby
-    - nodejs
+#    - nodejs
     - php
     - java
     - development
