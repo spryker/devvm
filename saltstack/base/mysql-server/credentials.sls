@@ -43,7 +43,7 @@ mysql_users_{{ store }}_{{ environment }}:
     - connection_pass: "mate20mg"
     - connection_charset: utf8
     - require:
-      - pkg: mysql_python_pkgs
+      - pkg: python-mysqldb
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysqld
 {% endif %}
