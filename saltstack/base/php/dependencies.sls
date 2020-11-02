@@ -12,6 +12,5 @@ php-extension-dependencies:
   pkg.installed:
     - pkgs:
       - pkg-config
-      - mariadb.common
+      - mariadb-common
       - {{ mysql_client_libs_package_name }}
-
