@@ -16,8 +16,8 @@ dev:
     - user
     - postfix
     - docker
-#    - cachefilesd
-    - mysql-server
+    - cachefilesd
+#    - mysql-server
     - postgresql
     - rabbitmq
     - ruby
@@ -25,7 +25,7 @@ dev:
     - php
     - java
     - development
-#    - mailcatcher
+    - mailcatcher
     - elk
     - nginx
     - pound
