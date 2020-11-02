@@ -3,10 +3,10 @@
 #
 
 server_pkgs:
-  pkg:
-    - installed
+  pkg.installed:
     - pkgs:
       - python-dev
+      - python-psutil
     - refresh: True
 
 mysql_python_pkgs:
