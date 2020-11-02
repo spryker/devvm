@@ -17,7 +17,7 @@ mysql_database_{{ store }}_{{ environment }}_zed:
   mysql_database.present:
     - name: {{ settings.environments[environment].stores[store].zed.database.database }}
     - require:
-      - pkg: python-mysqldb
+      - pkg: mysql_python_pkgs
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysqld
 {% endif %}
@@ -27,7 +27,7 @@ mysql_database_{{ store }}_{{ environment }}_zed_dump:
   mysql_database.present:
     - name: {{ settings.environments[environment].stores[store].dump.database.database }}
     - require:
-      - pkg: python-mysqldb
+      - pkg: mysql_python_pkgs
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysqld
 {% endif %}
@@ -43,7 +43,7 @@ mysql_users_{{ store }}_{{ environment }}:
     - connection_pass: "mate20mg"
     - connection_charset: utf8
     - require:
-      - pkg: python-mysqldb
+      - pkg: mysql_python_pkgs
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysqld
 {% endif %}
