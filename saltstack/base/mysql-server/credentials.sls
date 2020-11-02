@@ -16,6 +16,9 @@ mysql_root_user:
 mysql_database_{{ store }}_{{ environment }}_zed:
   mysql_database.present:
     - name: {{ settings.environments[environment].stores[store].zed.database.database }}
+    - connection_host: "localhost"
+    - connection_user: root
+    - connection_pass: "mate20mg"
     - require:
       - pkg: mysql_python_pkgs
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
@@ -26,6 +29,9 @@ mysql_database_{{ store }}_{{ environment }}_zed:
 mysql_database_{{ store }}_{{ environment }}_zed_dump:
   mysql_database.present:
     - name: {{ settings.environments[environment].stores[store].dump.database.database }}
+    - connection_host: "localhost"
+    - connection_user: root
+    - connection_pass: "mate20mg"
     - require:
       - pkg: mysql_python_pkgs
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
