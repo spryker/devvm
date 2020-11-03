@@ -2,11 +2,12 @@
 # Create MySQL databases, users and privileges
 #
 
+# set MySQL root user
 mysql_root_user:
   mysql_user.present:
     - host: "localhost"
-    - name: root
-    - password: "mate20mg"
+    - name: {{ pillar.mysql.superuser.username }}
+    - password: {{ pillar.mysql.superuser.password }}
 
 {%- from 'settings/init.sls' import settings with context %}
 {%- for environment, environment_details in settings.environments.items() %}
@@ -17,8 +18,8 @@ mysql_database_{{ store }}_{{ environment }}_zed:
   mysql_database.present:
     - name: {{ settings.environments[environment].stores[store].zed.database.database }}
     - connection_host: "localhost"
-    - connection_user: root
-    - connection_pass: "mate20mg"
+    - connection_user: {{ pillar.mysql.superuser.username }}
+    - connection_pass: {{ pillar.mysql.superuser.password }}
     - require:
       - pkg: mysql_python_pkgs
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
@@ -30,8 +31,8 @@ mysql_database_{{ store }}_{{ environment }}_zed_dump:
   mysql_database.present:
     - name: {{ settings.environments[environment].stores[store].dump.database.database }}
     - connection_host: "localhost"
-    - connection_user: root
-    - connection_pass: "mate20mg"
+    - connection_user: {{ pillar.mysql.superuser.username }}
+    - connection_pass: {{ pillar.mysql.superuser.password }}
     - require:
       - pkg: mysql_python_pkgs
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
@@ -45,8 +46,8 @@ mysql_users_{{ store }}_{{ environment }}:
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
     - password: {{ settings.environments[environment].stores[store].zed.database.password }}
     - connection_host: "localhost"
-    - connection_user: root
-    - connection_pass: "mate20mg"
+    - connection_user: {{ pillar.mysql.superuser.username }}
+    - connection_pass: {{ pillar.mysql.superuser.password }}
     - connection_charset: utf8
     - require:
       - pkg: mysql_python_pkgs
@@ -62,8 +63,8 @@ mysql_grants_{{ store }}_{{ environment }}_zed:
     - user: {{ settings.environments[environment].stores[store].zed.database.username }}
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
     - connection_host: "localhost"
-    - connection_user: root
-    - connection_pass: "mate20mg"
+    - connection_user: {{ pillar.mysql.superuser.username }}
+    - connection_pass: {{ pillar.mysql.superuser.password }}
 
 # create database permissions (dump database)
 mysql_grants_{{ store }}_{{ environment }}_zed_dump:
@@ -73,7 +74,7 @@ mysql_grants_{{ store }}_{{ environment }}_zed_dump:
     - user: {{ settings.environments[environment].stores[store].zed.database.username }}
     - host: "{{ salt['pillar.get']('hosting:mysql_network', '%') }}"
     - connection_host: "localhost"
-    - connection_user: root
-    - connection_pass: "mate20mg"
+    - connection_user: {{ pillar.mysql.superuser.username }}
+    - connection_pass: {{ pillar.mysql.superuser.password }}
 {% endfor %}
 {% endfor %}
