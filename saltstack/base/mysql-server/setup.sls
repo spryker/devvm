@@ -11,8 +11,6 @@ mysql-server:
       - mariadb-backup
       - software-properties-common
       - dirmngr
-      - apt-transport-https
-      - libmariadbclient18
 
 mysqld:
   service.running:
