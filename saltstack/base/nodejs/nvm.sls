@@ -7,13 +7,12 @@
     - user: vagrant
     - group: vagrant
 
-https://github.com/creationix/nvm.git:
-  git.latest:
-    - rev: master
-    - target: /opt/nvm
-    - user: vagrant
-    - require:
-      - file: /opt/nvm
+# Run git manually because of a bug: https://github.com/saltstack/salt/issues/54817
+clone-nvm:
+  cmd.run:
+    - name: git clone https://github.com/nvm-sh/nvm.git /opt/nvm
+    - unless: test -d /opt/nvm
+    - runas: vagrant
 
 nvm_profile:
   file.blockreplace:
