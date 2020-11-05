@@ -36,10 +36,6 @@ export VM_PROJECT
 
 # Spryker default environment
 export APPLICATION_ENV=development
-export SPRYKER_PRODUCT_CONFIGURATOR_HOST='date-time-configurator-example.local'
-export SPRYKER_PRODUCT_CONFIGURATOR_PORT=80
-export SPRYKER_PRODUCT_CONFIGURATOR_ENCRYPTION_KEY='change123'
-export SPRYKER_PRODUCT_CONFIGURATOR_HEX_INITIALIZATION_VECTOR='0c1ffefeebdab4a3d839d0e52590c9a2'
 
 # Composer settings
 export COMPOSER_PROCESS_TIMEOUT=3600
