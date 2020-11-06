@@ -88,7 +88,7 @@ HOSTS = [ 'spryker-vagrant' ]
     ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
-  HOSTS.push [ "demo-date-time-configurator.#{domain}" ]
+  HOSTS.push [ "demo-date-time-configurator.spryker.#{domain}" ]
 end
 
 ###
