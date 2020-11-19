@@ -18,17 +18,6 @@ apt-get-update:
     - watch_in:
        - cmd: apt-get-update
 
-# Additional software repositories
-dotdeb:
-  pkgrepo.managed:
-    - humanname: DotDeb repo ({{ grains.lsb_distrib_codename }})
-    - name: deb http://packages.dotdeb.org {{ grains.lsb_distrib_codename }} all
-    - file: /etc/apt/sources.list.d/dotdeb.list
-    - key_url: http://www.dotdeb.org/dotdeb.gpg
-    - refresh_db: False
-    - watch_in:
-       - cmd: apt-get-update
-
 docker-repo:
  pkgrepo.managed:
    - humanname: Official Docker Repository
