@@ -149,12 +149,3 @@ mysql-server-repo:
     - watch_in:
        - cmd: apt-get-update
 
-mysql-tools-repo:
-  pkgrepo.managed:
-    - humanname: Official MariaDB tools repository
-    - name: deb [arch=amd64,i386,ppc64el] https://mirror.mva-n.net/mariadb/repo/10.4/debian {{ grains.lsb_distrib_codename }} mysql-tools
-    - file: /etc/apt/sources.list.d/mysql-server.list
-    - key_url: https://mariadb.org/mariadb_release_signing_key.asc
-    - refresh_db: False
-    - watch_in:
-       - cmd: apt-get-update
