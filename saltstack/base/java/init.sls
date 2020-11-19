@@ -9,11 +9,11 @@ ca-certificates-java:
 
 java:
   pkg.installed:
-    - name: openjdk-8-jre-headless
+    - name: adoptopenjdk-8-hotspot
     - require:
       - pkg: ca-certificates-java
   alternatives.set:
     - name: java
     - path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
     - require:
-      - pkg: openjdk-8-jre-headless
+      - pkg: adoptopenjdk-8-hotspot

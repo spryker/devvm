@@ -28,6 +28,17 @@ docker-repo:
    - watch_in:
       - cmd: apt-get-update
 
+java-repo:
+  pkgrepo.managed:
+    - humanname: Java 8 Repository
+    - name: deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb buster main
+    - file: /etc/apt/sources.list.d/java8.list
+    - key_url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+    - refresh_db: False
+    - watch_in:
+       - cmd: apt-get-update
+
+
 elasticsearch-repo:
   pkgrepo.managed:
     - humanname: Official Elasticsearch Repository
