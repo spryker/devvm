@@ -2,9 +2,17 @@
 # Install and configure pound, and SSL-Termination proxy
 #
 
+experimental:
+  pkgrepo.managed:
+    - name: deb http://ftp.debian.org/debian experimental main contrib non-free
+
 pound:
   pkg.installed:
-    - name: pound
+    - fromrepo: experimental
+    - refresh: False
+#pound:
+#  pkg.installed:
+#    - name: pound
   service:
     - running
     - require:
