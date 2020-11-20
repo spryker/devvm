@@ -3,7 +3,7 @@
 #
 
 {% set mysql_client_libs_package_name = {
-    'buster': 'libmariadbclient18',
+    'buster': 'libmariadbclient-dev-compat',
     'stretch': 'libmariadbclient18',
     'wheezy':  'libmysqlclient18',
     'jessie':  'libmysqlclient18',
