@@ -21,7 +21,7 @@ mysql_database_{{ store }}_{{ environment }}_zed:
     - connection_user: {{ pillar.mysql.superuser.username }}
     - connection_pass: {{ pillar.mysql.superuser.password }}
     - require:
-      - pkg: mysql_pkgs
+      - pkg: python-mysqldb
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysqld
 {% endif %}
@@ -34,7 +34,7 @@ mysql_database_{{ store }}_{{ environment }}_zed_dump:
     - connection_user: {{ pillar.mysql.superuser.username }}
     - connection_pass: {{ pillar.mysql.superuser.password }}
     - require:
-      - pkg: mysql_pkgs
+      - pkg: python-mysqldb
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysqld
 {% endif %}
@@ -50,7 +50,7 @@ mysql_users_{{ store }}_{{ environment }}:
     - connection_pass: {{ pillar.mysql.superuser.password }}
     - connection_charset: utf8
     - require:
-      - pkg: mysql_pkgs
+      - pkg: python-mysqldb
 {% if salt['pillar.get']('hosting:external_mysql', '') == '' %}
       - service: mysqld
 {% endif %}
