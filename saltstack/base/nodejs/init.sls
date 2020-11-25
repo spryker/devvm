@@ -2,13 +2,13 @@
 # Install NodeJS and Yarn package manager
 #
 
-python-psutil:
+python3-psutil:
   pkg.installed
 
 nodejs:
   pkg.installed:
     - require:
-      - pkg: python-psutil
+      - pkg: python3-psutil
 
 yarn:
   pkg.installed
