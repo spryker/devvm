@@ -4,4 +4,4 @@ ES_PATH_CONF=/etc/elasticsearch-{{ environment }}
 RESTART_ON_UPGRADE=true
 LOG_PATH=/data/logs/{{ environment }}/elasticsearch
 ES_JAVA_OPTS="-Des.path.logs/${LOG_PATH}"
-JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre"
+JAVA_HOME="/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/jre"
