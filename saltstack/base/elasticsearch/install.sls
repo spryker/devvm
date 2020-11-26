@@ -31,9 +31,9 @@ disable-elasticsearch-service:
 #     - require:
 #       - pkg: elasticsearch
 #     - watch_in:
-# {%- for environment, environment_details in pillar.environments.items() %}
-# {%- if 'skip_instance_setup' not in environment_details.elasticsearch %}
-#       - service: elasticsearch-{{ environment }}
-# {%- endif %}
-# {%- endfor %}
+{%- for environment, environment_details in pillar.environments.items() %}
+{%- if 'skip_instance_setup' not in environment_details.elasticsearch %}
+      - service: elasticsearch-{{ environment }}
+{%- endif %}
+{%- endfor %}
 # {%- endfor %}
