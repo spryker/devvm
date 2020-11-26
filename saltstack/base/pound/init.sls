@@ -5,6 +5,7 @@
 sid:
   pkgrepo.managed:
     - name: deb http://http.us.debian.org/debian sid main non-free contrib
+    - enabled: false
 
 pound:
   pkg.installed:
