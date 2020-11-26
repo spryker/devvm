@@ -28,7 +28,7 @@ dev:
     - mailcatcher
     - elk
     - nginx
-#    - pound
+    - pound
     - jenkins
     - redis
     - samba

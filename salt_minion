@@ -3,7 +3,7 @@ file_client: local
 state_events: false
 id: spryker-vm
 saltenv: dev
-postgres.bins_dir: "/usr/lib/postgresql/9.4/bin/"
+postgres.bins_dir: "/usr/lib/postgresql/9.6/bin/"
 grains:
   environment: dev
   roles:

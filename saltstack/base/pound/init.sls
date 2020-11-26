@@ -10,9 +10,9 @@ pound:
   pkg.installed:
     - fromrepo: experimental
     - refresh: False
-#pound:
-#  pkg.installed:
-#    - name: pound
+pound:
+  pkg.installed:
+    - name: pound
   service:
     - running
     - require:
