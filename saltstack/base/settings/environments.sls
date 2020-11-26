@@ -15,11 +15,20 @@
 {%-   do environments[environment].static.update ({ 'hostname': grains_hostname_static}) %}
 {%- endif %}
 
+# If hostnames are defined in grains - overwrite setings from pillar
+{%- set grains_hostname_configurator = salt['grains.get']('environments:' + environment + ':configurator:hostname', None) %}
+{%- if grains_hostname_configurator != None %}
+{%-   do environments[environment].configurator.update ({ 'hostname': grains_hostname_configurator}) %}
+{%- endif %}
+
 # Generate Jenkins ports
 {%- do environments[environment].update ({ 'jenkins': { 'port': '1' + port['environment'][environment]['port'] + '00' + '7' }}) %}
 
 # Generate http static assets ports
 {%- do environments[environment].static.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '2' }) %}
+
+# Generate http Configurator assets ports
+{%- do environments[environment].configurator.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '3' }) %}
 
 # Generate Elasticsearch ports
 {%- do environments[environment]['elasticsearch'].update ({

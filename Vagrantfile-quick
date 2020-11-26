@@ -103,6 +103,7 @@ HOSTS = [ 'spryker-vagrant' ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
 end
+HOSTS.push [ "demo-date-time-configurator.spryker.local" ]
 
 ###
 ### END OF CONFIGURATION
