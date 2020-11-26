@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'MySQL' do
-  credentials="-uroot --password=''"
+  credentials="-uroot --password='mate20mg'"
 
   describe command("/usr/sbin/mysqld --version") do
-    its(:stdout) { should include('Ver 5.7') }
+    its(:stdout) { should include('Ver 10.4') }
   end
 
   describe command("mysql #{credentials} -e 'show databases'") do
