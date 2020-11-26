@@ -18,5 +18,6 @@ describe 'nginx' do
     its(:stdout) { should match(/server_name.*www.*de.*local/) }
     its(:stdout) { should match(/server_name.*zed.*de.*local/) }
     its(:stdout) { should match(/server_name.*glue.*de.*local/) }
+    its(:stdout) { should match(/server_name.*demo-date-time-configurator.*local/) }
   end
 end
