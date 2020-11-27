@@ -46,25 +46,27 @@ else
   unique_byte = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
 
   # Settings for the Virtualbox VM
-  VM_IP_PREFIX  = ENV['VM_IP_PREFIX'] || '10.10.0.'                         # Prefix for IP address of DEV VM
-  VM_IP         = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
-  VM_MEMORY     = ENV['VM_MEMORY']    || '4000'                             # Number of memory for DEV VM, in MB
-  VM_CPUS       = ENV['VM_CPUS']      || '4'                                # Number of CPU cores for DEV VM
-  VM_NAME       = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
-  VM_SKIP_SF    = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
-  VM_IS_WINDOWS = (Vagrant::Util::Platform.windows?) ? '1':'0'
+  VM_IP_PREFIX        = ENV['VM_IP_PREFIX']        || '10.10.0.'                         # Prefix for IP address of DEV VM
+  VM_IP               = ENV['VM_IP']               || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
+  VM_MEMORY           = ENV['VM_MEMORY']           || '4000'                             # Number of memory for DEV VM, in MB
+  VM_CPUS             = ENV['VM_CPUS']             || '4'                                # Number of CPU cores for DEV VM
+  VM_NAME             = ENV['VM_NAME']             || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
+  VM_SKIP_SF          = ENV['VM_SKIP_SF']          || '0'                                # Don't mount shared folders
+  VM_SKIP_QUICK_SETUP = ENV['VM_SKIP_QUICK_SETUP'] || '0'                                # Don't auto run Spryker setup
+  VM_IS_WINDOWS  = (Vagrant::Util::Platform.windows?) ? '1':'0'
 
   config=
-    "VM_PROJECT =         '#{VM_PROJECT}'\n" +
-    "VM_IP =              '#{VM_IP}'\n" +
-    "VM_MEMORY =          '#{VM_MEMORY}'\n" +
-    "VM_CPUS =            '#{VM_CPUS}'\n" +
-    "VM_NAME =            '#{VM_NAME}'\n" +
-    "VM_DOMAIN =          '#{VM_DOMAIN}'\n" +
-    "VM_SKIP_SF =         '#{VM_SKIP_SF}'\n" +
-    "VM_IS_WINDOWS =      '#{VM_IS_WINDOWS}'\n" +
-    "SPRYKER_BRANCH =     '#{SPRYKER_BRANCH}'\n" +
-    "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
+    "VM_PROJECT =          '#{VM_PROJECT}'\n" +
+    "VM_IP =               '#{VM_IP}'\n" +
+    "VM_MEMORY =           '#{VM_MEMORY}'\n" +
+    "VM_CPUS =             '#{VM_CPUS}'\n" +
+    "VM_NAME =             '#{VM_NAME}'\n" +
+    "VM_DOMAIN =           '#{VM_DOMAIN}'\n" +
+    "VM_SKIP_SF =          '#{VM_SKIP_SF}'\n" +
+    "VM_SKIP_QUICK_SETUP = '#{VM_SKIP_QUICK_SETUP}'\n" +
+    "VM_IS_WINDOWS =       '#{VM_IS_WINDOWS}'\n" +
+    "SPRYKER_BRANCH =      '#{SPRYKER_BRANCH}'\n" +
+    "SPRYKER_REPOSITORY =  '#{SPRYKER_REPOSITORY}'\n"
 
   unless (ARGV & ['up', 'reload', 'provision']).empty?
     puts yellow "The following settings will be used for the new VM:"
@@ -88,6 +90,7 @@ end
 
 # Backward compatibility for .vm file
 VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
+VM_SKIP_QUICK_SETUP = '0' if not defined? VM_SKIP_QUICK_SETUP
 
 # Hostnames to be managed
 STORES = ['de', 'at', 'us']
@@ -176,6 +179,12 @@ if not (VM_SKIP_SF == '1')
       puts bold "Cloning Spryker git repository..."
       if find_executable 'git'
         system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
+        if not (VM_QUICK_SETUP == '1')
+          puts bold "Composer install..."
+          system "composer install"
+          puts bold "Spryker install..."
+          system "vendor/bin/install"
+        end
       else
         raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
         "\n\n\033[0m"
