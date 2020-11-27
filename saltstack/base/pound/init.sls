@@ -5,7 +5,7 @@
 sid:
   pkgrepo.managed:
     - name: deb http://http.us.debian.org/debian sid main non-free contrib
-    - enabled: false
+    - enabled: False
 
 
 #pound:
@@ -14,7 +14,7 @@ sid:
 pound:
   pkg.installed:
     - fromrepo: sid
-    - refresh: False
+    - refresh: True
   service:
     - running
     - require:
