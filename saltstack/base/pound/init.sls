@@ -14,6 +14,8 @@ sid-repo:
     - refresh: False
     - require:
       - file: /etc/apt/preferences
+    - require_in:
+      - pkg: install-pound
 
 #pound:
 #  pkg.installed:
