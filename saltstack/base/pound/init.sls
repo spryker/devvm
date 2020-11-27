@@ -56,13 +56,13 @@ pound:
   file.managed:
     - source: salt://pound/files/etc/pound/pound.cfg
     - require:
-      - pkg: pound
+      - pkg: install-pound
 
 /etc/default/pound:
   file.managed:
     - source: salt://pound/files/etc/default/pound
     - require:
-      - pkg: pound
+      - pkg: install-pound
 
 /etc/pound/certs:
   file.directory:
@@ -70,7 +70,7 @@ pound:
     - group: root
     - mode: 755
     - require:
-      - pkg: pound
+      - pkg: install-pound
 
 /etc/pound/certs/1star_local:
   file.managed:
