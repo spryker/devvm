@@ -23,21 +23,7 @@ sid-repo:
 
 install-pound:
   pkg.installed:
-    - pkgs:
-      - init-system-helpers
-      - libc6
-      - libc6.1
-      - libmbedcrypto3
-      - libmbedtls12
-      - libmbedx509-0
-      - libnanomsg5
-      - libpcre3
-      - libyaml-0-2
-      - lsb-base
-      - sysuser-helper
-      - libnanomsg0
-      - libnanomsg4
-      - pound
+    - name: pound
     - fromrepo: unstable
 
 pound:
