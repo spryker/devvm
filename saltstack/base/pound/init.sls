@@ -4,8 +4,8 @@
 
 sid-repo:
   pkgrepo.managed:
-    - name: deb http://http.us.debian.org/debian sid main non-free contrib
-    - dist: sid
+    - name: deb http://deb.debian.org/debian/ unstable main contrib non-free
+    - dist: unstable
     - enabled: False
     - refresh_db: False
 
