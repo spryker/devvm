@@ -149,3 +149,10 @@ mysql-server-repo:
     - watch_in:
        - cmd: apt-get-update
 
+sid-repo:
+  pkgrepo.managed:
+    - name: deb http://http.us.debian.org/debian sid main non-free contrib
+    - enabled: False
+    - refresh_db: False
+    - watch_in:
+       - cmd: apt-get-update

@@ -2,19 +2,14 @@
 # Install and configure pound, and SSL-Termination proxy
 #
 
-sid:
-  pkgrepo.managed:
-    - name: deb http://http.us.debian.org/debian sid main non-free contrib
-    - enabled: False
-
 
 #pound:
 #  pkg.installed:
 #    - name: pound
 pound:
   pkg.installed:
+    - name: pound
     - fromrepo: sid
-    - refresh: True
   service:
     - running
     - require:
