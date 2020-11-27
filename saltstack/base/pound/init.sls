@@ -10,7 +10,7 @@ sid-repo:
   pkgrepo.managed:
     - name: deb http://deb.debian.org/debian/ unstable main contrib non-free
     - dist: unstable
-    - enabled: False
+    - enabled: True
     - refresh_db: False
     - require:
       - file: /etc/apt/preferences
