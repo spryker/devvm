@@ -7,13 +7,14 @@ sid:
     - name: deb http://http.us.debian.org/debian sid main non-free contrib
     - enabled: false
 
+
+#pound:
+#  pkg.installed:
+#    - name: pound
 pound:
   pkg.installed:
     - fromrepo: sid
     - refresh: False
-#pound:
-#  pkg.installed:
-#    - name: pound
   service:
     - running
     - require:
