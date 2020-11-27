@@ -18,7 +18,8 @@ sid-repo:
 #pound:
 #  pkg.installed:
 #    - name: pound
-pound:
+
+install-pound:
   pkg.installed:
     - fromrepo: unstable
     - pkgs:
@@ -36,10 +37,12 @@ pound:
       - libnanomsg0
       - libnanomsg4
       - pound
+
+pound:
   service:
     - running
     - require:
-      - pkg: pound
+      - pkg: install-pound
       - file: /etc/default/pound
       - file: /etc/pound/certs/1star_local
       - file: /etc/pound/certs/2star_local
