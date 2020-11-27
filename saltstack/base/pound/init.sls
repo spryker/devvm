@@ -21,7 +21,6 @@ sid-repo:
 
 install-pound:
   pkg.installed:
-    - fromrepo: unstable
     - pkgs:
       - init-system-helpers
       - libc6
@@ -37,6 +36,7 @@ install-pound:
       - libnanomsg0
       - libnanomsg4
       - pound
+    - fromrepo: unstable
 
 pound:
   service:
