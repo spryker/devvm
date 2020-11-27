@@ -2,7 +2,7 @@
 # Install and configure pound, and SSL-Termination proxy
 #
 
-/etc/apt/preferences
+/etc/apt/preferences:
   file.managed:
     - source: salt://pound/files/repo.preferences
 
