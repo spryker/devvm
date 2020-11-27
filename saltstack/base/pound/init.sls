@@ -11,7 +11,7 @@ sid-repo:
     - name: deb http://deb.debian.org/debian/ unstable main contrib non-free
     - dist: unstable
     - enabled: True
-    - refresh_db: False
+    - refresh: False
     - require:
       - file: /etc/apt/preferences
 

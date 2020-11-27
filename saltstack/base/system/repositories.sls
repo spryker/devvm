@@ -24,7 +24,7 @@ docker-repo:
    - name: deb [arch=amd64] https://download.docker.com/linux/debian {{ grains.lsb_distrib_codename }} stable
    - file: /etc/apt/sources.list.d/docker.list
    - key_url: https://download.docker.com/linux/debian/gpg
-   - refresh_db: False
+   - refresh: False
    - watch_in:
       - cmd: apt-get-update
 
@@ -34,7 +34,7 @@ java-repo:
     - name: deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb buster main
     - file: /etc/apt/sources.list.d/java8.list
     - key_url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -45,7 +45,7 @@ elasticsearch-repo:
     - name: deb https://artifacts.elastic.co/packages/7.x/apt stable main
     - file: /etc/apt/sources.list.d/elasticsearch7.list
     - key_url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -55,7 +55,7 @@ beats-repo:
     - name: deb https://packages.elastic.co/beats/apt stable main
     - file: /etc/apt/sources.list.d/beats.list
     - key_url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -64,7 +64,7 @@ beats-repo:
     - humanname: Debian {{ grains.lsb_distrib_codename }} Backports repository
     - name: deb http://ftp.uk.debian.org/debian {{ grains.lsb_distrib_codename }}-backports main
     - file: /etc/apt/sources.list.d/backports.list
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -74,7 +74,7 @@ nodesource-node-repo:
     - name: deb https://deb.nodesource.com/node_12.x {{ grains.lsb_distrib_codename }} main
     - file: /etc/apt/sources.list.d/nodesource.list
     - key_url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -84,7 +84,7 @@ yarn-repo:
     - name: deb https://dl.yarnpkg.com/debian/ stable main
     - file: /etc/apt/sources.list.d/yarn.list
     - key_url: https://dl.yarnpkg.com/debian/pubkey.gpg
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -94,7 +94,7 @@ jenkins-repo:
     - name: deb http://pkg.jenkins.io/debian binary/
     - file: /etc/apt/sources.list.d/jenkins.list
     - key_url: https://pkg.jenkins.io/debian/jenkins.io.key
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -104,7 +104,7 @@ postgresql-repo:
     - name: deb http://apt.postgresql.org/pub/repos/apt/ {{ grains.lsb_distrib_codename }}-pgdg main
     - file: /etc/apt/sources.list.d/postgresql.list
     - key_url: http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -114,7 +114,7 @@ php-repo:
     - name: deb https://packages.sury.org/php/ {{ grains.lsb_distrib_codename }} main
     - file: /etc/apt/sources.list.d/php.list
     - key_url: https://packages.sury.org/php/apt.gpg
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -124,7 +124,7 @@ rabbitmq-repo:
     - name: deb http://www.rabbitmq.com/debian/ testing main
     - file: /etc/apt/sources.list.d/rabbitmq.list
     - key_url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -135,7 +135,7 @@ git-repo:
     - file: /etc/apt/sources.list.d/git.list
     - keyid: E1DF1F24
     - keyserver: keyserver.ubuntu.com
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
@@ -145,7 +145,7 @@ mysql-server-repo:
     - name: deb [arch=amd64,i386,ppc64el] https://mirror.mva-n.net/mariadb/repo/10.4/debian {{ grains.lsb_distrib_codename }} main
     - file: /etc/apt/sources.list.d/mysql-server.list
     - key_url: https://mariadb.org/mariadb_release_signing_key.asc
-    - refresh_db: False
+    - refresh: False
     - watch_in:
        - cmd: apt-get-update
 
