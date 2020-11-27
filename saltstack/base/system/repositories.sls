@@ -154,5 +154,4 @@ sid-repo:
     - name: deb http://http.us.debian.org/debian sid main non-free contrib
     - enabled: False
     - refresh_db: False
-    - watch_in:
-       - cmd: apt-get-update
+
