@@ -2,29 +2,9 @@
 # Install and configure pound, and SSL-Termination proxy
 #
 
-/etc/apt/preferences:
-  file.managed:
-    - source: salt://pound/files/repo.preferences
-
-sid-repo:
-  pkgrepo.managed:
-    - name: deb http://deb.debian.org/debian/ unstable main contrib non-free
-    - dist: unstable
-    - enabled: True
-    - refresh: False
-    - require:
-      - file: /etc/apt/preferences
-    - require_in:
-      - pkg: install-pound
-
-#pound:
-#  pkg.installed:
-#    - name: pound
-
 install-pound:
-  pkg.installed:
-    - name: pound
-    - fromrepo: unstable
+  cmd.run:
+    - name: cd /opt && wget -q http://archive.ubuntu.com/ubuntu/pool/universe/p/pound/pound_3.0-1_amd64.deb && dpkg -i pound_3.0-1_amd64.deb && rm -f pound_3.0-1_amd64.deb
 
 pound:
   service:
