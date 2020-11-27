@@ -2,14 +2,35 @@
 # Install and configure pound, and SSL-Termination proxy
 #
 
+sid-repo:
+  pkgrepo.managed:
+    - name: deb http://http.us.debian.org/debian sid main non-free contrib
+    - dist: sid
+    - enabled: False
+    - refresh_db: False
+
 
 #pound:
 #  pkg.installed:
 #    - name: pound
 pound:
   pkg.installed:
-    - name: pound
     - fromrepo: sid
+    - pkgs:
+      - init-system-helpers
+      - libc6
+      - libc6.1
+      - libmbedcrypto3
+      - libmbedtls12
+      - libmbedx509-0
+      - libnanomsg5
+      - libpcre3
+      - libyaml-0-2
+      - lsb-base
+      - sysuser-helper
+      - libnanomsg0
+      - libnanomsg4
+      - pound
   service:
     - running
     - require:
