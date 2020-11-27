@@ -2,13 +2,18 @@
 # Install and configure pound, and SSL-Termination proxy
 #
 
+/etc/apt/preferences
+  file.managed:
+    - source: salt://pound/files/repo.preferences
+
 sid-repo:
   pkgrepo.managed:
     - name: deb http://deb.debian.org/debian/ unstable main contrib non-free
     - dist: unstable
     - enabled: False
     - refresh_db: False
-
+    - require:
+      - file: /etc/apt/preferences
 
 #pound:
 #  pkg.installed:
