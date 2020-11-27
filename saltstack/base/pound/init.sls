@@ -20,7 +20,7 @@ sid-repo:
 #    - name: pound
 pound:
   pkg.installed:
-    - fromrepo: sid
+    - fromrepo: unstable
     - pkgs:
       - init-system-helpers
       - libc6
