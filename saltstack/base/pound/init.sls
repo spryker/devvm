@@ -20,6 +20,7 @@ pound:
       - pkg: pound-depth
   service.running:
     - enable: True
+    - reload: True
     - require:
       - pkg: pound
       - file: /etc/default/pound
@@ -30,6 +31,7 @@ pound:
       - file: /etc/pound/certs/star_spryker_dev
     - watch:
       - file: /etc/pound/pound.cfg
+      - pkg: pound
 
 /etc/pound/pound.cfg:
   file.managed:
