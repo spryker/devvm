@@ -20,7 +20,6 @@ pound:
       - pkg: pound-depth
   service.running:
     - enable: True
-    - reload: True
     - require:
       - pkg: pound
       - file: /etc/default/pound
