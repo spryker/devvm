@@ -11,15 +11,13 @@ pound-depth:
       - libmbedx509-0
       - libnanomsg5
 
-install-pound:
+pound:
   pkg.installed:
     - hold: True
     - sources:
       - pound: http://archive.ubuntu.com/ubuntu/pool/universe/p/pound/pound_3.0-1_amd64.deb
     - require:
       - pkg: pound-depth
-
-pound:
   service.running:
     - enable: True
     - require:
