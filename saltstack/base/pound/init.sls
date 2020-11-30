@@ -21,7 +21,7 @@ pound:
   service.running:
     - enable: True
     - require:
-      - pkg: install-pound
+      - pkg: pound
       - file: /etc/default/pound
       - file: /etc/pound/certs/1star_local
       - file: /etc/pound/certs/2star_local
@@ -35,13 +35,13 @@ pound:
   file.managed:
     - source: salt://pound/files/etc/pound/pound.cfg
     - require:
-      - pkg: install-pound
+      - pkg: pound
 
 /etc/default/pound:
   file.managed:
     - source: salt://pound/files/etc/default/pound
     - require:
-      - pkg: install-pound
+      - pkg: pound
 
 /etc/pound/certs:
   file.directory:
@@ -49,7 +49,7 @@ pound:
     - group: root
     - mode: 755
     - require:
-      - pkg: install-pound
+      - pkg: pound
 
 /etc/pound/certs/1star_local:
   file.managed:
