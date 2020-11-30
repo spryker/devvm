@@ -164,7 +164,7 @@ if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryke
     puts bold "Cloning Spryker git repository..."
     if find_executable 'git'
       system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
-      if not (VM_QUICK_SETUP == '1')
+      if not (VM_SKIP_QUICK_SETUP == '1')
         puts bold "Composer install..."
         system "composer install"
         puts bold "Spryker install..."
