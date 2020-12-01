@@ -164,12 +164,6 @@ if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryke
     puts bold "Cloning Spryker git repository..."
     if find_executable 'git'
       system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
-      if not (VM_SKIP_QUICK_SETUP == '1')
-        puts bold "Composer install..."
-        system "composer install"
-        puts bold "Spryker install..."
-        system "vendor/bin/install"
-      end
     else
       raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
       "\n\n\033[0m"
@@ -246,6 +240,14 @@ Vagrant.configure(2) do |config|
       config.nfs.map_uid = Process.uid
       config.nfs.map_gid = Process.gid
     end
+  end
+
+  # Initial Composer and Spryker install
+  if not (VM_SKIP_QUICK_SETUP == '1')
+    puts bold "Composer install..."
+    system "composer install"
+    puts bold "Spryker install..."
+    system "vendor/bin/install"
   end
 
   # Configure VirtualBox VM resources (CPU and memory)
