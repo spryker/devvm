@@ -15,7 +15,7 @@ pound:
   pkg.installed:
     - hold: True
     - sources:
-      - pound: http://archive.ubuntu.com/ubuntu/pool/universe/p/pound/pound_3.0-1_amd64.deb
+      - pound: http://archive.ubuntu.com/ubuntu/pool/universe/p/pound/pound_2.8-2_amd64.deb
     - require:
       - pkg: pound-depth
   service.running:
