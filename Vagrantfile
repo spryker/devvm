@@ -242,14 +242,6 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  # Initial Composer and Spryker install
-  if not (VM_SKIP_QUICK_SETUP == '1')
-    puts bold "Composer install..."
-    system "composer install"
-    puts bold "Spryker install..."
-    system "vendor/bin/install"
-  end
-
   # Configure VirtualBox VM resources (CPU and memory)
   config.vm.provider :virtualbox do |vb|
     vb.name = VM_NAME
