@@ -44,7 +44,6 @@ else
   VM_CPUS             = ENV['VM_CPUS']             || '4'                                # Number of CPU cores for DEV VM
   VM_NAME             = ENV['VM_NAME']             || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
   VM_SKIP_SF          = ENV['VM_SKIP_SF']          || '0'                                # Don't mount shared folders
-  VM_SKIP_QUICK_SETUP = ENV['VM_SKIP_QUICK_SETUP'] || '0'                                # Don't auto run Spryker setup
   VM_IS_WINDOWS  = (Vagrant::Util::Platform.windows?) ? '1':'0'
 
   config=
@@ -55,7 +54,6 @@ else
     "VM_NAME =             '#{VM_NAME}'\n" +
     "VM_DOMAIN =           '#{VM_DOMAIN}'\n" +
     "VM_SKIP_SF =          '#{VM_SKIP_SF}'\n" +
-    "VM_SKIP_QUICK_SETUP = '#{VM_SKIP_QUICK_SETUP}'\n" +
     "VM_IS_WINDOWS =       '#{VM_IS_WINDOWS}'\n" +
     "SPRYKER_BRANCH =      '#{SPRYKER_BRANCH}'\n" +
     "SPRYKER_REPOSITORY =  '#{SPRYKER_REPOSITORY}'\n"
@@ -72,7 +70,6 @@ end
 
 # Backward compatibility for .vm file
 VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
-VM_SKIP_QUICK_SETUP = '0' if not defined? VM_SKIP_QUICK_SETUP
 
 # Remote locations of provisioning repositories
 SALT_REPOSITORY    = ENV['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
