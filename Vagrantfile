@@ -53,7 +53,6 @@ else
     "VM_NAME =            '#{VM_NAME}'\n" +
     "VM_DOMAIN =          '#{VM_DOMAIN}'\n" +
     "VM_SKIP_SF =         '#{VM_SKIP_SF}'\n" +
-    "VM_IS_WINDOWS =      '#{VM_IS_WINDOWS}'\n" +
     "SPRYKER_BRANCH =     '#{SPRYKER_BRANCH}'\n" +
     "SPRYKER_REPOSITORY = '#{SPRYKER_REPOSITORY}'\n"
 
