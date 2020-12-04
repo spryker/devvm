@@ -4,7 +4,7 @@
 
 redis-server:
   pkg.installed:
-    - fromrepo: stretch-backports
+    - fromrepo: {{ grains.lsb_distrib_codename }}-backports
 
 # Make sure that redis bgsave can overcommit virtual memory
 vm.overcommit_memory:

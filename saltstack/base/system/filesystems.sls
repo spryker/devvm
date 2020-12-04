@@ -2,7 +2,7 @@
 # Automatically format and mount partitions given in grains.filesystems (ext4 filesystem)
 #
 
-{% for volume, mount_point in grains.get('filesystems', {}).iteritems() %}
+{% for volume, mount_point in grains.get('filesystems', {}).items() %}
 create-fs-{{ volume }}:
   cmd.run:
     - name: mkfs -t ext4 {{ volume }} && tune2fs -o journal_data_writeback {{ volume }} && tune2fs -O ^has_journal {{ volume }} && e2fsck -f -y {{ volume }}

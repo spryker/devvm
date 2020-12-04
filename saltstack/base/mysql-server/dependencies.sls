@@ -2,5 +2,6 @@
 # Dependencies for salt for managing mysql resources
 #
 
-python-mysqldb:
+python3-mysqldb:
   pkg.installed
+

@@ -89,6 +89,7 @@ HOSTS = [ 'spryker-vagrant' ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
 end
+HOSTS.push [ "demo-date-time-configurator.spryker.local" ]
 
 ###
 ### END OF CONFIGURATION
@@ -172,8 +173,8 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian911_17"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-17/debian911.box"
+  config.vm.box = "debian10_5"
+  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/debian105.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
@@ -201,7 +202,7 @@ Vagrant.configure(2) do |config|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
-      salt.version = "v2019.2.0"
+      salt.version = "v3000.3"
       salt.install_type = "git"
     end
   else

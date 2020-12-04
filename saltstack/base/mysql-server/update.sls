@@ -5,4 +5,4 @@
 
 update-mysql:
   pkg.latest:
-    - name: mysql-community-server
+    - name: mariadb-server

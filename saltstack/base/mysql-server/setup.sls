@@ -6,11 +6,13 @@
 mysql-server:
   pkg.installed:
     - pkgs:
-      - mysql-community-server
-      - mysql-community-client
-      - libmysqlclient20
+      - mariadb-server
+      - mariadb-client
+      - mariadb-backup
+      - software-properties-common
+      - dirmngr
 
-mysql:
+mysqld:
   service.running:
     - enable: True
     - watch:

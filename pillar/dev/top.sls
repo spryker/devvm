@@ -6,6 +6,7 @@ dev:
     - user
     - postfix
     - postgresql
+    - mysql
     - rabbitmq
     - elasticsearch
     - elk

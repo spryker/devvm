@@ -132,6 +132,18 @@
     - context:
       environment: {{ environment }}
 
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-configurator.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/configurator.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
 # NginX configs
 /etc/nginx/conf.d/{{ environment }}-backend.conf:
   file.managed:
@@ -171,6 +183,28 @@
       - cmd: reload-nginx
 {%- endif %}
 {%- endif %}
+
+/etc/nginx/sites-available/{{ environment }}_configurator:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/configurator.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_configurator:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_configurator
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_configurator
+    - watch_in:
+      - cmd: reload-nginx
 
 {%- endif %}
 

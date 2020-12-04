@@ -2,11 +2,24 @@
 # Install and configure pound, and SSL-Termination proxy
 #
 
+pound-depth:
+  pkg.installed:
+    - pkgs:
+      - sysuser-helper
+      - libmbedcrypto3
+      - libmbedtls12
+      - libmbedx509-0
+      - libnanomsg5
+
 pound:
   pkg.installed:
-    - name: pound
-  service:
-    - running
+    - hold: True
+    - sources:
+      - pound: http://archive.ubuntu.com/ubuntu/pool/universe/p/pound/pound_2.8-2_amd64.deb
+    - require:
+      - pkg: pound-depth
+  service.running:
+    - enable: True
     - require:
       - pkg: pound
       - file: /etc/default/pound
@@ -17,6 +30,7 @@ pound:
       - file: /etc/pound/certs/star_spryker_dev
     - watch:
       - file: /etc/pound/pound.cfg
+      - pkg: pound
 
 /etc/pound/pound.cfg:
   file.managed:

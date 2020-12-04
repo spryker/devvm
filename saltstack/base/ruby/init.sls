@@ -3,6 +3,7 @@
 #
 
 {% set ruby_package_name = {
+    'buster': 'ruby',
     'stretch': 'ruby',
     'wheezy':  'ruby1.9.1',
     'jessie':  'ruby',
