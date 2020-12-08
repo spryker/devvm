@@ -11,6 +11,7 @@ dev:
   # apply all states on a single machine, don't divide by roles
   '*':
     - system
+    - chromedriver
     - hosting
     - user
     - postfix

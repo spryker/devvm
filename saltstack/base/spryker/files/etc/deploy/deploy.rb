@@ -2,7 +2,7 @@
 #
 # Spryker - Application deployment
 #
-# author: Marek Obuchowicz <marek@korekontrol.eu>
+# author: Marek Obuchowicz
 #
 
 

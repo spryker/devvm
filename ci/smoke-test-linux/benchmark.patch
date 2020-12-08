@@ -1,0 +1,2357 @@
+Index: bin/benchmark
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- bin/benchmark	(date 1580639806556)
++++ bin/benchmark	(date 1580639806556)
+@@ -0,0 +1,12 @@
++#!/bin/bash
++
++cd src/Benchmark
++
++composer install -o
++
++echo 'Warming up...'
++php src/Benchmark/GlueAddToCart.php 5 > /dev/null
++
++time php src/Benchmark/GlueAddToCart.php ${1:-100}
++
++time vendor/bin/phpbench run src/Benchmark --iterations=${1:-100} --report=total --report=summary --time-unit=seconds
+Index: src/Benchmark/phpbench.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/phpbench.json	(date 1579869374181)
++++ src/Benchmark/phpbench.json	(date 1579869374181)
+@@ -0,0 +1,21 @@
++{
++  "bootstrap": "bootstrap.php",
++  "extensions": [
++    "Benchmark\\Spryker\\Extension\\TtfbExtension"
++  ],
++  "time_unit": "seconds",
++  "executors": {
++    "microtime": {
++      "executor": "ttfb"
++    }
++  },
++  "reports": {
++    "total": {
++      "extends": "default"
++    },
++    "summary": {
++      "extends": "aggregate",
++      "cols": ["subject", "best", "mean", "worst"]
++    }
++  }
++}
+Index: src/Benchmark/composer.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/composer.json	(date 1580639530510)
++++ src/Benchmark/composer.json	(date 1580639530510)
+@@ -0,0 +1,13 @@
++{
++    "name": "spryker/benchmark",
++    "require": {
++        "ext-curl": "*",
++        "ext-json": "*",
++        "phpbench/phpbench": "^1.0@dev"
++    },
++    "autoload": {
++        "psr-4": {
++          "Benchmark\\Spryker\\": "src"
++        }
++    }
++}
+Index: src/Benchmark/composer.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/composer.lock	(date 1580639707307)
++++ src/Benchmark/composer.lock	(date 1580639707307)
+@@ -0,0 +1,1329 @@
++{
++    "_readme": [
++        "This file locks the dependencies of your project to a known state",
++        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
++        "This file is @generated automatically"
++    ],
++    "content-hash": "e48421f20b02409956670ffc9d01cae0",
++    "packages": [
++        {
++            "name": "beberlei/assert",
++            "version": "v3.2.7",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/beberlei/assert.git",
++                "reference": "d63a6943fc4fd1a2aedb65994e3548715105abcf"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/beberlei/assert/zipball/d63a6943fc4fd1a2aedb65994e3548715105abcf",
++                "reference": "d63a6943fc4fd1a2aedb65994e3548715105abcf",
++                "shasum": ""
++            },
++            "require": {
++                "ext-ctype": "*",
++                "ext-json": "*",
++                "ext-mbstring": "*",
++                "ext-simplexml": "*",
++                "php": "^7"
++            },
++            "require-dev": {
++                "friendsofphp/php-cs-fixer": "*",
++                "phpstan/phpstan-shim": "*",
++                "phpunit/phpunit": ">=6.0.0 <8"
++            },
++            "suggest": {
++                "ext-intl": "Needed to allow Assertion::count(), Assertion::isCountable(), Assertion::minCount(), and Assertion::maxCount() to operate on ResourceBundles"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Assert\\": "lib/Assert"
++                },
++                "files": [
++                    "lib/Assert/functions.php"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "BSD-2-Clause"
++            ],
++            "authors": [
++                {
++                    "name": "Benjamin Eberlei",
++                    "email": "kontakt@beberlei.de",
++                    "role": "Lead Developer"
++                },
++                {
++                    "name": "Richard Quadling",
++                    "email": "rquadling@gmail.com",
++                    "role": "Collaborator"
++                }
++            ],
++            "description": "Thin assertion library for input validation in business models.",
++            "keywords": [
++                "assert",
++                "assertion",
++                "validation"
++            ],
++            "time": "2019-12-19T17:51:41+00:00"
++        },
++        {
++            "name": "doctrine/annotations",
++            "version": "v1.8.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/doctrine/annotations.git",
++                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/doctrine/annotations/zipball/904dca4eb10715b92569fbcd79e201d5c349b6bc",
++                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc",
++                "shasum": ""
++            },
++            "require": {
++                "doctrine/lexer": "1.*",
++                "php": "^7.1"
++            },
++            "require-dev": {
++                "doctrine/cache": "1.*",
++                "phpunit/phpunit": "^7.5"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.7.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Guilherme Blanco",
++                    "email": "guilhermeblanco@gmail.com"
++                },
++                {
++                    "name": "Roman Borschel",
++                    "email": "roman@code-factory.org"
++                },
++                {
++                    "name": "Benjamin Eberlei",
++                    "email": "kontakt@beberlei.de"
++                },
++                {
++                    "name": "Jonathan Wage",
++                    "email": "jonwage@gmail.com"
++                },
++                {
++                    "name": "Johannes Schmitt",
++                    "email": "schmittjoh@gmail.com"
++                }
++            ],
++            "description": "Docblock Annotations Parser",
++            "homepage": "http://www.doctrine-project.org",
++            "keywords": [
++                "annotations",
++                "docblock",
++                "parser"
++            ],
++            "time": "2019-10-01T18:55:10+00:00"
++        },
++        {
++            "name": "doctrine/lexer",
++            "version": "1.2.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/doctrine/lexer.git",
++                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/doctrine/lexer/zipball/5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
++                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2"
++            },
++            "require-dev": {
++                "doctrine/coding-standard": "^6.0",
++                "phpstan/phpstan": "^0.11.8",
++                "phpunit/phpunit": "^8.2"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.2.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Guilherme Blanco",
++                    "email": "guilhermeblanco@gmail.com"
++                },
++                {
++                    "name": "Roman Borschel",
++                    "email": "roman@code-factory.org"
++                },
++                {
++                    "name": "Johannes Schmitt",
++                    "email": "schmittjoh@gmail.com"
++                }
++            ],
++            "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
++            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
++            "keywords": [
++                "annotations",
++                "docblock",
++                "lexer",
++                "parser",
++                "php"
++            ],
++            "time": "2019-10-30T14:39:59+00:00"
++        },
++        {
++            "name": "lstrojny/functional-php",
++            "version": "1.11.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/lstrojny/functional-php.git",
++                "reference": "df0e516eb44cd0579eeaff57023ef41ffa11947f"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/lstrojny/functional-php/zipball/df0e516eb44cd0579eeaff57023ef41ffa11947f",
++                "reference": "df0e516eb44cd0579eeaff57023ef41ffa11947f",
++                "shasum": ""
++            },
++            "require": {
++                "php": "~7"
++            },
++            "require-dev": {
++                "friendsofphp/php-cs-fixer": "^2.14",
++                "phpunit/phpunit": "~7",
++                "squizlabs/php_codesniffer": "~3.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Functional\\": "src/Functional"
++                },
++                "files": [
++                    "src/Functional/Average.php",
++                    "src/Functional/ButLast.php",
++                    "src/Functional/Capture.php",
++                    "src/Functional/ConstFunction.php",
++                    "src/Functional/CompareOn.php",
++                    "src/Functional/CompareObjectHashOn.php",
++                    "src/Functional/Compose.php",
++                    "src/Functional/Concat.php",
++                    "src/Functional/Contains.php",
++                    "src/Functional/Converge.php",
++                    "src/Functional/Curry.php",
++                    "src/Functional/CurryN.php",
++                    "src/Functional/Difference.php",
++                    "src/Functional/DropFirst.php",
++                    "src/Functional/DropLast.php",
++                    "src/Functional/Each.php",
++                    "src/Functional/Equal.php",
++                    "src/Functional/ErrorToException.php",
++                    "src/Functional/Every.php",
++                    "src/Functional/False.php",
++                    "src/Functional/Falsy.php",
++                    "src/Functional/Filter.php",
++                    "src/Functional/First.php",
++                    "src/Functional/FirstIndexOf.php",
++                    "src/Functional/FlatMap.php",
++                    "src/Functional/Flatten.php",
++                    "src/Functional/Flip.php",
++                    "src/Functional/GreaterThan.php",
++                    "src/Functional/GreaterThanOrEqual.php",
++                    "src/Functional/Group.php",
++                    "src/Functional/Head.php",
++                    "src/Functional/Id.php",
++                    "src/Functional/IfElse.php",
++                    "src/Functional/Identical.php",
++                    "src/Functional/IndexesOf.php",
++                    "src/Functional/Intersperse.php",
++                    "src/Functional/Invoke.php",
++                    "src/Functional/InvokeFirst.php",
++                    "src/Functional/InvokeIf.php",
++                    "src/Functional/InvokeLast.php",
++                    "src/Functional/Invoker.php",
++                    "src/Functional/Last.php",
++                    "src/Functional/LastIndexOf.php",
++                    "src/Functional/LessThan.php",
++                    "src/Functional/LessThanOrEqual.php",
++                    "src/Functional/LexicographicCompare.php",
++                    "src/Functional/Map.php",
++                    "src/Functional/Match.php",
++                    "src/Functional/Maximum.php",
++                    "src/Functional/Memoize.php",
++                    "src/Functional/Minimum.php",
++                    "src/Functional/None.php",
++                    "src/Functional/Noop.php",
++                    "src/Functional/Not.php",
++                    "src/Functional/OmitKeys.php",
++                    "src/Functional/PartialAny.php",
++                    "src/Functional/PartialLeft.php",
++                    "src/Functional/PartialMethod.php",
++                    "src/Functional/PartialRight.php",
++                    "src/Functional/Partition.php",
++                    "src/Functional/Pick.php",
++                    "src/Functional/Pluck.php",
++                    "src/Functional/Poll.php",
++                    "src/Functional/Product.php",
++                    "src/Functional/Ratio.php",
++                    "src/Functional/ReduceLeft.php",
++                    "src/Functional/ReduceRight.php",
++                    "src/Functional/Reindex.php",
++                    "src/Functional/Reject.php",
++                    "src/Functional/Repeat.php",
++                    "src/Functional/Retry.php",
++                    "src/Functional/Select.php",
++                    "src/Functional/SelectKeys.php",
++                    "src/Functional/SequenceConstant.php",
++                    "src/Functional/SequenceExponential.php",
++                    "src/Functional/SequenceLinear.php",
++                    "src/Functional/Some.php",
++                    "src/Functional/Sort.php",
++                    "src/Functional/Sum.php",
++                    "src/Functional/SuppressError.php",
++                    "src/Functional/Tap.php",
++                    "src/Functional/Tail.php",
++                    "src/Functional/TailRecursion.php",
++                    "src/Functional/TakeLeft.php",
++                    "src/Functional/TakeRight.php",
++                    "src/Functional/True.php",
++                    "src/Functional/Truthy.php",
++                    "src/Functional/Unique.php",
++                    "src/Functional/With.php",
++                    "src/Functional/Zip.php",
++                    "src/Functional/ZipAll.php"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Lars Strojny",
++                    "email": "lstrojny@php.net",
++                    "homepage": "http://usrportage.de"
++                },
++                {
++                    "name": "Max Beutel",
++                    "email": "nash12@gmail.com"
++                }
++            ],
++            "description": "Functional primitives for PHP",
++            "keywords": [
++                "functional"
++            ],
++            "time": "2019-12-19T16:01:40+00:00"
++        },
++        {
++            "name": "phpbench/container",
++            "version": "1.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/phpbench/container.git",
++                "reference": "c0e3cbf1cd8f867c70b029cb6d1b0b39fe6d409d"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/phpbench/container/zipball/c0e3cbf1cd8f867c70b029cb6d1b0b39fe6d409d",
++                "reference": "c0e3cbf1cd8f867c70b029cb6d1b0b39fe6d409d",
++                "shasum": ""
++            },
++            "require": {
++                "psr/container": "^1.0"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^4.8.36"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.0-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "PhpBench\\DependencyInjection\\": "lib/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Daniel Leech",
++                    "email": "daniel@dantleech.com"
++                }
++            ],
++            "description": "Simple, configurable, service container.",
++            "time": "2018-02-12T08:08:59+00:00"
++        },
++        {
++            "name": "phpbench/dom",
++            "version": "0.2.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/phpbench/dom.git",
++                "reference": "b135378dd0004c05ba5446aeddaf0b83339c1c4c"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/phpbench/dom/zipball/b135378dd0004c05ba5446aeddaf0b83339c1c4c",
++                "reference": "b135378dd0004c05ba5446aeddaf0b83339c1c4c",
++                "shasum": ""
++            },
++            "require": {
++                "ext-dom": "*",
++                "php": "^5.4|^7.0"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^4.6"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.0-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "PhpBench\\Dom\\": "lib/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Daniel Leech",
++                    "email": "daniel@dantleech.com"
++                }
++            ],
++            "description": "DOM wrapper to simplify working with the PHP DOM implementation",
++            "time": "2016-02-27T12:15:56+00:00"
++        },
++        {
++            "name": "phpbench/phpbench",
++            "version": "dev-master",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/phpbench/phpbench.git",
++                "reference": "2bc3be6a1185f2eafb133ee92d63e1722e21a845"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/phpbench/phpbench/zipball/2bc3be6a1185f2eafb133ee92d63e1722e21a845",
++                "reference": "2bc3be6a1185f2eafb133ee92d63e1722e21a845",
++                "shasum": ""
++            },
++            "require": {
++                "beberlei/assert": "^2.4 || ^3.0",
++                "doctrine/annotations": "^1.2.7",
++                "ext-dom": "*",
++                "ext-json": "*",
++                "ext-pcre": "*",
++                "ext-reflection": "*",
++                "ext-spl": "*",
++                "lstrojny/functional-php": "1.0 || ^1.2.3",
++                "php": "^7.2",
++                "phpbench/container": "~1.2",
++                "phpbench/dom": "~0.2.0",
++                "seld/jsonlint": "^1.1",
++                "symfony/console": "^4.2 || ^5.0",
++                "symfony/debug": "^4.2 || ^5.0",
++                "symfony/filesystem": "^4.2 || ^5.0",
++                "symfony/finder": "^4.2 || ^5.0",
++                "symfony/options-resolver": "^4.2 || ^5.0",
++                "symfony/process": "^4.2 || ^5.0",
++                "webmozart/path-util": "^2.3"
++            },
++            "require-dev": {
++                "doctrine/dbal": "^2.4",
++                "friendsofphp/php-cs-fixer": "^2.13.1",
++                "padraic/phar-updater": "^1.0",
++                "phpspec/prophecy": "^1.8",
++                "phpstan/phpstan": "^0.10.7",
++                "phpunit/phpunit": "^8.5"
++            },
++            "suggest": {
++                "ext-curl": "For (web) reports extension",
++                "ext-xdebug": "For Xdebug profiling extension."
++            },
++            "bin": [
++                "bin/phpbench"
++            ],
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.0-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "PhpBench\\": "lib/",
++                    "PhpBench\\Extensions\\Dbal\\": "extensions/dbal/lib/",
++                    "PhpBench\\Extensions\\XDebug\\": "extensions/xdebug/lib/",
++                    "PhpBench\\Extensions\\Reports\\": "extensions/reports/lib/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Daniel Leech",
++                    "email": "daniel@dantleech.com"
++                }
++            ],
++            "description": "PHP Benchmarking Framework",
++            "time": "2020-01-20T22:35:58+00:00"
++        },
++        {
++            "name": "psr/container",
++            "version": "1.0.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/php-fig/container.git",
++                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
++                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.3.0"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.0.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Psr\\Container\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "PHP-FIG",
++                    "homepage": "http://www.php-fig.org/"
++                }
++            ],
++            "description": "Common Container Interface (PHP FIG PSR-11)",
++            "homepage": "https://github.com/php-fig/container",
++            "keywords": [
++                "PSR-11",
++                "container",
++                "container-interface",
++                "container-interop",
++                "psr"
++            ],
++            "time": "2017-02-14T16:28:37+00:00"
++        },
++        {
++            "name": "psr/log",
++            "version": "1.1.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/php-fig/log.git",
++                "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/php-fig/log/zipball/446d54b4cb6bf489fc9d75f55843658e6f25d801",
++                "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.3.0"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.1.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Psr\\Log\\": "Psr/Log/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "PHP-FIG",
++                    "homepage": "http://www.php-fig.org/"
++                }
++            ],
++            "description": "Common interface for logging libraries",
++            "homepage": "https://github.com/php-fig/log",
++            "keywords": [
++                "log",
++                "psr",
++                "psr-3"
++            ],
++            "time": "2019-11-01T11:05:21+00:00"
++        },
++        {
++            "name": "seld/jsonlint",
++            "version": "1.7.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/Seldaek/jsonlint.git",
++                "reference": "e2e5d290e4d2a4f0eb449f510071392e00e10d19"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/e2e5d290e4d2a4f0eb449f510071392e00e10d19",
++                "reference": "e2e5d290e4d2a4f0eb449f510071392e00e10d19",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^5.3 || ^7.0"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
++            },
++            "bin": [
++                "bin/jsonlint"
++            ],
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Seld\\JsonLint\\": "src/Seld/JsonLint/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Jordi Boggiano",
++                    "email": "j.boggiano@seld.be",
++                    "homepage": "http://seld.be"
++                }
++            ],
++            "description": "JSON Linter",
++            "keywords": [
++                "json",
++                "linter",
++                "parser",
++                "validator"
++            ],
++            "time": "2019-10-24T14:27:39+00:00"
++        },
++        {
++            "name": "symfony/console",
++            "version": "v5.0.4",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/console.git",
++                "reference": "91c294166c38d8c0858a86fad76d8c14dc1144c8"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/console/zipball/91c294166c38d8c0858a86fad76d8c14dc1144c8",
++                "reference": "91c294166c38d8c0858a86fad76d8c14dc1144c8",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2.5",
++                "symfony/polyfill-mbstring": "~1.0",
++                "symfony/polyfill-php73": "^1.8",
++                "symfony/service-contracts": "^1.1|^2"
++            },
++            "conflict": {
++                "symfony/dependency-injection": "<4.4",
++                "symfony/event-dispatcher": "<4.4",
++                "symfony/lock": "<4.4",
++                "symfony/process": "<4.4"
++            },
++            "provide": {
++                "psr/log-implementation": "1.0"
++            },
++            "require-dev": {
++                "psr/log": "~1.0",
++                "symfony/config": "^4.4|^5.0",
++                "symfony/dependency-injection": "^4.4|^5.0",
++                "symfony/event-dispatcher": "^4.4|^5.0",
++                "symfony/lock": "^4.4|^5.0",
++                "symfony/process": "^4.4|^5.0",
++                "symfony/var-dumper": "^4.4|^5.0"
++            },
++            "suggest": {
++                "psr/log": "For using the console logger",
++                "symfony/event-dispatcher": "",
++                "symfony/lock": "",
++                "symfony/process": ""
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.0-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Console\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony Console Component",
++            "homepage": "https://symfony.com",
++            "time": "2020-01-25T15:56:29+00:00"
++        },
++        {
++            "name": "symfony/debug",
++            "version": "v4.4.4",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/debug.git",
++                "reference": "20236471058bbaa9907382500fc14005c84601f0"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/debug/zipball/20236471058bbaa9907382500fc14005c84601f0",
++                "reference": "20236471058bbaa9907382500fc14005c84601f0",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.1.3",
++                "psr/log": "~1.0"
++            },
++            "conflict": {
++                "symfony/http-kernel": "<3.4"
++            },
++            "require-dev": {
++                "symfony/http-kernel": "^3.4|^4.0|^5.0"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "4.4-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Debug\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony Debug Component",
++            "homepage": "https://symfony.com",
++            "time": "2020-01-25T12:44:29+00:00"
++        },
++        {
++            "name": "symfony/filesystem",
++            "version": "v5.0.4",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/filesystem.git",
++                "reference": "3afadc0f57cd74f86379d073e694b0f2cda2a88c"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/filesystem/zipball/3afadc0f57cd74f86379d073e694b0f2cda2a88c",
++                "reference": "3afadc0f57cd74f86379d073e694b0f2cda2a88c",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2.5",
++                "symfony/polyfill-ctype": "~1.8"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.0-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Filesystem\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony Filesystem Component",
++            "homepage": "https://symfony.com",
++            "time": "2020-01-21T08:40:24+00:00"
++        },
++        {
++            "name": "symfony/finder",
++            "version": "v5.0.4",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/finder.git",
++                "reference": "4176e7cb846fe08f32518b7e0ed8462e2db8d9bb"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/finder/zipball/4176e7cb846fe08f32518b7e0ed8462e2db8d9bb",
++                "reference": "4176e7cb846fe08f32518b7e0ed8462e2db8d9bb",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2.5"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.0-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Finder\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony Finder Component",
++            "homepage": "https://symfony.com",
++            "time": "2020-01-04T14:08:26+00:00"
++        },
++        {
++            "name": "symfony/options-resolver",
++            "version": "v5.0.4",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/options-resolver.git",
++                "reference": "b1ab86ce52b0c0abe031367a173005a025e30e04"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/b1ab86ce52b0c0abe031367a173005a025e30e04",
++                "reference": "b1ab86ce52b0c0abe031367a173005a025e30e04",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2.5"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.0-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\OptionsResolver\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony OptionsResolver Component",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "config",
++                "configuration",
++                "options"
++            ],
++            "time": "2020-01-04T14:08:26+00:00"
++        },
++        {
++            "name": "symfony/polyfill-ctype",
++            "version": "v1.13.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/polyfill-ctype.git",
++                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
++                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.3.3"
++            },
++            "suggest": {
++                "ext-ctype": "For best performance"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.13-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Polyfill\\Ctype\\": ""
++                },
++                "files": [
++                    "bootstrap.php"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Gert de Pagter",
++                    "email": "BackEndTea@gmail.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony polyfill for ctype functions",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "compatibility",
++                "ctype",
++                "polyfill",
++                "portable"
++            ],
++            "time": "2019-11-27T13:56:44+00:00"
++        },
++        {
++            "name": "symfony/polyfill-mbstring",
++            "version": "v1.13.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/polyfill-mbstring.git",
++                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7b4aab9743c30be783b73de055d24a39cf4b954f",
++                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.3.3"
++            },
++            "suggest": {
++                "ext-mbstring": "For best performance"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.13-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Polyfill\\Mbstring\\": ""
++                },
++                "files": [
++                    "bootstrap.php"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nicolas Grekas",
++                    "email": "p@tchwork.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony polyfill for the Mbstring extension",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "compatibility",
++                "mbstring",
++                "polyfill",
++                "portable",
++                "shim"
++            ],
++            "time": "2019-11-27T14:18:11+00:00"
++        },
++        {
++            "name": "symfony/polyfill-php73",
++            "version": "v1.13.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/polyfill-php73.git",
++                "reference": "4b0e2222c55a25b4541305a053013d5647d3a25f"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/4b0e2222c55a25b4541305a053013d5647d3a25f",
++                "reference": "4b0e2222c55a25b4541305a053013d5647d3a25f",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.3.3"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.13-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Polyfill\\Php73\\": ""
++                },
++                "files": [
++                    "bootstrap.php"
++                ],
++                "classmap": [
++                    "Resources/stubs"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nicolas Grekas",
++                    "email": "p@tchwork.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "compatibility",
++                "polyfill",
++                "portable",
++                "shim"
++            ],
++            "time": "2019-11-27T16:25:15+00:00"
++        },
++        {
++            "name": "symfony/process",
++            "version": "v5.0.4",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/process.git",
++                "reference": "f9ffd870f5ac01abec7b2b5e15f904ca9400ecd1"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/process/zipball/f9ffd870f5ac01abec7b2b5e15f904ca9400ecd1",
++                "reference": "f9ffd870f5ac01abec7b2b5e15f904ca9400ecd1",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2.5"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.0-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Process\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony Process Component",
++            "homepage": "https://symfony.com",
++            "time": "2020-01-09T09:53:06+00:00"
++        },
++        {
++            "name": "symfony/service-contracts",
++            "version": "v2.0.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/service-contracts.git",
++                "reference": "144c5e51266b281231e947b51223ba14acf1a749"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/144c5e51266b281231e947b51223ba14acf1a749",
++                "reference": "144c5e51266b281231e947b51223ba14acf1a749",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2.5",
++                "psr/container": "^1.0"
++            },
++            "suggest": {
++                "symfony/service-implementation": ""
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "2.0-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Contracts\\Service\\": ""
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nicolas Grekas",
++                    "email": "p@tchwork.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Generic abstractions related to writing services",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "abstractions",
++                "contracts",
++                "decoupling",
++                "interfaces",
++                "interoperability",
++                "standards"
++            ],
++            "time": "2019-11-18T17:27:11+00:00"
++        },
++        {
++            "name": "webmozart/assert",
++            "version": "1.6.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/webmozart/assert.git",
++                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/webmozart/assert/zipball/573381c0a64f155a0d9a23f4b0c797194805b925",
++                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^5.3.3 || ^7.0",
++                "symfony/polyfill-ctype": "^1.8"
++            },
++            "conflict": {
++                "vimeo/psalm": "<3.6.0"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^4.8.36 || ^7.5.13"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Webmozart\\Assert\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Bernhard Schussek",
++                    "email": "bschussek@gmail.com"
++                }
++            ],
++            "description": "Assertions to validate method input/output with nice error messages.",
++            "keywords": [
++                "assert",
++                "check",
++                "validate"
++            ],
++            "time": "2019-11-24T13:36:37+00:00"
++        },
++        {
++            "name": "webmozart/path-util",
++            "version": "2.3.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/webmozart/path-util.git",
++                "reference": "d939f7edc24c9a1bb9c0dee5cb05d8e859490725"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/webmozart/path-util/zipball/d939f7edc24c9a1bb9c0dee5cb05d8e859490725",
++                "reference": "d939f7edc24c9a1bb9c0dee5cb05d8e859490725",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.3.3",
++                "webmozart/assert": "~1.0"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^4.6",
++                "sebastian/version": "^1.0.1"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "2.3-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Webmozart\\PathUtil\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Bernhard Schussek",
++                    "email": "bschussek@gmail.com"
++                }
++            ],
++            "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths.",
++            "time": "2015-12-17T08:42:14+00:00"
++        }
++    ],
++    "packages-dev": [],
++    "aliases": [],
++    "minimum-stability": "stable",
++    "stability-flags": {
++        "phpbench/phpbench": 20
++    },
++    "prefer-stable": false,
++    "prefer-lowest": false,
++    "platform": {
++        "ext-curl": "*",
++        "ext-json": "*"
++    },
++    "platform-dev": []
++}
+Index: src/Benchmark/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/.gitignore	(date 1579869374175)
++++ src/Benchmark/.gitignore	(date 1579869374175)
+@@ -0,0 +1,18 @@
++# IDEs
++/.idea
++/.project
++/nbproject
++/.buildpath
++/.settings
++*.sublime-*
++*.AppleDouble
++*.AppleDB
++*.AppleDesktop
++Temporary Items
++.apdisk
++GPATH
++GRTAGS
++GTAGS
++
++
++/vendor
+Index: src/Benchmark/bootstrap.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/bootstrap.php	(date 1580738382687)
++++ src/Benchmark/bootstrap.php	(date 1580738382687)
+@@ -0,0 +1,6 @@
++<?php
++
++require_once __DIR__ . '/vendor/autoload.php';
++
++define('YVES_BASE_URL', 'http://www.de.suite-nonsplit.local');
++define('GLUE_BASE_URL', 'http://glue.de.suite-nonsplit.local');
+Index: src/Benchmark/src/Benchmark/ApiAddToCartBench.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Benchmark/ApiAddToCartBench.php	(date 1579869374181)
++++ src/Benchmark/src/Benchmark/ApiAddToCartBench.php	(date 1579869374181)
+@@ -0,0 +1,30 @@
++<?php
++
++namespace Benchmark\Spryker\Benchmark;
++
++use Benchmark\Spryker\Request;
++
++class ApiAddToCartBench
++{
++    public function benchApiAddToCard()
++    {
++        $headers = [
++            'Cache-Control' => 'max-age=0',
++            'Accept-Language' => 'en-US,en;q=0.9',
++            'Content-Type' => 'application/json',
++            'X-Anonymous-Customer-Unique-Id' => uniqid('', true)
++        ];
++
++        $requestData = [
++            'data' => [
++                'type' => 'guest-cart-items',
++                'attributes' => [
++                    'sku' => '066_23294028',
++                    'quantity' => 1
++                ]
++            ]
++        ];
++
++        return Request::post(GLUE_BASE_URL . '/guest-cart-items', $headers, $requestData, 201);
++    }
++}
+Index: src/Benchmark/src/Benchmark/AddToCartBench.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Benchmark/AddToCartBench.php	(date 1579869374181)
++++ src/Benchmark/src/Benchmark/AddToCartBench.php	(date 1579869374181)
+@@ -0,0 +1,75 @@
++<?php
++
++namespace Benchmark\Spryker\Benchmark;
++
++use Benchmark\Spryker\Request;
++use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
++
++/**
++ * @AfterMethods({"removeItem"})
++ */
++class AddToCartBench
++{
++    public $cookie;
++
++    public function setCookie()
++    {
++        $headers = [
++            'Cache-Control' => 'max-age=0',
++            'Content-Type' => 'application/x-www-form-urlencoded',
++            'Accept-Encoding' => 'gzip, deflate, br',
++            'Accept-Language' => 'en-US,en;q=0.9'
++        ];
++
++        $body  = 'loginForm%5Bemail%5D=spencor.hopkin%40spryker.com&loginForm%5Bpassword%5D=change123';
++
++        $cookie =  Request::login(YVES_BASE_URL . '/login_check', $headers, $body,302);
++
++        $this->cookie = parse_url(YVES_BASE_URL, PHP_URL_HOST) . '=' . $cookie;
++    }
++
++    public function benchAddToCard()
++    {
++        if (empty($this->cookie)) {
++            $this->setCookie();
++        }
++
++        $url = YVES_BASE_URL . '/en/cart/add/066_23294028';
++        $headers = [
++            'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
++            'Connection' => 'keep-alive',
++            'Cache-Control' => 'max-age=0',
++            'Accept-Language' => 'en-US,en;q=0.9',
++            'Upgrade-Insecure-Requests' => '1',
++            'Content-Type' => 'application/x-www-form-urlencoded',
++            'Referer' => YVES_BASE_URL . '/en/samsung-galaxy-s5-mini-66',
++            'Accept-Encoding' => 'gzip, deflate',
++            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
++            'Cookie' => $this->cookie
++        ];
++
++        return Request::get($url, $headers, 302);
++    }
++
++    public function removeItem()
++    {
++        if (empty($this->cookie)) {
++            $this->setCookie();
++        }
++
++        $url = YVES_BASE_URL . '/cart/remove/066_23294028/066_23294028';
++
++        $headers = [
++            'Connection' => ' keep-alive',
++            'Upgrade-Insecure-Requests' => ' 1',
++            'User-Agent' => ' Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
++            'Accept' => ' text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
++            'Referer' => YVES_BASE_URL . '/en/cart',
++            'Accept-Encoding' => ' gzip, deflate',
++            'Accept-Language' => ' en-US,en;q=0.9',
++            'Cookie' => $this->cookie
++        ];
++
++        return Request::get($url, $headers, 302);
++    }
++}
+Index: src/Benchmark/src/Benchmark/ApiCatalogSearchBench.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Benchmark/ApiCatalogSearchBench.php	(date 1579869374182)
++++ src/Benchmark/src/Benchmark/ApiCatalogSearchBench.php	(date 1579869374182)
+@@ -0,0 +1,21 @@
++<?php
++
++namespace Benchmark\Spryker\Benchmark;
++
++use Benchmark\Spryker\Request;
++
++class ApiCatalogSearchBench
++{
++
++    public function benchApiCatalogSearch()
++    {
++        $headers = [
++            'Connection' => 'keep-alive',
++            'Cache-Control' => 'max-age=0',
++            'Accept-Language' => 'en-US,en;q=0.9',
++            'Accept-Encoding' => 'gzip, deflate',
++        ];
++
++        return Request::get(GLUE_BASE_URL . '/catalog-search-suggestions?q=Acer&rand=' . uniqid(), $headers, 200);
++    }
++}
+Index: src/Benchmark/src/Benchmark/CatalogSearchBench.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Benchmark/CatalogSearchBench.php	(date 1579869374182)
++++ src/Benchmark/src/Benchmark/CatalogSearchBench.php	(date 1579869374182)
+@@ -0,0 +1,23 @@
++<?php
++
++namespace Benchmark\Spryker\Benchmark;
++
++use Benchmark\Spryker\Request;
++
++class CatalogSearchBench
++{
++    public function benchCatalogSearch()
++    {
++        $headers = [
++            'Accept' => '*/*',
++            'Connection' => 'keep-alive',
++            'Cache-Control' => 'max-age=0',
++            'Content-Type' => 'text/plain;charset=UTF-8',
++            'Accept-Language' => 'en-US,en;q=0.9',
++            'Upgrade-Insecure-Requests' => '1',
++            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
++        ];
++
++        return Request::get(YVES_BASE_URL . '/search/suggestion?q=Acer&rand=' . uniqid(), $headers, 200);
++    }
++}
+Index: src/Benchmark/src/Benchmark/ApiPDPBench.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Benchmark/ApiPDPBench.php	(date 1579869374182)
++++ src/Benchmark/src/Benchmark/ApiPDPBench.php	(date 1579869374182)
+@@ -0,0 +1,20 @@
++<?php
++
++namespace Benchmark\Spryker\Benchmark;
++
++use Benchmark\Spryker\Request;
++
++class ApiPDPBench
++{
++    public function benchApiPDPPage()
++    {
++        $headers = [
++            'Connection' => 'keep-alive',
++            'Cache-Control' => 'max-age=0',
++            'Accept-Language' => 'en-US,en;q=0.9',
++            'Accept-Encoding' => 'gzip, deflate',
++        ];
++
++        return Request::get(GLUE_BASE_URL . '/concrete-products/066_23294028?rand=' . uniqid(), $headers, 200);
++    }
++}
+Index: src/Benchmark/src/Benchmark/PDPBench.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Benchmark/PDPBench.php	(date 1579869374182)
++++ src/Benchmark/src/Benchmark/PDPBench.php	(date 1579869374182)
+@@ -0,0 +1,20 @@
++<?php
++
++namespace Benchmark\Spryker\Benchmark;
++
++use Benchmark\Spryker\Request;
++
++class PDPBench
++{
++    public function benchPDPPage()
++    {
++        $headers = [
++            'Connection' => 'keep-alive',
++            'Cache-Control' => 'max-age=0',
++            'Accept-Language' => 'en-US,en;q=0.9',
++            'Accept-Encoding' => 'gzip, deflate',
++        ];
++
++        return Request::get(YVES_BASE_URL . '/en/samsung-galaxy-s5-mini-66?rand=' . uniqid(), $headers, 200);
++    }
++}
+Index: src/Benchmark/src/Benchmark/HomePageBench.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Benchmark/HomePageBench.php	(date 1579869374182)
++++ src/Benchmark/src/Benchmark/HomePageBench.php	(date 1579869374182)
+@@ -0,0 +1,21 @@
++<?php
++
++namespace Benchmark\Spryker\Benchmark;
++
++use Benchmark\Spryker\Request;
++
++class HomePageBench
++{
++    public function benchHomePage()
++    {
++        $headers = [
++            'Connection' => 'keep-alive',
++            'Cache-Control' => 'max-age=0',
++            'Accept-Language' => 'en-US,en;q=0.9',
++            'Accept-Encoding' => 'gzip, deflate',
++        ];
++
++        return Request::get(YVES_BASE_URL . '?rand=' . uniqid(), $headers, 200);
++    }
++}
++
+Index: src/Benchmark/src/Benchmark/GlueAddToCart.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Benchmark/GlueAddToCart.php	(date 1580639890992)
++++ src/Benchmark/src/Benchmark/GlueAddToCart.php	(date 1580639890992)
+@@ -0,0 +1,368 @@
++<?php
++
++require_once __DIR__ . '/../../bootstrap.php';
++
++$url = GLUE_BASE_URL;
++
++$uniqId = uniqid('', true);
++
++$skus = [
++    '001_25904006',
++    '002_25904004',
++    '003_26138343',
++    '004_30663302',
++    '005_30663301',
++    '006_30692993',
++    '007_30691822',
++    '008_30692992',
++    '009_30692991',
++    '010_30692994',
++    '011_30775359',
++    '012_25904598',
++    '013_25904584',
++    '014_25919241',
++    '015_25904009',
++    '016_21748907',
++    '017_21748906',
++    '018_21081477',
++    '019_21081473',
++    '020_21081478',
++    '021_21081475',
++    '023_21758366',
++    '024_21987578',
++    '025_21764665',
++    '026_21748904',
++    '027_26976107',
++    '028_26976108',
++    '029_26976109',
++    '030_30021698',
++    '031_30021637',
++    '032_32125551',
++    '033_32125568',
++    '034_32125390',
++    '037_25904011',
++    '038_25905593',
++    '039_25904010',
++    '040_25904665',
++    '041_25904691',
++    '042_31040075',
++    '043_31040074',
++    '044_31040076',
++    '045_26408558',
++    '046_26408563',
++    '047_26408568',
++    '048_26403666',
++    '049_30395396',
++    '050_31080444',
++    '051_29567823',
++    '051_30107816',
++    '051_30614390',
++    '052_29567823',
++    '052_30107816',
++    '052_30614390',
++    '053_29567823',
++    '053_30107816',
++    '053_30614390',
++    '054_29406182',
++    '055_29406184',
++    '056_31714843',
++    '057_32007641',
++    '058_24245592',
++    '058_26175504',
++    '059_24245592',
++    '059_26175504',
++    '059_26027598',
++    '060_24245592',
++    '060_26175504',
++    '060_26027598',
++    '061_24752508',
++    '062_24752467',
++    '063_29231675',
++    '064_18404924',
++    '065_23294027',
++    '066_23294028',
++    '067_24241408',
++    '068_21927453',
++    '069_21919624',
++    '070_133745031',
++    '070_203704321',
++    '070_133913221',
++    '070_133745032',
++    '070_203704322',
++    '070_133913222',
++    '070_133745033',
++    '071_26974343',
++    '072_19618271',
++    '072_21927455',
++    '073_19618271',
++    '073_21927455',
++    '074_29641053',
++    '075_29401702',
++    '079_24394211',
++    '080_24394206',
++    '081_22196533',
++    '082_22196536',
++    '083_30964018',
++    '084_30964019',
++    '085_29901936',
++    '086_30521602',
++    '087_29901938',
++    '088_29634940',
++    '089_29634947',
++    '090_24495844',
++    '091_25873091',
++    '092_24495842',
++    '093_24495843',
++    '094_27033003',
++    '095_24235707',
++    '096_30856274',
++    '097_27290499',
++    '098_26192836',
++    '099_27207215',
++    '100_24675726',
++    '101_29727910',
++    '102_30727008',
++    '103_30727011',
++    '104_30727010',
++    '105_30727013',
++    '106_30727014',
++    '107_30727016',
++    '108_21047360',
++    '109_19416433',
++    '110_19682159',
++    '111_12295890',
++    '112_312526171',
++    '112_306918001',
++    '112_312526191',
++    '112_312526172',
++    '112_306918002',
++    '112_312526192',
++    '112_306918003',
++    '112_312526193',
++    '113_29885591',
++    '114_29911081',
++    '114_30580483',
++    '115_27295368',
++    '115_26440118',
++    '115_26408656',
++    '116_29743424',
++    '116_28684053',
++    '117_29890338',
++    '117_30585828',
++    '118_29804739',
++    '119_29804808',
++    '120_29890350',
++    '120_30069636',
++    '120_30069631',
++    '121_29406823',
++    '121_28542963',
++    '121_28549476',
++    '122_22308524',
++    '122_26145672',
++    '123_29866607',
++    '123_30610368',
++    '123_29866603',
++    '124_31623088',
++    '124_29866591',
++    '125_30703764',
++    '125_30350012',
++    '126_24722439',
++    '126_30407844',
++    '126_26280142',
++    '127_22828284',
++    '127_22613708',
++    '127_20723326',
++    '127_22613709',
++    '128_29955336',
++    '128_27314278',
++    '129_30706500',
++    '129_27107297',
++    '129_24325712',
++    '130_29285281',
++    '130_24326086',
++    '130_24725761',
++    '131_24872891',
++    '132_30619567',
++    '133_31743669',
++    '134_29759322',
++    '134_26145012',
++    '135_29836399',
++    '135_30359386',
++    '136_24425591',
++    '137_29283479',
++    '137_29283480',
++    '138_30046855',
++    '138_30657838',
++    '139_24699831',
++    '140_22766487',
++    '141_29380410',
++    '142_30943081',
++    '143_31035196',
++    '144_29804740',
++    '144_30312874',
++    '144_29804741',
++    '145_29885470',
++    '145_29885471',
++    '145_29885473',
++    '146_30706737',
++    '146_30213351',
++    '147_27295351',
++    '147_30046188',
++    '148_25977678',
++    '148_25977676',
++    '148_27282150',
++    '149_30283566',
++    '149_28346778',
++    '150_29554292',
++    '151_30983682',
++    '152_27104941',
++    '152_29810130',
++    '153_26178487',
++    '153_29805122',
++    '153_29805124',
++    '154_31980499',
++    '154_31266921',
++    '155_32122450',
++    '155_30149933',
++    '156_32018944',
++    '157_29525342',
++    '158_29885222',
++    '159_29885260',
++    '159_29885269',
++    '160_29533301',
++    '161_29533300',
++    '162_29533299',
++    '163_29728850',
++    '164_29565390',
++    '165_29879507',
++    '165_29879528',
++    '166_30230575',
++    '166_29565389',
++    '167_30375366',
++    '167_30375364',
++    '168_29379693',
++    '168_21844742',
++    '169_25880805',
++    '170_28516206',
++    '170_28549472',
++    '171_27262160',
++    '172_29801891',
++    '173_26973306',
++    '174_27253016',
++    '175_26564922',
++    '175_26935356',
++    '176_29209306',
++    '176_29381409',
++    '176_29536449',
++    '177_24867659',
++    '177_24422865',
++    '177_25913296',
++    '178_29658415',
++    '179_29658416',
++    '180_32127058',
++    '181_31995510',
++    '182_30345097',
++    '183_21811723',
++    '184_17365820',
++    '184_17494387',
++    '184_17560323',
++    '185_25904533',
++    '186_25904506',
++    '187_26306352',
++    '188_26306353',
++    '189_30150732',
++    '190_25111746',
++    '191_17681791',
++    '192_17738941',
++    '193_32124735',
++    '194_25904145',
++    '195_25904159',
++    '196_23120327',
++    '197_21421718',
++    '198_19692589',
++    '199_7016823',
++    '199_24788780',
++    '200_5787536',
++    '201_11217755',
++    '202_5782479',
++    '203_15619960',
++    '204_29851280',
++    '205_6350138',
++    '206_6429825',
++    '207_15721464',
++    '208_14678762',
++    '209_12554247',
++    '210_123',
++    '211_123',
++    '212_123',
++    '213_123',
++    '214_123',
++];
++
++$skus = array_slice($skus, 0, $argv[1] ?? 100);
++
++$cartId = null;
++foreach ($skus as $index => $sku) {
++
++    $time = microtime(true);
++
++    $curl = curl_init();
++
++    curl_setopt_array($curl, array(
++        CURLOPT_URL => $url . '/guest-cart-items',
++        CURLOPT_RETURNTRANSFER => true,
++        CURLOPT_ENCODING => '',
++        CURLOPT_MAXREDIRS => 10,
++        CURLOPT_TIMEOUT => 30,
++        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
++        CURLOPT_CUSTOMREQUEST => 'POST',
++        CURLOPT_POSTFIELDS => '{"data": {"type": "guest-cart-items", "attributes": {"sku": "' . $sku . '", "quantity": 1}}}',
++        CURLOPT_HTTPHEADER => array(
++            'Content-Type: application/json',
++            'X-Anonymous-Customer-Unique-Id: ' . $uniqId,
++            'cache-control: no-cache'
++        ),
++    ));
++
++    $response = curl_exec($curl);
++    $err = curl_error($curl);
++
++    curl_close($curl);
++
++    echo str_pad($index, 5);
++    echo '[' . str_pad(round(microtime(true) - $time, 3) . 's', 5) . ']   ';
++
++    if ($err) {
++        echo 'Failed: ' . $sku . ' (' . $err . ')' . PHP_EOL;
++
++    } else {
++        $cartId = (json_decode($response, true) ?: [])['data']['id'] ?? $cartId;
++        echo $sku . ' - done' . PHP_EOL;
++    }
++}
++
++if ($cartId) {
++    $curl = curl_init();
++
++    curl_setopt_array($curl, array(
++        CURLOPT_URL => $url . '/guest-carts/' . $cartId . '?include=guest-cart-items',
++        CURLOPT_RETURNTRANSFER => true,
++        CURLOPT_ENCODING => '',
++        CURLOPT_MAXREDIRS => 10,
++        CURLOPT_TIMEOUT => 30,
++        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
++        CURLOPT_CUSTOMREQUEST => 'GET',
++        CURLOPT_HTTPHEADER => array(
++            'Content-Type: application/json',
++            'X-Anonymous-Customer-Unique-Id: ' . $uniqId,
++            'cache-control: no-cache'
++        ),
++    ));
++    $response = curl_exec($curl);
++    $itemsInCart = count(json_decode($response, false)->included ?? []);
++    echo PHP_EOL . 'Items in cart: ' . $itemsInCart . PHP_EOL;
++
++    if ($itemsInCart === 0) {
++        exit(1);
++    }
++}
+Index: src/Benchmark/src/Request.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Request.php	(date 1579869374183)
++++ src/Benchmark/src/Request.php	(date 1579869374183)
+@@ -0,0 +1,106 @@
++<?php
++
++namespace Benchmark\Spryker;
++
++class Request
++{
++    public static function post(string $url, array $headers, array $body, int $expectedStatusCode): float
++    {
++        $ch = curl_init();
++
++        curl_setopt($ch, CURLOPT_URL, $url);
++        $preparedHeaders = [];
++        foreach ($headers as $name => $value) {
++            $preparedHeaders[] = "$name: $value";;
++        }
++
++        curl_setopt($ch, CURLOPT_HTTPHEADER, $preparedHeaders);
++        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
++
++        if ($body) {
++            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
++        }
++
++        curl_setopt($ch, CURLOPT_POST, 1);
++        curl_exec($ch);
++        $info = curl_getinfo($ch);
++        curl_close($ch);
++
++        if ($info['http_code'] != $expectedStatusCode) {
++            $msg = sprintf('Unexpected status code %s, %s was expected', $info['http_code'], $expectedStatusCode);
++            throw new \RuntimeException($msg);
++        }
++
++        return $info['starttransfer_time'];
++    }
++
++    public static function get(string $url, array $headers, int $expectedStatusCode): float
++    {
++        $ch = curl_init();
++
++        curl_setopt($ch, CURLOPT_URL, $url);
++        $preparedHeaders = [];
++        foreach ($headers as $name => $value) {
++            $preparedHeaders[] = "$name: $value";;
++        }
++
++        curl_setopt($ch, CURLOPT_HTTPHEADER, $preparedHeaders);
++        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
++        curl_exec($ch);
++        $info = curl_getinfo($ch);
++        curl_close($ch);
++
++        if ($info['http_code'] != $expectedStatusCode) {
++            $msg = sprintf('Unexpected status code %s, %s was expected', $info['http_code'], $expectedStatusCode);
++            throw new \RuntimeException($msg);
++        }
++
++        return $info['starttransfer_time'];
++    }
++
++
++    public static function login(string $url, array $headers, $body, int $expectedStatusCode)
++    {
++        $ch = curl_init();
++
++        curl_setopt($ch, CURLOPT_URL, $url);
++
++        $preparedHeaders = [];
++        foreach ($headers as $name => $value) {
++            $preparedHeaders[] = "$name: $value";;
++        }
++
++        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
++        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
++
++
++        if ($body) {
++            curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
++        }
++
++        curl_setopt($ch, CURLOPT_POST, 1);
++        curl_setopt($ch, CURLOPT_HEADER, 1);
++
++
++        $response = curl_exec($ch);
++        $info = curl_getinfo($ch);
++
++        curl_close($ch);
++
++        if ($info['http_code'] != $expectedStatusCode) {
++            $msg = sprintf('Unexpected status code %s, %s was expected', $info['http_code'], $expectedStatusCode);
++            throw new \RuntimeException($msg);
++        }
++
++        $header = substr($response, 0, $info['header_size']);
++        preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $header, $matches);
++        $cookies = [];
++
++        foreach($matches[1] as $item) {
++            parse_str($item, $cookie);
++            $cookies = array_merge($cookies, $cookie);
++        }
++
++        return array_values($cookies)[0];
++    }
++}
+Index: src/Benchmark/src/Extension/TtfbExtension.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Extension/TtfbExtension.php	(date 1579869374183)
++++ src/Benchmark/src/Extension/TtfbExtension.php	(date 1579869374183)
+@@ -0,0 +1,35 @@
++<?php
++
++namespace Benchmark\Spryker\Extension;
++
++use PhpBench\DependencyInjection\Container;
++use PhpBench\DependencyInjection\ExtensionInterface;
++use PhpBench\Extension\CoreExtension;
++
++
++class TtfbExtension implements ExtensionInterface
++{
++    public function getDefaultConfig()
++    {
++        // default configuration for this extension
++        return [
++            'executors' => ['ttfb'],
++        ];
++    }
++
++    public function load(Container $container)
++    {
++        $container->register('benchmark.executor.ttfb', function (Container $container) {
++            return new TtfbExecutor(
++                $container->get(CoreExtension::SERVICE_REMOTE_LAUNCHER)
++            );
++        }, [CoreExtension::TAG_EXECUTOR => ['name' => 'ttfb']]);
++
++    }
++
++    // called after load() can be used to add tagged services to existing services.
++    public function build(Container $container)
++    {
++        $container->setParameter('executors', [12,3,]);
++    }
++}
+Index: src/Benchmark/src/Extension/TtfbExecutor.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Extension/TtfbExecutor.php	(date 1579869374183)
++++ src/Benchmark/src/Extension/TtfbExecutor.php	(date 1579869374183)
+@@ -0,0 +1,14 @@
++<?php
++
++namespace Benchmark\Spryker\Extension;
++
++use PhpBench\Benchmark\Remote\Launcher;
++use PhpBench\Executor\Benchmark\TemplateExecutor;
++
++class TtfbExecutor extends TemplateExecutor
++{
++    public function __construct(Launcher $launcher)
++    {
++        parent::__construct($launcher, __DIR__ . '/template/ttfb.template');
++    }
++}
+Index: src/Benchmark/src/Extension/template/ttfb.template
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Benchmark/src/Extension/template/ttfb.template	(date 1579869374183)
++++ src/Benchmark/src/Extension/template/ttfb.template	(date 1579869374183)
+@@ -0,0 +1,81 @@
++<?php
++
++// disable garbage collection
++gc_disable();
++
++// repress any output from the user scripts
++ob_start();
++
++$class = '{{ class }}';
++$file = '{{ file }}';
++$beforeMethods = {{ beforeMethods }};
++$afterMethods = {{ afterMethods }};
++$bootstrap = '{{ bootstrap }}';
++$parameters = {{ parameters }};
++$warmup = {{ warmup }};
++
++if ($bootstrap) {
++    call_user_func(function () use ($bootstrap) {
++        require_once($bootstrap);
++    });
++}
++
++require_once($file);
++
++$benchmark = new $class();
++
++foreach ($beforeMethods as $beforeMethod) {
++    $benchmark->$beforeMethod($parameters);
++}
++
++// warmup if required
++if ($warmup) {
++    for ($i = 0; $i < $warmup; $i++) {
++        $benchmark->{{ subject }}($parameters);
++    }
++}
++
++$time = benchmark($benchmark, $parameters);
++
++foreach ($afterMethods as $afterMethod) {
++    $benchmark->$afterMethod($parameters);
++}
++
++$buffer = ob_get_contents();
++ob_end_clean();
++
++echo serialize([
++    'mem' => [
++        // observer effect - getting memory usage affects memory usage. order
++        // counts, peak is probably the best metric.
++        'peak' => memory_get_peak_usage(),
++        'final' => memory_get_usage(),
++        'real' => memory_get_usage(true),
++    ],
++    'time' => (int) $time,
++    'buffer' => $buffer,
++]);
++
++function benchmark($benchmark, $parameters)
++{
++    // run the benchmarks: note that passing arguments to the method slightly increases
++    // the calltime, so we explicitly do one thing or the other depending on if parameters
++    // are provided.
++    if ($parameters) {
++        $result = 0;
++
++        for ($i = 0; $i < {{ revolutions }}; $i++) {
++            $result += $benchmark->{{ subject }}($parameters);
++        }
++    } else {
++        $result = 0;
++
++        for ($i = 0; $i < {{ revolutions }}; $i++) {
++            $result += $benchmark->{{ subject }}();
++        }
++    }
++
++    return $result  * 1000000 ;
++}
++
++exit(0);

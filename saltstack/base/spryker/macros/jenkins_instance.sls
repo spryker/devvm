@@ -55,8 +55,8 @@ jenkins-{{ environment }}-systemctl-reload:
     - template: jinja
     - context:
       environment: {{ environment }}
-      environment_details: {{ environment_details }}
-      settings: {{ settings }}
+      environment_details: {{ environment_details|tojson }}
+      settings: {{ settings|tojson }}
 
 # Dir permissions for unpacking .war file
 /var/cache/jenkins-{{ environment }}:

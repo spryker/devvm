@@ -8,6 +8,7 @@
 {% from 'settings/init.sls' import settings with context %}
 {% from 'elasticsearch/macros/elasticsearch_instance.sls' import elasticsearch_instance with context %}
 
+
 /etc/logrotate.d/elasticsearch-instances:
   file.managed:
     - source: salt://elasticsearch/files/etc/logrotate.d/elasticsearch-instances

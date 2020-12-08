@@ -48,7 +48,7 @@ else
   # Settings for the Virtualbox VM
   VM_IP_PREFIX  = ENV['VM_IP_PREFIX'] || '10.10.0.'                         # Prefix for IP address of DEV VM
   VM_IP         = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
-  VM_MEMORY     = ENV['VM_MEMORY']    || '3200'                             # Number of memory for DEV VM, in MB
+  VM_MEMORY     = ENV['VM_MEMORY']    || '4000'                             # Number of memory for DEV VM, in MB
   VM_CPUS       = ENV['VM_CPUS']      || '4'                                # Number of CPU cores for DEV VM
   VM_NAME       = ENV['VM_NAME']      || "Akona Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
   VM_SKIP_SF    = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
@@ -156,33 +156,35 @@ else
   if (/darwin/ =~ Vagrant::Util::Platform.platform)
     IS_LINUX = false
     IS_OSX = true
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'fsc', 'noatime', 'async'] }
+    ##SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'fsc', 'noatime', 'async'] }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'noatime', 'async'] } # benchmark
   else
     IS_LINUX = true
     IS_OSX = false
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'fsc', 'noatime', 'async'] }
+    ##SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'fsc', 'noatime', 'async'] }
+    SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'noatime', 'async'] } # benchmark
   end
 end
 
 # Clone Spryker repository
 require 'mkmf'
 
-if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty? # Clone Spryker repository (if specified)
-  # This line is giving exception: Message: TypeError: no implicit conversion of false into Array
-  #if (not Dir.exists?(SPRYKER_DIRECTORY)) or Dir.entries(SPRYKER_DIRECTORY) - %w{ . .. }.empty? # Only clone if it's empty folder
-  if (not Dir.exists?(SPRYKER_DIRECTORY))
-    puts bold "Cloning Spryker git repository..."
-    if find_executable 'git'
-      system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
-    else
-      raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
-      "\n\n\033[0m"
+if not (VM_SKIP_SF == '1')
+  if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty?
+    if (not Dir.exists?(SPRYKER_DIRECTORY))
+      puts bold "Cloning Spryker git repository..."
+      if find_executable 'git'
+        system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
+      else
+        raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
+        "\n\n\033[0m"
+      end
+    elsif not Dir.entries(SPRYKER_DIRECTORY).include? 'composer.json'
+      raise "ERROR: The directory #{SPRYKER_DIRECTORY} isn't empty, yet it's not a clone of spryker repository!"
     end
-  elsif not Dir.entries(SPRYKER_DIRECTORY).include? 'composer.json'
-    raise "ERROR: The directory #{SPRYKER_DIRECTORY} isn't empty, yet it's not a clone of spryker repository!"
+  else
+    puts yellow "Spryker repository is not defined in Vagrantfile and the SPRYKER_REPOSITORY is empty - no repository to clone..."
   end
-else
-  puts yellow "Spryker repository is not defined in Vagrantfile and the SPRYKER_REPOSITORY is empty - no repository to clone..."
 end
 
 # Cleanup mkmf log
@@ -191,8 +193,8 @@ File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box should have Virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian96_16"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-16/debian96.box"
+  config.vm.box = "debian911_17"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-17/debian911.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
@@ -239,7 +241,7 @@ Vagrant.configure(2) do |config|
 
   # Copy VM env file to the VM, so that settings can be read by PHP
   config.vm.provision "shell",
-    inline: "cp /vagrant/.vm /etc/spryker-vm-env; service php7.2-fpm restart"
+    inline: "cp /vagrant/.vm /etc/spryker-vm-env; service php7.4-fpm restart"
 
   # Configure VirtualBox VM resources (CPU and memory)
   config.vm.provider :virtualbox do |vb|

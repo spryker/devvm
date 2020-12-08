@@ -4,7 +4,8 @@
 
 server.host: "0.0.0.0"
 server.port: 5601
-elasticsearch.url: "http://{{ pillar.elk.elasticsearch.host }}:{{ pillar.elk.elasticsearch.port }}"
+#elasticsearch.url: "http://{{ pillar.elk.elasticsearch.host }}:{{ pillar.elk.elasticsearch.port }}"
+elasticsearch.hosts: ["http://{{ pillar.elk.elasticsearch.host }}:{{ pillar.elk.elasticsearch.port }}"]
 elasticsearch.ssl.verificationMode: none
 elasticsearch.preserveHost: true
 elasticsearch.requestTimeout: 300000

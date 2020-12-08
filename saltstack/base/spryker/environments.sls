@@ -73,7 +73,7 @@
       - file: /data/shop/{{ environment }}/shared/data/common
     - context:
       environment: {{ environment }}
-      settings: {{ settings }}
+      settings: {{ settings|tojson }}
 
 /data/shop/{{ environment }}/shared/console_env_local.php:
   file.managed:
@@ -86,7 +86,7 @@
       - file: /data/shop/{{ environment }}/shared/data/common
     - context:
       environment: {{ environment }}
-      settings: {{ settings }}
+      settings: {{ settings|tojson }}
 
 {%- if 'code_symlink' in environment_details %}
 /data/shop/{{ environment }}/current:
@@ -157,7 +157,7 @@
     - mode: 644
     - context:
       environment: {{ environment }}
-      settings: {{ settings }}
+      settings: {{ settings|tojson }}
     - watch_in:
       - cmd: reload-nginx
 

@@ -13,7 +13,7 @@ require 'spec_helper'
 
 describe 'php' do
   let(:path) { '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' }
-  PHP_VERSION = '7.2'
+  PHP_VERSION = '7.4'
 
   # Check php-fpm service
   describe service("php#{PHP_VERSION}-fpm") do

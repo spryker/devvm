@@ -1,0 +1,7 @@
+ES_HOME=/usr/share/elasticsearch
+PID_DIR=/var/run/elasticsearch
+ES_PATH_CONF=/opt/elasticsearch-6.8.6/config
+RESTART_ON_UPGRADE=true
+LOG_PATH=/data/logs/development/elasticsearch
+ES_JAVA_OPTS="-Des.path.logs/${LOG_PATH}"
+JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre"

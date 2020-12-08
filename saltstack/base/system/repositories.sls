@@ -42,8 +42,8 @@ docker-repo:
 elasticsearch-repo:
   pkgrepo.managed:
     - humanname: Official Elasticsearch Repository
-    - name: deb https://artifacts.elastic.co/packages/5.x/apt stable main
-    - file: /etc/apt/sources.list.d/elasticsearch5.list
+    - name: deb https://artifacts.elastic.co/packages/7.x/apt stable main
+    - file: /etc/apt/sources.list.d/elasticsearch7.list
     - key_url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
     - refresh_db: False
     - watch_in:
@@ -71,7 +71,7 @@ beats-repo:
 nodesource-node-repo:
   pkgrepo.managed:
     - humanname: NodeSource NodeJS repository
-    - name: deb https://deb.nodesource.com/node_8.x {{ grains.lsb_distrib_codename }} main
+    - name: deb https://deb.nodesource.com/node_12.x {{ grains.lsb_distrib_codename }} main
     - file: /etc/apt/sources.list.d/nodesource.list
     - key_url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
     - refresh_db: False

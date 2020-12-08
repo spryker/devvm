@@ -40,7 +40,7 @@ else
   # Settings for the Virtualbox VM
   VM_IP_PREFIX = ENV['VM_IP_PREFIX'] || '10.10.0.'                         # Prefix for IP address of DEV VM
   VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
-  VM_MEMORY    = ENV['VM_MEMORY']    || '3200'                             # Number of memory for DEV VM, in MB
+  VM_MEMORY    = ENV['VM_MEMORY']    || '4000'                             # Number of memory for DEV VM, in MB
   VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Number of CPU cores for DEV VM
   VM_NAME      = ENV['VM_NAME']      || "Akona Dev VM (#{VM_PROJECT})"     # Display name for VirtualBox
   VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
@@ -172,8 +172,8 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian96_16"
-  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-16/debian96.box"
+  config.vm.box = "debian911_17"
+  config.vm.box_url = "https://github.com/korekontrol/packer-debian9/releases/download/ci-17/debian911.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
@@ -200,8 +200,7 @@ Vagrant.configure(2) do |config|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
-      # Workaround for https://github.com/saltstack/salt/issues/50311
-      salt.version = "v2017.7.4"
+      salt.version = "v2019.2.0"
       salt.install_type = "git"
     end
   else
