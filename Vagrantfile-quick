@@ -247,7 +247,7 @@ Vagrant.configure(2) do |config|
   # Spryker quick setup
   puts bold "Composer install and Spryker install ..."
   config.vm.provision "shell",
-    inline: "composer install; vendor/bin/install"
+    inline: "cd /data/shop/development/current; composer install; vendor/bin/install"
 
   # Configure VirtualBox VM resources (CPU and memory)
   config.vm.provider :virtualbox do |vb|
