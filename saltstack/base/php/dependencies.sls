@@ -1,5 +1,5 @@
 #
-# Dependency packages for php extenstions
+# Dependency packages for php extensions
 #
 
 {% set mysql_client_libs_package_name = {
