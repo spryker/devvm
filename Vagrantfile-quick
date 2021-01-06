@@ -174,7 +174,8 @@ if not (VM_SKIP_SF == '1')
   if defined?(SPRYKER_REPOSITORY) and not SPRYKER_REPOSITORY.empty?
     if (not Dir.exists?(SPRYKER_DIRECTORY))
       puts bold "Cloning Spryker git repository..."
-      if find_executable 'git'
+	  # Skip git cloning if a user is inside /project or other subfolders
+      if find_executable 'git' and File.exist?('Vagrantfile')
         system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
       else
         raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
