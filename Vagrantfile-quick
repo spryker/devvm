@@ -176,12 +176,12 @@ if not (VM_SKIP_SF == '1')
       puts bold "Cloning Spryker git repository..."
       # Skip git cloning if a user is inside /project or other subfolders
       if find_executable 'git'
-	    if File.exist?('Vagrantfile')
+        if File.exist?('Vagrantfile')
           system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
-		else
+        else
           raise "ERROR:	Please change directory to the folder you placed the source code. By default, it's 'devvm'" +
           "\n\n\033[0m"
-	    end		  
+        end		  
       else
         raise "ERROR: Required #{SPRYKER_DIRECTORY} could not be found and no git executable was found to solve this problem." +
         "\n\n\033[0m"
