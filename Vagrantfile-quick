@@ -179,7 +179,7 @@ if not (VM_SKIP_SF == '1')
         if File.exist?('Vagrantfile')
           system "git clone #{SPRYKER_REPOSITORY} --branch #{SPRYKER_BRANCH} \"#{SPRYKER_DIRECTORY}\""
         else
-          raise "ERROR:	Please change directory to the folder you placed the source code. By default, it's 'devvm'" +
+          raise "ERROR: Please cd (change directory) to the folder you placed the source code. By default, it's 'devvm'." +
           "\n\n\033[0m"
         end		  
       else
