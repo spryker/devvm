@@ -5,4 +5,4 @@
 
 update-postgresql:
   pkg.latest:
-    - name: postgresql-9.6
+    - name: postgresql-12
