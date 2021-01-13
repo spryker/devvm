@@ -7,6 +7,3 @@ elk:
   elasticsearch:
     host: localhost
     port: 10005
-
-  kibana:
-    version: 7.8.1
