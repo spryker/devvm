@@ -16,16 +16,16 @@
 
 postgresql:
   pkg.installed:
-    - name: postgresql-9.6
+    - name: postgresql-12
   service.running:
    - enable: true
    - reload: true
    - watch:
-     - file: /etc/postgresql/9.6/main/pg_hba.conf
-     - file: /etc/postgresql/9.6/main/postgresql.conf
+     - file: /etc/postgresql/12/main/pg_hba.conf
+     - file: /etc/postgresql/12/main/postgresql.conf
    - require:
-     - file: /etc/postgresql/9.6/main/pg_hba.conf
-     - file: /etc/postgresql/9.6/main/postgresql.conf
+     - file: /etc/postgresql/12/main/pg_hba.conf
+     - file: /etc/postgresql/12/main/postgresql.conf
      - cmd: data-dir
 
 data-dir:
@@ -37,13 +37,13 @@ data-dir:
     - require:
       - pkg: postgresql
   cmd.run:
-    - name: /etc/init.d/postgresql stop && rm -rf /etc/postgresql/9.6/main/* && pg_createcluster --datadir /data/pgsql 9.6 main
+    - name: /etc/init.d/postgresql stop && rm -rf /etc/postgresql/12/main/* && pg_createcluster --datadir /data/pgsql 12 main
     - unless: test -d /data/pgsql/base
     - cwd: /data/pgsql
     - require:
       - file: data-dir
 
-/etc/postgresql/9.6/main/pg_hba.conf:
+/etc/postgresql/12/main/pg_hba.conf:
   file.managed:
     - source: salt://postgresql/files/etc/postgresql/pg_hba.conf
     - template: jinja
@@ -53,7 +53,7 @@ data-dir:
     - watch_in:
       - service: postgresql
 
-/etc/postgresql/9.6/main/postgresql.conf:
+/etc/postgresql/12/main/postgresql.conf:
   file.managed:
     - source: salt://postgresql/files/etc/postgresql/postgresql.conf
     - template: jinja
