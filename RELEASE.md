@@ -31,7 +31,7 @@ vagrant package --output package.box --vagrantfile Vagrantfile-quick
 ## Automatic releases - Continuous integration and delivery
 There is a [CI/CD system](http://ci.spryker.systems) watching this repository.
 It will trigger a build on each commit to `master` and `develop` branch. If it's succesful, the
-box file for preview will be available [here](https://u215179.your-backup.de).
+box file for preview will be available [here](https://u215179-sub1.your-backup.de).
 
 If the commit in master has also associated a tag name, it will automatically generate
 github release (with the same name as tag) and will publish the vm file there.
