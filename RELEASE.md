@@ -28,7 +28,7 @@ vagrant halt
 vagrant package --output package.box --vagrantfile Vagrantfile-quick
 ```
 
-## Automatic releases - Continuous integration and delivery
+## Automatic release - Continuous integration and delivery
 There is a [CI/CD system](http://ci.spryker.systems) watching this repository.
 It will trigger a build on each commit to `master` and `develop` branch. If it's succesful, the
 box file for preview will be available [here](https://u215179-sub1.your-backup.de).
