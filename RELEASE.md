@@ -45,7 +45,7 @@ didn't change). So to make sure that build happens, please do commit + tag and t
 
 Sample commands:
 ```
-# Make sure everything is commited
+# Make sure everything is committed
 git commit --all
 
 # Create "annotated tag"
