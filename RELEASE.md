@@ -1,4 +1,4 @@
-# Spryker OS - DevVM v4.0.7 - How to release
+# Spryker OS - DevVM v4.0.8 - How to release
 
 ## Manual release
 To manually build the dev vm and prepare `.box` file for the development team,
