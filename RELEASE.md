@@ -1,7 +1,7 @@
 # Spryker OS - DevVM - How to release
 
 ## Manual release
-To manally build the dev vm and prepare `.box` file for the development team,
+To manually build the dev vm and prepare `.box` file for the development team,
 the process can be started on any machine with VirtualBox and vagrant. If any
 configuration has to be made specifically for a project, clone this repository
 and change pillar and/or saltstack first.
