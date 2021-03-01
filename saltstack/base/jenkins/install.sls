@@ -3,13 +3,13 @@
 #
 
 # Here we use specific version of the package to avoid auth issues with Jenkins 2.0
-# The original repository seems to be very slow... Therefore using korekontrol mirror of:
+# The original repository seems to be very slow... Therefore using Spryker mirror of:
 # http://pkg.jenkins-ci.org/debian-stable/binary/jenkins_1.651.3_all.deb
 jenkins:
   pkg.installed:
     - hold: True
     - sources:
-      - jenkins: https://jenkins.korekontrol.net/get/package/jenkins_1.651.3_all.deb
+      - jenkins: https://u220427-sub1:PpiiHzuF2OIUzmcH@u220427-sub1.your-storagebox.de/jenkins_1.651.3_all.deb
 
 disable-jenkins-service:
   service.dead:
