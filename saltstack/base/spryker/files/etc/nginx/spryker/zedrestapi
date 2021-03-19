@@ -1,5 +1,5 @@
 ###
-### Common Zed-rest-api settings (to be included in vhost definition)
+### Common Zedrestapi settings (to be included in vhost definition)
 ### This file is maintained by salt
 ###
 
@@ -33,13 +33,13 @@
     # PHP application gets all other requests
     location / {
         add_header X-Server $hostname;
-        fastcgi_pass backend-$application_env-zed-rest-api;
+        fastcgi_pass backend-$application_env-zedrestapi;
         fastcgi_index index.php;
         include /etc/nginx/fastcgi_params;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param APPLICATION_ENV $application_env;
-        fastcgi_param SPRYKER_PRODUCT_ZED-REST-API_HOST zed-rest-api.de.suite-nonsplit.local;
-        fastcgi_param SPRYKER_PRODUCT_ZED-REST-API_PORT 80;
+        fastcgi_param SPRYKER_PRODUCT_ZEDRESTAPI_HOST zed-rest-api.de.suite-nonsplit.local;
+        fastcgi_param SPRYKER_PRODUCT_ZEDRESTAPI_PORT 80;
         fastcgi_param SCRIPT_FILENAME  $document_root/index.php;
         more_clear_headers 'X-Powered-By' 'X-Store' 'X-Locale' 'X-Env' 'Server';
     }

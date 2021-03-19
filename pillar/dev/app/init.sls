@@ -114,12 +114,12 @@ environments:
       # Required if enable_local_vhost is set to true, no default value
       hostname: '~^gateway.de\..+\.local$'
 
-    zed-rest-api:
-      # Enable local Zed-rest-api files virtual host in nginx?
+    zedrestapi:
+      # Enable local Zedrestapi files virtual host in nginx?
       # Optional, Default: false
       enable_local_vhost: true
 
-      # Hostname for local Zed-rest-api files virtual host in nginx,
+      # Hostname for local Zedrestapi files virtual host in nginx,
       # Required if enable_local_vhost is set to true, no default value
       hostname: '~^zed-rest-api.de\..+\.local$'
 
@@ -184,7 +184,7 @@ environments:
     gateway:
       enable_local_vhost: true
       hostname: '~^gateway.de\..+\.local$'
-    zed-rest-api:
+    zedrestapi:
       enable_local_vhost: true
       hostname: '~^zed-rest-api.de\..+\.local$'	  
     stores:

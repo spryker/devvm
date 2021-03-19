@@ -3,7 +3,7 @@
 {%- else -%}
 {%- set number_of_processes = 2 -%}
 {%- endif -%}
-[{{ environment }}-zed-rest-api]
+[{{ environment }}-zedrestapi]
 
 listen = /tmp/.fpm.$pool.sock
 listen.backlog = 1000
@@ -19,7 +19,7 @@ pm.max_spare_servers = {{ number_of_processes }}
 ; Avoid PHP memory leaks
 pm.max_requests = 500
 
-pm.status_path = /php-fpm-status-{{ environment }}-zed-rest-api
+pm.status_path = /php-fpm-status-{{ environment }}-zedrestapi
 ping.path = /fpm-ping.php
 ping.response = OK
 
@@ -32,11 +32,11 @@ php_admin_value[expose_php] = off
 {%- if environment == "production" %}
 php_admin_value[display_errors] = no
 {%- endif %}
-php_admin_value[error_log] = /data/logs/{{ environment }}/zed-rest-api-php-errors.log
-php_admin_value[newrelic.appname] = "Zed-rest-api({{ environment }})"
+php_admin_value[error_log] = /data/logs/{{ environment }}/zedrestapi-php-errors.log
+php_admin_value[newrelic.appname] = "Zedrestapi({{ environment }})"
 php_admin_value[newrelic.framework] = "symfony2"
 {%- if salt['pillar.get']('monitoring:appdynamics:php_agent:enabled', False) %}
-php_admin_value[agent.tierName] = 'zed-rest-api'
+php_admin_value[agent.tierName] = 'zedrestapi'
 {%- endif %}
 env[VM_PROJECT] = $VM_PROJECT
 env[VM_DOMAIN] = $VM_DOMAIN

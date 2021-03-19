@@ -28,9 +28,9 @@
 {%- endif %}
 
 # If hostnames are defined in grains - overwrite setings from pillar
-{%- set grains_hostname_zed-rest-api = salt['grains.get']('environments:' + environment + ':zed-rest-api:hostname', None) %}
-{%- if grains_hostname_zed-rest-api != None %}
-{%-   do environments[environment].zed-rest-api.update ({ 'hostname': grains_hostname_zed-rest-api}) %}
+{%- set grains_hostname_zedrestapi = salt['grains.get']('environments:' + environment + ':zedrestapi:hostname', None) %}
+{%- if grains_hostname_zedrestapi != None %}
+{%-   do environments[environment].zedrestapi.update ({ 'hostname': grains_hostname_zedrestapi}) %}
 {%- endif %}
 
 # Generate Jenkins ports
@@ -45,8 +45,8 @@
 # Generate http Gateway assets ports
 {%- do environments[environment].gateway.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '10' }) %}
 
-# Generate http Zed-rest-api assets ports
-{%- do environments[environment].zed-rest-api.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '11' }) %}
+# Generate http Zedrestapi assets ports
+{%- do environments[environment].zedrestapi.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '11' }) %}
 
 # Generate Elasticsearch ports
 {%- do environments[environment]['elasticsearch'].update ({

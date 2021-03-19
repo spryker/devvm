@@ -156,9 +156,9 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-zed-rest-api.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-zedrestapi.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/zed-rest-api.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/zedrestapi.conf
     - template: jinja
     - user: root
     - group: root
@@ -230,8 +230,6 @@
     - watch_in:
       - cmd: reload-nginx
 
-{%- endif %}
-
 /etc/nginx/sites-available/{{ environment }}_gateway:
   file.managed:
     - source: salt://spryker/files/etc/nginx/sites-available/gateway.conf
@@ -254,11 +252,9 @@
     - watch_in:
       - cmd: reload-nginx
 
-{%- endif %}
-
-/etc/nginx/sites-available/{{ environment }}_zed-rest-api:
+/etc/nginx/sites-available/{{ environment }}_zedrestapi:
   file.managed:
-    - source: salt://spryker/files/etc/nginx/sites-available/zed-rest-api.conf
+    - source: salt://spryker/files/etc/nginx/sites-available/zedrestapi.conf
     - template: jinja
     - user: root
     - group: root
@@ -269,12 +265,12 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-enabled/{{ environment }}_zed-rest-api:
+/etc/nginx/sites-enabled/{{ environment }}_zedrestapi:
   file.symlink:
-    - target: /etc/nginx/sites-available/{{ environment }}_zed-rest-api
+    - target: /etc/nginx/sites-available/{{ environment }}_zedrestapi
     - force: true
     - require:
-      - file: /etc/nginx/sites-available/{{ environment }}_zed-rest-api
+      - file: /etc/nginx/sites-available/{{ environment }}_zedrestapi
     - watch_in:
       - cmd: reload-nginx
 
