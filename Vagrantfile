@@ -90,6 +90,8 @@ HOSTS = [ 'spryker-vagrant' ]
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
 end
 HOSTS.push [ "demo-date-time-configurator.spryker.local" ]
+HOSTS.push [ "gateway.de.suite-nonsplit.local" ]
+HOSTS.push [ "zed-rest-api.de.suite-nonsplit.local" ]
 
 ###
 ### END OF CONFIGURATION

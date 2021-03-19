@@ -105,6 +105,24 @@ environments:
       # Required if enable_local_vhost is set to true, no default value
       hostname: '~^demo-date-time-configurator\..+\.local$'
 
+    gateway:
+      # Enable local Gateway files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Gateway files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^gateway.de\..+\.local$'
+
+    zed-rest-api:
+      # Enable local Zed-rest-api files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Zed-rest-api files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^zed-rest-api.de\..+\.local$'
+
     stores:
       # List of stores and store-specific settings. Stores listed here has to be the same as configured above in "stores" key.
       DE:
@@ -163,6 +181,12 @@ environments:
     configurator:
       enable_local_vhost: true
       hostname: '~^demo-date-time-configurator-test\..+\.local$'
+    gateway:
+      enable_local_vhost: true
+      hostname: '~^gateway.de\..+\.local$'
+    zed-rest-api:
+      enable_local_vhost: true
+      hostname: '~^zed-rest-api.de\..+\.local$'	  
     stores:
       DE:
         yves:

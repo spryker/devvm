@@ -21,6 +21,18 @@
 {%-   do environments[environment].configurator.update ({ 'hostname': grains_hostname_configurator}) %}
 {%- endif %}
 
+# If hostnames are defined in grains - overwrite setings from pillar
+{%- set grains_hostname_gateway = salt['grains.get']('environments:' + environment + ':gateway:hostname', None) %}
+{%- if grains_hostname_gateway != None %}
+{%-   do environments[environment].gateway.update ({ 'hostname': grains_hostname_gateway}) %}
+{%- endif %}
+
+# If hostnames are defined in grains - overwrite setings from pillar
+{%- set grains_hostname_zed-rest-api = salt['grains.get']('environments:' + environment + ':zed-rest-api:hostname', None) %}
+{%- if grains_hostname_zed-rest-api != None %}
+{%-   do environments[environment].zed-rest-api.update ({ 'hostname': grains_hostname_zed-rest-api}) %}
+{%- endif %}
+
 # Generate Jenkins ports
 {%- do environments[environment].update ({ 'jenkins': { 'port': '1' + port['environment'][environment]['port'] + '00' + '7' }}) %}
 
@@ -29,6 +41,12 @@
 
 # Generate http Configurator assets ports
 {%- do environments[environment].configurator.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '3' }) %}
+
+# Generate http Gateway assets ports
+{%- do environments[environment].gateway.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '4' }) %}
+
+# Generate http Zed-rest-api assets ports
+{%- do environments[environment].zed-rest-api.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '6' }) %}
 
 # Generate Elasticsearch ports
 {%- do environments[environment]['elasticsearch'].update ({

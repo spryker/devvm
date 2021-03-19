@@ -144,6 +144,30 @@
     - context:
       environment: {{ environment }}
 
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-gateway.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/gateway.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-zed-rest-api.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/zed-rest-api.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
 # NginX configs
 /etc/nginx/conf.d/{{ environment }}-backend.conf:
   file.managed:
@@ -203,6 +227,50 @@
     - force: true
     - require:
       - file: /etc/nginx/sites-available/{{ environment }}_configurator
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_gateway:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/gateway.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_gateway:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_gateway
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_gateway
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_zed-rest-api:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/zed-rest-api.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_zed-rest-api:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_zed-rest-api
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_zed-rest-api
     - watch_in:
       - cmd: reload-nginx
 
