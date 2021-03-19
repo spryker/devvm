@@ -43,10 +43,10 @@
 {%- do environments[environment].configurator.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '3' }) %}
 
 # Generate http Gateway assets ports
-{%- do environments[environment].gateway.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '4' }) %}
+{%- do environments[environment].gateway.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '10' }) %}
 
 # Generate http Zed-rest-api assets ports
-{%- do environments[environment].zed-rest-api.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '6' }) %}
+{%- do environments[environment].zed-rest-api.update ({ 'port': '1' + port['environment'][environment]['port'] + '00' + '11' }) %}
 
 # Generate Elasticsearch ports
 {%- do environments[environment]['elasticsearch'].update ({
