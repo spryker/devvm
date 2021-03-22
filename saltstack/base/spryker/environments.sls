@@ -230,8 +230,6 @@
     - watch_in:
       - cmd: reload-nginx
 
-{%- endif %}
-
 /etc/nginx/sites-available/{{ environment }}_gateway:
   file.managed:
     - source: salt://spryker/files/etc/nginx/sites-available/gateway.conf
@@ -242,8 +240,8 @@
     - context:
       environment: {{ environment }}
       settings: {{ settings|tojson }}
-    - watch_in:
-      - cmd: reload-nginx
+#   - watch_in:
+#     - cmd: reload-nginx
 
 /etc/nginx/sites-enabled/{{ environment }}_gateway:
   file.symlink:
@@ -251,10 +249,8 @@
     - force: true
     - require:
       - file: /etc/nginx/sites-available/{{ environment }}_gateway
-    - watch_in:
-      - cmd: reload-nginx
-
-{%- endif %}
+#   - watch_in:
+#     - cmd: reload-nginx
 
 /etc/nginx/sites-available/{{ environment }}_zedrestapi:
   file.managed:
@@ -266,8 +262,8 @@
     - context:
       environment: {{ environment }}
       settings: {{ settings|tojson }}
-    - watch_in:
-      - cmd: reload-nginx
+#   - watch_in:
+#     - cmd: reload-nginx
 
 /etc/nginx/sites-enabled/{{ environment }}_zedrestapi:
   file.symlink:
@@ -275,8 +271,8 @@
     - force: true
     - require:
       - file: /etc/nginx/sites-available/{{ environment }}_zedrestapi
-    - watch_in:
-      - cmd: reload-nginx
+#   - watch_in:
+#     - cmd: reload-nginx
 
 {%- endif %}
 
