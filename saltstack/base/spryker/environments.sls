@@ -230,6 +230,8 @@
     - watch_in:
       - cmd: reload-nginx
 
+{%- endif %}
+
 /etc/nginx/sites-available/{{ environment }}_gateway:
   file.managed:
     - source: salt://spryker/files/etc/nginx/sites-available/gateway.conf
@@ -251,6 +253,8 @@
       - file: /etc/nginx/sites-available/{{ environment }}_gateway
     - watch_in:
       - cmd: reload-nginx
+
+{%- endif %}
 
 /etc/nginx/sites-available/{{ environment }}_zedrestapi:
   file.managed:
