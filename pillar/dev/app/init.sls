@@ -112,7 +112,7 @@ environments:
 
       # Hostname for local Gateway files virtual host in nginx,
       # Required if enable_local_vhost is set to true, no default value
-      hostname: '~^gateway.de\..+\.local$'
+      hostname: '~^gateway\..+\.local$'
 
     zedrestapi:
       # Enable local Zedrestapi files virtual host in nginx?
@@ -121,7 +121,7 @@ environments:
 
       # Hostname for local Zedrestapi files virtual host in nginx,
       # Required if enable_local_vhost is set to true, no default value
-      hostname: '~^zed-rest-api.de\..+\.local$'
+      hostname: '~^zed-rest-api\..+\.local$'
 
     stores:
       # List of stores and store-specific settings. Stores listed here has to be the same as configured above in "stores" key.
@@ -183,10 +183,10 @@ environments:
       hostname: '~^demo-date-time-configurator-test\..+\.local$'
     gateway:
       enable_local_vhost: true
-      hostname: '~^gateway.de\..+\.local$'
+      hostname: '~^gateway-test\..+\.local$'
     zedrestapi:
       enable_local_vhost: true
-      hostname: '~^zed-rest-api.de\..+\.local$'	  
+      hostname: '~^zed-rest-api-test\..+\.local$'	  
     stores:
       DE:
         yves:
