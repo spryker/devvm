@@ -105,24 +105,6 @@ environments:
       # Required if enable_local_vhost is set to true, no default value
       hostname: '~^demo-date-time-configurator\..+\.local$'
 
-    gateway:
-      # Enable local Gateway files virtual host in nginx?
-      # Optional, Default: false
-      enable_local_vhost: true
-
-      # Hostname for local Gateway files virtual host in nginx,
-      # Required if enable_local_vhost is set to true, no default value
-      hostname: '~^gateway\..+\.local$'
-
-    zedrestapi:
-      # Enable local Zedrestapi files virtual host in nginx?
-      # Optional, Default: false
-      enable_local_vhost: true
-
-      # Hostname for local Zedrestapi files virtual host in nginx,
-      # Required if enable_local_vhost is set to true, no default value
-      hostname: '~^zed-rest-api\..+\.local$'
-
     stores:
       # List of stores and store-specific settings. Stores listed here has to be the same as configured above in "stores" key.
       DE:
@@ -141,6 +123,12 @@ environments:
           # htpasswd_file:
         glue:
           hostname: '~^glue\.de\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice\.de\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api\.de\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -149,6 +137,12 @@ environments:
           hostname: '~^zed\.us\..+\.local$'
         glue:
           hostname: '~^glue\.us\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice\.us\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api\.us\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -157,7 +151,12 @@ environments:
           hostname: '~^zed\.at\..+\.local$'
         glue:
           hostname: '~^glue\.at\..+\.local$'
-
+        backoffice:
+          hostname: '~^backoffice\.at\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api\.at\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway\.at\..+\.local$'
 
   devtest:
     code_symlink: /data/shop/development/current
@@ -181,12 +180,6 @@ environments:
     configurator:
       enable_local_vhost: true
       hostname: '~^demo-date-time-configurator-test\..+\.local$'
-    gateway:
-      enable_local_vhost: true
-      hostname: '~^gateway-test\..+\.local$'
-    zedrestapi:
-      enable_local_vhost: true
-      hostname: '~^zed-rest-api-test\..+\.local$'	  
     stores:
       DE:
         yves:
@@ -196,6 +189,12 @@ environments:
           hostname: '~^zed-test\.de\..+\.local$'
         glue:
           hostname: '~^glue-test\.de\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice-test\.de\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api-test\.de\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway-test\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -204,6 +203,12 @@ environments:
           hostname: '~^zed-test\.us\..+\.local$'
         glue:
           hostname: '~^glue-test\.us\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice-test\.us\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api-test\.us\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway-test\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -212,6 +217,12 @@ environments:
           hostname: '~^zed-test\.at\..+\.local$'
         glue:
           hostname: '~^glue-test\.at\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice-test\.at\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api-test\.at\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway-test\.at\..+\.local$'
 # The key below is used for deployment using deploy.rb (deprecated)
 #
 # From deployment server user root must be able to log in to all other

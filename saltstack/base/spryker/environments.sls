@@ -144,9 +144,9 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-gateway.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backoffice.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/gateway.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backoffice.conf
     - template: jinja
     - user: root
     - group: root
@@ -156,9 +156,21 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-zedrestapi.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendapi.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/zedrestapi.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendapi.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendgateway.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendgateway.conf
     - template: jinja
     - user: root
     - group: root
@@ -230,9 +242,9 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-available/{{ environment }}_gateway:
+/etc/nginx/sites-available/{{ environment }}_backoffice:
   file.managed:
-    - source: salt://spryker/files/etc/nginx/sites-available/gateway.conf
+    - source: salt://spryker/files/etc/nginx/sites-available/backoffice.conf
     - template: jinja
     - user: root
     - group: root
@@ -243,18 +255,18 @@
 #   - watch_in:
 #     - cmd: reload-nginx
 
-/etc/nginx/sites-enabled/{{ environment }}_gateway:
+/etc/nginx/sites-enabled/{{ environment }}_backoffice:
   file.symlink:
-    - target: /etc/nginx/sites-available/{{ environment }}_gateway
+    - target: /etc/nginx/sites-available/{{ environment }}_backoffice
     - force: true
     - require:
-      - file: /etc/nginx/sites-available/{{ environment }}_gateway
+      - file: /etc/nginx/sites-available/{{ environment }}_backoffice
 #   - watch_in:
 #     - cmd: reload-nginx
 
-/etc/nginx/sites-available/{{ environment }}_zedrestapi:
+/etc/nginx/sites-available/{{ environment }}_backendapi:
   file.managed:
-    - source: salt://spryker/files/etc/nginx/sites-available/zedrestapi.conf
+    - source: salt://spryker/files/etc/nginx/sites-available/backendapi.conf
     - template: jinja
     - user: root
     - group: root
@@ -265,12 +277,34 @@
 #   - watch_in:
 #     - cmd: reload-nginx
 
-/etc/nginx/sites-enabled/{{ environment }}_zedrestapi:
+/etc/nginx/sites-enabled/{{ environment }}_backendapi:
   file.symlink:
-    - target: /etc/nginx/sites-available/{{ environment }}_zedrestapi
+    - target: /etc/nginx/sites-available/{{ environment }}_backendapi
     - force: true
     - require:
-      - file: /etc/nginx/sites-available/{{ environment }}_zedrestapi
+      - file: /etc/nginx/sites-available/{{ environment }}_backendapi
+#   - watch_in:
+#     - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_backendgateway:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backendgateway.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+#   - watch_in:
+#     - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backendgateway:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backendgateway
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backendgateway
 #   - watch_in:
 #     - cmd: reload-nginx
 
