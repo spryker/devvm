@@ -99,6 +99,13 @@
     'vhost':    '/' + store + '_' + environment + '_zed'
   }
 }) %}
+{%- do environments[environment]['stores'][store].update({
+  'rabbitmq': {
+    'username': store + '_' + environment,
+    'password': environment_details.rabbitmq.password,
+    'vhost':    '/' + store + '_' + environment + '_backoffice'
+  }
+}) %}
 
 
 # Not using MySQL-as-a-service?
@@ -123,45 +130,6 @@
     }
   }
 }) %}
-
-{%- else %}
-# Using MySQL-as-a-service
-{%- set mysql_hostname = salt['pillar.get']('hosting:external_mysql') %}
-
-# Generate SQL database names
-{%- do environments[environment]['stores'][store].zed.update({
-  'database': {
-    'database': store + '_' + environment + '_zed',
-    'hostname': mysql_hostname,
-    'username': environment_details.database.zed.username,
-    'password': environment_details.database.zed.password
-  }
-}) %}
-{%- do environments[environment]['stores'][store].update({
-  'dump': {
-    'database': {
-      'database': store + '_' + environment + '_dump',
-      'hostname': mysql_hostname,
-      'username': environment_details.database.zed.username,
-      'password': environment_details.database.zed.password
-    }
-  }
-}) %}
-
-# Generate RabbitMQ vhost names / credentials
-{%- do environments[environment]['stores'][store].update({
-  'rabbitmq': {
-    'username': store + '_' + environment,
-    'password': environment_details.rabbitmq.password,
-    'vhost':    '/' + store + '_' + environment + '_backoffice'
-  }
-}) %}
-
-
-# Not using MySQL-as-a-service?
-{%- if salt['pillar.get']('hosting:external_mysql', '') == '' %}
-
-# Generate SQL database names
 {%- do environments[environment]['stores'][store].backoffice.update({
   'database': {
     'database': store + '_' + environment + '_backoffice',
@@ -186,6 +154,25 @@
 {%- set mysql_hostname = salt['pillar.get']('hosting:external_mysql') %}
 
 # Generate SQL database names
+{%- do environments[environment]['stores'][store].zed.update({
+  'database': {
+    'database': store + '_' + environment + '_zed',
+    'hostname': mysql_hostname,
+    'username': environment_details.database.zed.username,
+    'password': environment_details.database.zed.password
+  }
+}) %}
+{%- do environments[environment]['stores'][store].update({
+  'dump': {
+    'database': {
+      'database': store + '_' + environment + '_dump',
+      'hostname': mysql_hostname,
+      'username': environment_details.database.zed.username,
+      'password': environment_details.database.zed.password
+    }
+  }
+}) %}
+# Generate SQL database names
 {%- do environments[environment]['stores'][store].backoffice.update({
   'database': {
     'database': store + '_' + environment + '_backoffice',
@@ -204,6 +191,7 @@
     }
   }
 }) %}
+
 {%- endif %}
 
 {%- endfor %}
