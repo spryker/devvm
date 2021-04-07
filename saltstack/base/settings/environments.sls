@@ -147,6 +147,63 @@
     }
   }
 }) %}
+
+# Generate RabbitMQ vhost names / credentials
+{%- do environments[environment]['stores'][store].update({
+  'rabbitmq': {
+    'username': store + '_' + environment,
+    'password': environment_details.rabbitmq.password,
+    'vhost':    '/' + store + '_' + environment + '_backoffice'
+  }
+}) %}
+
+
+# Not using MySQL-as-a-service?
+{%- if salt['pillar.get']('hosting:external_mysql', '') == '' %}
+
+# Generate SQL database names
+{%- do environments[environment]['stores'][store].backoffice.update({
+  'database': {
+    'database': store + '_' + environment + '_backoffice',
+    'hostname': environment_details.database.backoffice.hostname,
+    'username': environment_details.database.backoffice.username,
+    'password': environment_details.database.backoffice.password
+  }
+}) %}
+{%- do environments[environment]['stores'][store].update({
+  'dump': {
+    'database': {
+      'database': store + '_' + environment + '_dump',
+      'hostname': environment_details.database.backoffice.hostname,
+      'username': environment_details.database.backoffice.username,
+      'password': environment_details.database.backoffice.password
+    }
+  }
+}) %}
+
+{%- else %}
+# Using MySQL-as-a-service
+{%- set mysql_hostname = salt['pillar.get']('hosting:external_mysql') %}
+
+# Generate SQL database names
+{%- do environments[environment]['stores'][store].backoffice.update({
+  'database': {
+    'database': store + '_' + environment + '_backoffice',
+    'hostname': mysql_hostname,
+    'username': environment_details.database.backoffice.username,
+    'password': environment_details.database.backoffice.password
+  }
+}) %}
+{%- do environments[environment]['stores'][store].update({
+  'dump': {
+    'database': {
+      'database': store + '_' + environment + '_dump',
+      'hostname': mysql_hostname,
+      'username': environment_details.database.backoffice.username,
+      'password': environment_details.database.backoffice.password
+    }
+  }
+}) %}
 {%- endif %}
 
 {%- endfor %}
