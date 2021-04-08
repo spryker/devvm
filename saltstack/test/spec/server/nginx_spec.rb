@@ -19,8 +19,8 @@ describe 'nginx' do
 #   its(:stdout) { should match(/server_name.*zed.*de.*local/) }
 #   its(:stdout) { should match(/server_name.*glue.*de.*local/) }
 #   its(:stdout) { should match(/server_name.*demo-date-time-configurator.*local/) }
-#   its(:stdout) { should match(/server_name.*backend-gateway.*de.*local/) }
-#   its(:stdout) { should match(/server_name.*backoffice.*de.*local/) }
-#   its(:stdout) { should match(/server_name.*backend-api.*de.*local/) }
+#   its(:stdout) { should match(/server_name.*backend-gateway.*local/) }
+#   its(:stdout) { should match(/server_name.*backoffice.*local/) }
+#   its(:stdout) { should match(/server_name.*backend-api.*local/) }
 # end
 end
