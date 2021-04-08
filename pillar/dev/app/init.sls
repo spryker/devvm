@@ -72,15 +72,6 @@ environments:
 
         # Mandatory, default: no value
         password: mate20mg
-      backoffice:
-        # Mandatory, default: no value
-        hostname: localhost
-
-        # Mandatory, default: no value
-        username: development
-
-        # Mandatory, default: no value
-        password: mate20mg
 
     elasticsearch:
       # JVM Heap Size of Elasticsearch
@@ -171,10 +162,6 @@ environments:
     code_symlink: /data/shop/development/current
     database:
       zed:
-        hostname: localhost
-        username: devtest
-        password: mate20mg
-      backoffice:
         hostname: localhost
         username: devtest
         password: mate20mg
