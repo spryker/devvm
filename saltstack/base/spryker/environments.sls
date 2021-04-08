@@ -144,9 +144,45 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backoffice.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backofficede.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backoffice.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backofficede.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+	  
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backofficeat.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backofficeat.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+	  
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backofficeus.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backofficeus.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}	  
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendapide.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendapide.conf
     - template: jinja
     - user: root
     - group: root
@@ -156,9 +192,9 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendapi.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendapiat.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendapi.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendapiat.conf
     - template: jinja
     - user: root
     - group: root
@@ -168,9 +204,45 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendgateway.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendapius.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendgateway.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendapius.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendgatewayde.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendgatewayde.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendgatewayat.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendgatewayat.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+	  
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendgatewayus.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendgatewayus.conf
     - template: jinja
     - user: root
     - group: root
@@ -239,6 +311,204 @@
     - force: true
     - require:
       - file: /etc/nginx/sites-available/{{ environment }}_configurator
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_backofficede:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backofficede.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backofficede:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backofficede
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backofficede
+    - watch_in:
+      - cmd: reload-nginx
+	  
+/etc/nginx/sites-available/{{ environment }}_backofficeat:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backofficeat.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backofficeat:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backofficeat
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backofficeat
+    - watch_in:
+      - cmd: reload-nginx	  
+
+/etc/nginx/sites-available/{{ environment }}_backofficeus:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backofficeus.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backofficeus:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backofficeus
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backofficeus
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_backendapide:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backendapide.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backendapide:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backendapide
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backendapide
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_backendapiat:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backendapiat.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backendapiat:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backendapiat
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backendapiat
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_backendapius:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backendapius.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backendapius:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backendapius
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backendapius
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_backendgatewayde:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backendgatewayde.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backendgatewayde:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backendgatewayde
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backendgatewayde
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_backendgatewayat:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backendgatewayat.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backendgatewayat:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backendgatewayat
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backendgatewayat
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ environment }}_backendgatewayus:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/backendgatewayus.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      settings: {{ settings|tojson }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ environment }}_backendgatewayus:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ environment }}_backendgatewayus
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ environment }}_backendgatewayus
     - watch_in:
       - cmd: reload-nginx
 

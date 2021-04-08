@@ -98,15 +98,21 @@ HOSTS = [ 'spryker-vagrant' ]
     HOSTS.push [
       "www#{host_suffix}.#{store}.#{domain}",
       "zed#{host_suffix}.#{store}.#{domain}",
-      "glue#{host_suffix}.#{store}.#{domain}",
-      "backoffice#{host_suffix}.#{store}.#{domain}",
-      "backend-api#{host_suffix}.#{store}.#{domain}",
-      "backend-gateway#{host_suffix}.#{store}.#{domain}"
+      "glue#{host_suffix}.#{store}.#{domain}"
     ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
 end
 HOSTS.push [ "demo-date-time-configurator.spryker.local" ]
+HOSTS.push [ "backoffice.de.spryker.local" ]
+HOSTS.push [ "backend-api.de.spryker.local" ]
+HOSTS.push [ "backend-gateway.de.spryker.local" ]
+HOSTS.push [ "backoffice.at.spryker.local" ]
+HOSTS.push [ "backend-api.at.spryker.local" ]
+HOSTS.push [ "backend-gateway.at.spryker.local" ]
+HOSTS.push [ "backoffice.us.spryker.local" ]
+HOSTS.push [ "backend-api.us.spryker.local" ]
+HOSTS.push [ "backend-gateway.us.spryker.local" ]
 
 ###
 ### END OF CONFIGURATION

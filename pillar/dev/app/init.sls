@@ -105,6 +105,87 @@ environments:
       # Required if enable_local_vhost is set to true, no default value
       hostname: '~^demo-date-time-configurator\..+\.local$'
 
+    backofficede:
+      # Enable local Backoffice files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Backoffice files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^backoffice\.de\..+\.local$'
+	  
+    backofficeat:
+      # Enable local Backoffice files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Backoffice files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^backoffice\.at\..+\.local$'
+	  
+    backofficeus:
+      # Enable local Backoffice files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Backoffice files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^backoffice\.us\..+\.local$'
+	  
+    backendapide:
+      # Enable local Backendapi files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Backendapi files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^backend-api\.de\..+\.local$'
+	  
+    backendapiat:
+      # Enable local Backendapi files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Backendapi files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^backend-api\.at\..+\.local$'
+
+    backendapius:
+      # Enable local Backendapi files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Backendapi files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^backend-api\.us\..+\.local$'	  
+
+    backendgatewayde:
+      # Enable local Backendgateway files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Backendgateway files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^backend-gateway\.de\..+\.local$'	
+
+    backendgatewayat:
+      # Enable local Backendgateway files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Backendgateway files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^backend-gateway\.at\..+\.local$'
+	  
+    backendgatewayus:
+      # Enable local Backendgateway files virtual host in nginx?
+      # Optional, Default: false
+      enable_local_vhost: true
+
+      # Hostname for local Backendgateway files virtual host in nginx,
+      # Required if enable_local_vhost is set to true, no default value
+      hostname: '~^backend-gateway\.us\..+\.local$'	  
+
     stores:
       # List of stores and store-specific settings. Stores listed here has to be the same as configured above in "stores" key.
       DE:
@@ -123,12 +204,6 @@ environments:
           # htpasswd_file:
         glue:
           hostname: '~^glue\.de\..+\.local$'
-        backoffice:
-          hostname: '~^backoffice\.de\..+\.local$'
-        backendapi:
-          hostname: '~^backend-api\.de\..+\.local$'
-        backendgateway:
-          hostname: '~^backend-gateway\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -137,12 +212,6 @@ environments:
           hostname: '~^zed\.us\..+\.local$'
         glue:
           hostname: '~^glue\.us\..+\.local$'
-        backoffice:
-          hostname: '~^backoffice\.us\..+\.local$'
-        backendapi:
-          hostname: '~^backend-api\.us\..+\.local$'
-        backendgateway:
-          hostname: '~^backend-gateway\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -151,12 +220,6 @@ environments:
           hostname: '~^zed\.at\..+\.local$'
         glue:
           hostname: '~^glue\.at\..+\.local$'
-        backoffice:
-          hostname: '~^backoffice\.at\..+\.local$'
-        backendapi:
-          hostname: '~^backend-api\.at\..+\.local$'
-        backendgateway:
-          hostname: '~^backend-gateway\.at\..+\.local$'
 
   devtest:
     code_symlink: /data/shop/development/current
@@ -179,7 +242,35 @@ environments:
       hostname: '~^static-test\..+\.local$'
     configurator:
       enable_local_vhost: true
-      hostname: '~^demo-date-time-configurator-test\..+\.local$'
+      hostname: '~^demo-date-time-configurator-test\..+\.local$' 
+    backofficede:
+      enable_local_vhost: true
+      hostname: '~^backoffice-test\.de\..+\.local$'  
+    backofficeat:
+      enable_local_vhost: true
+      hostname: '~^backoffice-test\.at\..+\.local$'
+    backofficeus:
+      enable_local_vhost: true
+      hostname: '~^backoffice-test\.us\..+\.local$' 
+    backendapide:
+      enable_local_vhost: true
+      hostname: '~^backend-api-test\.de\..+\.local$'  
+    backendapiat:
+      enable_local_vhost: true
+      hostname: '~^backend-api-test\.at\..+\.local$'
+    backendapius:
+      enable_local_vhost: true
+      hostname: '~^backend-api-test\.us\..+\.local$'	  
+    backendgatewayde:
+      enable_local_vhost: true
+      hostname: '~^backend-gateway-test\.de\..+\.local$'	
+    backendgatewayat:
+      enable_local_vhost: true
+      hostname: '~^backend-gateway-test\.at\..+\.local$'
+    backendgatewayus:
+      enable_local_vhost: true
+      hostname: '~^backend-gateway-test\.us\..+\.local$'	 
+	  
     stores:
       DE:
         yves:
@@ -189,12 +280,6 @@ environments:
           hostname: '~^zed-test\.de\..+\.local$'
         glue:
           hostname: '~^glue-test\.de\..+\.local$'
-        backoffice:
-          hostname: '~^backoffice-test\.de\..+\.local$'
-        backendapi:
-          hostname: '~^backend-api-test\.de\..+\.local$'
-        backendgateway:
-          hostname: '~^backend-gateway-test\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -203,12 +288,6 @@ environments:
           hostname: '~^zed-test\.us\..+\.local$'
         glue:
           hostname: '~^glue-test\.us\..+\.local$'
-        backoffice:
-          hostname: '~^backoffice-test\.us\..+\.local$'
-        backendapi:
-          hostname: '~^backend-api-test\.us\..+\.local$'
-        backendgateway:
-          hostname: '~^backend-gateway-test\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -217,12 +296,6 @@ environments:
           hostname: '~^zed-test\.at\..+\.local$'
         glue:
           hostname: '~^glue-test\.at\..+\.local$'
-        backoffice:
-          hostname: '~^backoffice-test\.at\..+\.local$'
-        backendapi:
-          hostname: '~^backend-api-test\.at\..+\.local$'
-        backendgateway:
-          hostname: '~^backend-gateway-test\.at\..+\.local$'
 # The key below is used for deployment using deploy.rb (deprecated)
 #
 # From deployment server user root must be able to log in to all other
