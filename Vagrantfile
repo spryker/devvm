@@ -91,13 +91,13 @@ HOSTS = [ 'spryker-vagrant' ]
 end
 HOSTS.push [ "demo-date-time-configurator.spryker.local" ]
 HOSTS.push [ "backoffice.de.spryker.local" ]
-HOSTS.push [ "backend-api.de.spryker.local" ]
-HOSTS.push [ "backend-gateway.de.spryker.local" ]
 HOSTS.push [ "backoffice.at.spryker.local" ]
-HOSTS.push [ "backend-api.at.spryker.local" ]
-HOSTS.push [ "backend-gateway.at.spryker.local" ]
 HOSTS.push [ "backoffice.us.spryker.local" ]
+HOSTS.push [ "backend-api.de.spryker.local" ]
+HOSTS.push [ "backend-api.at.spryker.local" ]
 HOSTS.push [ "backend-api.us.spryker.local" ]
+HOSTS.push [ "backend-gateway.de.spryker.local" ]
+HOSTS.push [ "backend-gateway.at.spryker.local" ]
 HOSTS.push [ "backend-gateway.us.spryker.local" ]
 
 ###
