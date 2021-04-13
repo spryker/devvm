@@ -57,7 +57,7 @@
 {%- endif %}
 # If hostnames are defined in grains - overwrite setings from pillar
 {%- set grains_hostname_backendgatewayat = salt['grains.get']('environments:' + environment + ':backendgatewayat:hostname', None) %}
-{%- if grains_hostname_backendgatewayde != None %}
+{%- if grains_hostname_backendgatewayat != None %}
 {%-   do environments[environment].backendgatewayat.update ({ 'hostname': grains_hostname_backendgatewayat}) %}
 {%- endif %}
 # If hostnames are defined in grains - overwrite setings from pillar

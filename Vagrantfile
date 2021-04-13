@@ -201,7 +201,8 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
 
   # Install required, but missing dependencies in the base box
-  config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
+  # config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
+  config.vm.provision "shell", inline: "set -x; sudo sed -i 's|http://http.us|http://ftp.nl|g' /etc/apt/sources.list; sudo apt-get install -y pkg-config python2.7-dev"
 
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
@@ -211,7 +212,8 @@ Vagrant.configure(2) do |config|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
-      salt.version = "v3000.3"
+      # salt.version = "v3000.3"
+	  salt.version = "v3003"
       salt.install_type = "git"
     end
   else
