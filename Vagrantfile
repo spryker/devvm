@@ -213,7 +213,7 @@ Vagrant.configure(2) do |config|
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
       # salt.version = "v3000.3"
-	  salt.version = "v3003"
+      salt.version = "v3003"
       salt.install_type = "git"
     end
   else
