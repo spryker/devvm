@@ -66,12 +66,27 @@
 {%- if grains_hostname_glue != None %}
 {%-   do environments[environment]['stores'][store].glue.update ({ 'hostname': grains_hostname_glue}) %}
 {%- endif %}
+{%- set grains_hostname_backoffice  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':backoffice:hostname', None) %}
+{%- if grains_hostname_backoffice != None %}
+{%-   do environments[environment]['stores'][store].backoffice.update ({ 'hostname': grains_hostname_backoffice}) %}
+{%- endif %}
+{%- set grains_hostname_backendapi  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':backendapi:hostname', None) %}
+{%- if grains_hostname_backendapi != None %}
+{%-   do environments[environment]['stores'][store].backendapi.update ({ 'hostname': grains_hostname_backendapi}) %}
+{%- endif %}
+{%- set grains_hostname_backendgateway  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':backendgateway:hostname', None) %}
+{%- if grains_hostname_backendgateway != None %}
+{%-   do environments[environment]['stores'][store].backendgateway.update ({ 'hostname': grains_hostname_backendgateway}) %}
+{%- endif %}
 
 
 # Generate Yves/Zed ports
 {%- do environments[environment]['stores'][store].yves.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '0' }) %}
 {%- do environments[environment]['stores'][store].zed.update  ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '1' }) %}
 {%- do environments[environment]['stores'][store].glue.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '2' }) %}
+{%- do environments[environment]['stores'][store].backoffice.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '3' }) %}
+{%- do environments[environment]['stores'][store].backendapi.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '4' }) %}
+{%- do environments[environment]['stores'][store].backendgateway.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '5' }) %}
 
 # Generate store locale settings
 {%- do environments[environment]['stores'][store].update ({ 'locale': port['store'][store]['locale'], 'appdomain': port['store'][store]['appdomain'] }) %}

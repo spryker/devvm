@@ -123,6 +123,12 @@ environments:
           # htpasswd_file:
         glue:
           hostname: '~^glue\.de\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice\.de\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api\.de\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -131,6 +137,12 @@ environments:
           hostname: '~^zed\.us\..+\.local$'
         glue:
           hostname: '~^glue\.us\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice\.us\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api\.us\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -139,7 +151,12 @@ environments:
           hostname: '~^zed\.at\..+\.local$'
         glue:
           hostname: '~^glue\.at\..+\.local$'
-
+        backoffice:
+          hostname: '~^backoffice\.at\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api\.at\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway\.at\..+\.local$'
 
   devtest:
     code_symlink: /data/shop/development/current
@@ -172,6 +189,12 @@ environments:
           hostname: '~^zed-test\.de\..+\.local$'
         glue:
           hostname: '~^glue-test\.de\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice-test\.de\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api-test\.de\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway-test\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -180,6 +203,12 @@ environments:
           hostname: '~^zed-test\.us\..+\.local$'
         glue:
           hostname: '~^glue-test\.us\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice-test\.us\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api-test\.us\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway-test\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -188,6 +217,12 @@ environments:
           hostname: '~^zed-test\.at\..+\.local$'
         glue:
           hostname: '~^glue-test\.at\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice-test\.at\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api-test\.at\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway-test\.at\..+\.local$'
 # The key below is used for deployment using deploy.rb (deprecated)
 #
 # From deployment server user root must be able to log in to all other
