@@ -157,7 +157,7 @@
       - cmd: reload-php-fpm
     - context:
       environment: {{ environment }}
-	  
+
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendgateway.conf:
   file.managed:
     - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendgateway.conf
