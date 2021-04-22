@@ -176,8 +176,8 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian10_5"
-  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/debian105.box"
+  config.vm.box = "devvm"
+  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/spryker-devvm-34.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
@@ -185,7 +185,7 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = true
 
   # Set the VirtualBox IP address for the browser
-  config.vm.network :private_network, ip: VM_IP, nic_type: "virtio"
+  config.vm.network :private_network, ip: VM_IP, nic_type: "Am79C973"
 
   # Port forwarding for services running on the VM
   config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
@@ -196,7 +196,7 @@ Vagrant.configure(2) do |config|
 
   # Install required, but missing dependencies in the base box
   # config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
-  config.vm.provision "shell", inline: "set -x; sudo sed -i 's|http://http.us|http://ftp|g' /etc/apt/sources.list; sudo apt-get update; sudo apt-get install -y pkg-config python2.7-dev"
+  config.vm.provision "shell", inline: "set -x; sudo sed -i 's|http://http.us|http://ftp|g' /etc/apt/sources.list; sudo apt-get update; sudo apt-get install -y pkg-config python2.7-dev; python -m pip install boto3; pip install --upgrade boto3"
   
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
@@ -206,7 +206,8 @@ Vagrant.configure(2) do |config|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
-      salt.version = "v3000.3"
+      salt.version = "v3003"
+      salt.verbose = true
       salt.install_type = "git"
     end
   else
@@ -248,8 +249,8 @@ Vagrant.configure(2) do |config|
       "modifyvm", :id,
       "--memory", VM_MEMORY,
       "--cpus", VM_CPUS,
-      "--nictype1", "virtio",
-      "--nictype2", "virtio",
+      "--nictype1", "Am79C973",
+      "--nictype2", "Am79C973",
       "--audio", "none",
     ])
     if IS_WINDOWS
