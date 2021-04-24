@@ -196,7 +196,7 @@ Vagrant.configure(2) do |config|
 
   # Install required, but missing dependencies in the base box
   # config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
-  config.vm.provision "shell", inline: "set -x; sudo sed -i 's|http://http.us|http://ftp|g' /etc/apt/sources.list; sudo curl -fsSL -o /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/debian/10/amd64/latest/salt-archive-keyring.gpg; echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg] https://repo.saltproject.io/py3/debian/10/amd64/latest buster main" | sudo tee /etc/apt/sources.list.d/salt.list; sudo apt-get update; sudo apt-get install -y pkg-config python2.7-dev salt-master salt-minion; sudo curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python; sudo python -m pip install boto3; sudo pip install --upgrade boto3"
+  config.vm.provision "shell", inline: "set -x; sudo sed -i 's|http://http.us|http://ftp|g' /etc/apt/sources.list; sudo apt-get install -y pkg-config python2.7-dev salt-master salt-minion; sudo curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python; sudo python -m pip install boto3; sudo pip install --upgrade boto3"
   
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
