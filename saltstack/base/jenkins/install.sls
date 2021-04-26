@@ -10,7 +10,8 @@ jenkins:
     - hold: True
     - sources:
 #      - jenkins: https://u220427-sub1:PpiiHzuF2OIUzmcH@u220427-sub1.your-storagebox.de/jenkins_1.651.3_all.deb
-      - jenkins: http://pkg.jenkins-ci.org/debian-stable/binary/jenkins_1.651.3_all.deb
+#      - jenkins: http://pkg.jenkins-ci.org/debian-stable/binary/jenkins_1.651.3_all.deb
+      - jenkins: http://ci.spryker.systems:8000/jenkins_1.651.3_all.deb
 disable-jenkins-service:
   service.dead:
     - name: jenkins
