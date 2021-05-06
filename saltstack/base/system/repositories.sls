@@ -121,9 +121,10 @@ php-repo:
 rabbitmq-repo:
   pkgrepo.managed:
     - humanname: RabbitMQ repository
-    - name: deb https://dl.bintray.com/rabbitmq-erlang/debian buster erlang-22.x
+    - name: deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
     - file: /etc/apt/sources.list.d/bintray.erlang.list
-    - key_url: https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+    - keyid: F77F1EDA57EBB1CC
+    - keyserver: keyserver.ubuntu.com
     - refresh: False
     - watch_in:
        - cmd: apt-get-update
