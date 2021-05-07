@@ -248,7 +248,7 @@ Vagrant.configure(2) do |config|
 
   # Copy VM env file to the VM, so that settings can be read by PHP
   config.vm.provision "shell",
-    inline: "cp /vagrant/.vm /etc/spryker-vm-env; service php7.4-fpm restart"
+    inline: "cp /vagrant/.vm /etc/spryker-vm-env; service php8.0-fpm restart"
 
   # Configure VirtualBox VM resources (CPU and memory)
   config.vm.provider :virtualbox do |vb|
