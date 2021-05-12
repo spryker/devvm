@@ -22,7 +22,7 @@ bootstrap.memory_lock: true
 ############################## Network And HTTP ##############################
 network.bind_host: 0.0.0.0
 network.publish_host: localhost
-http.port: 10021
+http.port: 10005
 transport.tcp.port: 20005
 transport.tcp.compress: false
 

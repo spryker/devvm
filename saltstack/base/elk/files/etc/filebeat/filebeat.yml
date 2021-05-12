@@ -20,7 +20,7 @@ filebeat:
 
 output:
   elasticsearch:
-    hosts: ["localhost:10021"]
+    hosts: ["localhost:10005"]
     protocol: "http"
     index: "logstash"
 
