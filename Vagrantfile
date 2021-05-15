@@ -40,8 +40,8 @@ else
   # Settings for the Virtualbox VM
   VM_IP_PREFIX = ENV['VM_IP_PREFIX'] || '10.10.0.'                         # Prefix for IP address of DEV VM
   VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
-  VM_MEMORY    = ENV['VM_MEMORY']    || '4000'                             # Number of memory for DEV VM, in MB
-  VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Number of CPU cores for DEV VM
+  VM_MEMORY    = ENV['VM_MEMORY']    || '8000'                             # Number of memory for DEV VM, in MB
+  VM_CPUS      = ENV['VM_CPUS']      || '6'                                # Number of CPU cores for DEV VM
   VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
   VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
 
@@ -84,7 +84,9 @@ HOSTS = [ 'spryker-vagrant' ]
     HOSTS.push [
       "www#{host_suffix}.#{store}.#{domain}",
       "zed#{host_suffix}.#{store}.#{domain}",
-      "glue#{host_suffix}.#{store}.#{domain}"
+      "glue#{host_suffix}.#{store}.#{domain}",
+      "gateway.de.#{store}.#{domain}",
+      "zed-rest-api.de.#{store}.#{domain}"
     ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]

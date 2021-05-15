@@ -117,12 +117,15 @@ environments:
           # Hostname for ZED NginX VHost. Only one value is allowed.
           # Mandatory, default: no value
           hostname: '~^zed\.de\..+\.local$'
-
           # Path to htpasswd file. Comment out to disable http auth.
           # Optional, default: no value
           # htpasswd_file:
         glue:
           hostname: '~^glue\.de\..+\.local$'
+        gateway:
+          hostname: '~^gateway\.de\..+\.local$'
+        zed-rest-api:
+          hostname: '~^zed-rest-api\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -172,6 +175,10 @@ environments:
           hostname: '~^zed-test\.de\..+\.local$'
         glue:
           hostname: '~^glue-test\.de\..+\.local$'
+        gateway:
+          hostname: '~^gateway-test\.de\..+\.local$'
+        zed-rest-api:
+          hostname: '~^zed-rest-api-test\.de\..+\.local$'
       US:
         yves:
           hostnames:

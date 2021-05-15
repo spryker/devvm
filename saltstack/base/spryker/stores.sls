@@ -75,6 +75,40 @@
     - watch_in:
       - cmd: reload-nginx
 
+# adding gateway & zed api
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_gateway:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-gateway.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      store: {{ store }}
+      settings: {{ settings|tojson }}
+    - require:
+      - file: /data/logs/{{ environment }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_zed-rest-api:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-zed-rest-api.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      store: {{ store }}
+      settings: {{ settings|tojson }}
+    - require:
+      - file: /data/logs/{{ environment }}
+    - watch_in:
+      - cmd: reload-nginx
+#end of adding gateway & zed api
+
 /etc/nginx/sites-enabled/{{ store }}_{{ environment }}_zed:
   file.symlink:
     - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zed
@@ -101,6 +135,25 @@
     - force: true
     - require:
       - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue
+    - watch_in:
+      - cmd: reload-nginx
+
+#add gateway and zed api 
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_gateway:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_gateway
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_gateway
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_zed-rest:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zed-rest
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zed-rest
     - watch_in:
       - cmd: reload-nginx
 
