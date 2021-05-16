@@ -85,8 +85,8 @@ HOSTS = [ 'spryker-vagrant' ]
       "www#{host_suffix}.#{store}.#{domain}",
       "zed#{host_suffix}.#{store}.#{domain}",
       "glue#{host_suffix}.#{store}.#{domain}",
-      "gateway.de.#{store}.#{domain}",
-      "zed-rest-api.de.#{store}.#{domain}"
+      "gateway.de.#{domain}",
+      "zedrestapi.de.#{domain}"
     ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]

@@ -132,7 +132,7 @@
     - context:
       environment: {{ environment }}
 
-# adding gateway & zed-rest-api
+# adding gateway & zedrestapi
 
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-gateway.conf:
   file.managed:
@@ -146,9 +146,9 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-zed-rest-api.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-zedrestapi.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/zed-rest-api.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/zedrestapi.conf
     - template: jinja
     - user: root
     - group: root
@@ -158,7 +158,7 @@
     - context:
       environment: {{ environment }}
 
-# end of adding gateway & zed-rest-api
+# end of adding gateway & zedrestapi
 
 
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-configurator.conf:

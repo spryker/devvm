@@ -70,9 +70,9 @@
 {%- if grains_hostname_gateway != None %}
 {%-   do environments[environment]['stores'][store].gateway.update ({ 'hostname': grains_hostname_gateway}) %}
 {%- endif %}
-{%- set grains_hostname_zed-rest-api  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':zed-rest-api:hostname', None) %}
-{%- if grains_hostname_zed-rest-api != None %}
-{%-   do environments[environment]['stores'][store].zed-rest-api.update ({ 'hostname': grains_hostname_zed-rest-api}) %}
+{%- set grains_hostname_zedrestapi  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':zedrestapi:hostname', None) %}
+{%- if grains_hostname_zedrestapi != None %}
+{%-   do environments[environment]['stores'][store].zedrestapi.update ({ 'hostname': grains_hostname_zedrestapi}) %}
 {%- endif %}
 
 
@@ -81,7 +81,7 @@
 {%- do environments[environment]['stores'][store].zed.update  ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '1' }) %}
 {%- do environments[environment]['stores'][store].glue.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '2' }) %}
 {%- do environments[environment]['stores'][store].gateway.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '3' }) %}
-{%- do environments[environment]['stores'][store].zed-rest-api.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '4' }) %}
+{%- do environments[environment]['stores'][store].zedrestapi.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '4' }) %}
 # Generate store locale settings
 {%- do environments[environment]['stores'][store].update ({ 'locale': port['store'][store]['locale'], 'appdomain': port['store'][store]['appdomain'] }) %}
 

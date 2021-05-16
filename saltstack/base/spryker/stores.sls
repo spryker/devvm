@@ -92,9 +92,9 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-available/{{ store }}_{{ environment }}_zed-rest-api:
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_zedrestapi:
   file.managed:
-    - source: salt://spryker/files/etc/nginx/sites-available/XX-zed-rest-api.conf
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-zedrestapi.conf
     - template: jinja
     - user: root
     - group: root

@@ -124,8 +124,8 @@ environments:
           hostname: '~^glue\.de\..+\.local$'
         gateway:
           hostname: '~^gateway\.de\..+\.local$'
-        zed-rest-api:
-          hostname: '~^zed-rest-api\.de\..+\.local$'
+        zedrestapi:
+          hostname: '~^zedrestapi\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -177,8 +177,8 @@ environments:
           hostname: '~^glue-test\.de\..+\.local$'
         gateway:
           hostname: '~^gateway-test\.de\..+\.local$'
-        zed-rest-api:
-          hostname: '~^zed-rest-api-test\.de\..+\.local$'
+        zedrestapi:
+          hostname: '~^zedrestapi-test\.de\..+\.local$'
       US:
         yves:
           hostnames:
