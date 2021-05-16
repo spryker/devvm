@@ -85,8 +85,8 @@ HOSTS = [ 'spryker-vagrant' ]
       "www#{host_suffix}.#{store}.#{domain}",
       "zed#{host_suffix}.#{store}.#{domain}",
       "glue#{host_suffix}.#{store}.#{domain}",
-      "gateway.de.#{domain}",
-      "zedrestapi.de.#{domain}"
+      "gateway#{host_suffix}.#{store}.#{domain}",
+      "zedrestapi#{host_suffix}.#{store}.#{domain}"
     ]
   end
   HOSTS.push [ "static#{host_suffix}.#{domain}" ]
@@ -205,6 +205,7 @@ Vagrant.configure(2) do |config|
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
       salt.version = "v3000.3"
+      salt.verbose = true
       salt.install_type = "git"
     end
   else

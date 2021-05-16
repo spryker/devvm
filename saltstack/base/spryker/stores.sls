@@ -148,12 +148,12 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_zed-rest:
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_zedrestapi:
   file.symlink:
-    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zed-rest
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zedrestapi
     - force: true
     - require:
-      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zed-rest
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zedrestapi
     - watch_in:
       - cmd: reload-nginx
 

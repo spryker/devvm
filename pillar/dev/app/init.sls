@@ -134,6 +134,10 @@ environments:
           hostname: '~^zed\.us\..+\.local$'
         glue:
           hostname: '~^glue\.us\..+\.local$'
+        gateway:
+          hostname: '~^gateway\.us\..+\.local$'
+        zedrestapi:
+          hostname: '~^zedrestapi\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -142,7 +146,10 @@ environments:
           hostname: '~^zed\.at\..+\.local$'
         glue:
           hostname: '~^glue\.at\..+\.local$'
-
+        gateway:
+          hostname: '~^gateway\.at\..+\.local$'
+        zedrestapi:
+          hostname: '~^zedrestapi\.at\..+\.local$'
 
   devtest:
     code_symlink: /data/shop/development/current
@@ -187,6 +194,10 @@ environments:
           hostname: '~^zed-test\.us\..+\.local$'
         glue:
           hostname: '~^glue-test\.us\..+\.local$'
+        gateway:
+          hostname: '~^gateway-test\.us\..+\.local$'
+        zedrestapi:
+          hostname: '~^zedrestapi-test\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -195,6 +206,10 @@ environments:
           hostname: '~^zed-test\.at\..+\.local$'
         glue:
           hostname: '~^glue-test\.at\..+\.local$'
+        gateway:
+          hostname: '~^gateway-test\.at\..+\.local$'
+        zedrestapi:
+          hostname: '~^zedrestapi-test\.at\..+\.local$'
 # The key below is used for deployment using deploy.rb (deprecated)
 #
 # From deployment server user root must be able to log in to all other

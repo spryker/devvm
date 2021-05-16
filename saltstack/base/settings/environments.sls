@@ -82,6 +82,7 @@
 {%- do environments[environment]['stores'][store].glue.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '2' }) %}
 {%- do environments[environment]['stores'][store].gateway.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '3' }) %}
 {%- do environments[environment]['stores'][store].zedrestapi.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '4' }) %}
+
 # Generate store locale settings
 {%- do environments[environment]['stores'][store].update ({ 'locale': port['store'][store]['locale'], 'appdomain': port['store'][store]['appdomain'] }) %}
 
