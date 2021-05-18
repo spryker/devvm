@@ -74,13 +74,13 @@
 {%- if grains_hostname_backoffice != None %}
 {%-   do environments[environment]['stores'][store].backofficeupdate ({ 'hostname': grains_hostname_backoffice}) %}
 {%- endif %}
-{%- set grains_hostname_backend-gateway  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':backend-gateway:hostname', None) %}
-{%- if grains_hostname_gateway != None %}
-{%-   do environments[environment]['stores'][store].backend-gateway.update ({ 'hostname': grains_hostname_backend-gateway}) %}
+{%- set grains_hostname_backendgateway  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':backendgateway:hostname', None) %}
+{%- if grains_hostname_backendgateway != None %}
+{%-   do environments[environment]['stores'][store].backendgateway.update ({ 'hostname': grains_hostname_backendgateway}) %}
 {%- endif %}
-{%- set grains_hostname_backend-api  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':backend-api:hostname', None) %}
-{%- if grains_hostname_backend-api != None %}
-{%-   do environments[environment]['stores'][store].backend-api.update ({ 'hostname': grains_hostname_backend-api}) %}
+{%- set grains_hostname_backendapi  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':backendapi:hostname', None) %}
+{%- if grains_hostname_backendapi != None %}
+{%-   do environments[environment]['stores'][store].backendapi.update ({ 'hostname': grains_hostname_backendapi}) %}
 {%- endif %}
 
 
@@ -89,7 +89,9 @@
 {%- do environments[environment]['stores'][store].zed.update  ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '1' }) %}
 {%- do environments[environment]['stores'][store].glue.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '2' }) %}
 {%- do environments[environment]['stores'][store].gateway.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '3' }) %}
-{%- do environments[environment]['stores'][store].backend-api.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '4' }) %}
+{%- do environments[environment]['stores'][store].backoffice.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '4' }) %}
+{%- do environments[environment]['stores'][store].backendgateway.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '5' }) %}
+{%- do environments[environment]['stores'][store].backendapi.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '6' }) %}
 
 # Generate store locale settings
 {%- do environments[environment]['stores'][store].update ({ 'locale': port['store'][store]['locale'], 'appdomain': port['store'][store]['appdomain'] }) %}

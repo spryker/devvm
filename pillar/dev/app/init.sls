@@ -126,9 +126,9 @@ environments:
           hostname: '~^gateway\.de\..+\.local$'
         backoffice:
           hostname: '~^backoffice\.de\..+\.local$'
-        backend-gateway:
+        backendgateway:
           hostname: '~^backend-gateway\.de\..+\.local$'
-        backend-api:
+        backendapi:
           hostname: '~^backend-api\.de\..+\.local$'
       US:
         yves:
@@ -142,9 +142,9 @@ environments:
           hostname: '~^gateway\.us\..+\.local$'
         backoffice:
           hostname: '~^backoffice\.us\..+\.local$'
-        backend-gateway:
+        backendgateway:
           hostname: '~^backend-gateway\.us\..+\.local$'
-        backend-api:
+        backendapi:
           hostname: '~^backend-api\.us\..+\.local$'
       AT:
         yves:
@@ -158,9 +158,9 @@ environments:
           hostname: '~^gateway\.at\..+\.local$'
         backoffice:
           hostname: '~^backoffice\.at\..+\.local$'
-        backend-gateway:
+        backendgateway:
           hostname: '~^backend-gateway\.at\..+\.local$'
-        backend-api:
+        backendapi:
           hostname: '~^backend-api\.at\..+\.local$'
 
   devtest:
@@ -198,9 +198,9 @@ environments:
           hostname: '~^gateway-test\.de\..+\.local$'
         backoffice:
           hostname: '~^backoffice-test\.de\..+\.local$'
-        backend-gateway:
+        backendgateway:
           hostname: '~^backend-gateway-test\.de\..+\.local$'
-        backend-api:
+        backendapi:
           hostname: '~^backend-api-test\.de\..+\.local$'
       US:
         yves:
@@ -214,9 +214,9 @@ environments:
           hostname: '~^gateway-test\.us\..+\.local$'
         backoffice:
           hostname: '~^backoffice-test\.us\..+\.local$'
-        backend-gateway:
+        backendgateway:
           hostname: '~^backend-gateway-test\.us\..+\.local$'
-        backend-api:
+        backendapi:
           hostname: '~^backend-api-test\.us\..+\.local$'
       AT:
         yves:
@@ -230,9 +230,9 @@ environments:
           hostname: '~^gateway-test\.at\..+\.local$'
         backoffice:
           hostname: '~^backoffice-test\.at\..+\.local$'
-        backend-gateway:
+        backendgateway:
           hostname: '~^backend-gateway-test\.at\..+\.local$'
-        backend-api:
+        backendapi:
           hostname: '~^backend-api-test\.at\..+\.local$'
 # The key below is used for deployment using deploy.rb (deprecated)
 #
