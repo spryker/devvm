@@ -158,9 +158,9 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backend-gateway.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendgateway.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backend-gateway.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendgateway.conf
     - template: jinja
     - user: root
     - group: root
@@ -172,7 +172,7 @@
 
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backend-api.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backend-api.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendapi.conf
     - template: jinja
     - user: root
     - group: root

@@ -110,7 +110,7 @@
 
 /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-gateway:
   file.managed:
-    - source: salt://spryker/files/etc/nginx/sites-available/XX-backend-gateway.conf
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-backendgateway.conf
     - template: jinja
     - user: root
     - group: root
@@ -126,7 +126,7 @@
 
 /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-api:
   file.managed:
-    - source: salt://spryker/files/etc/nginx/sites-available/XX-backend-api.conf
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-backendapi.conf
     - template: jinja
     - user: root
     - group: root
