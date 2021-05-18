@@ -170,7 +170,7 @@
     - watch_in:
       - cmd: reload-nginx
 
-#add gateway and zed api 
+#add new endpoints 
 /etc/nginx/sites-enabled/{{ store }}_{{ environment }}_gateway:
   file.symlink:
     - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_gateway
@@ -189,21 +189,21 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_backend-gateway:
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_backendgateway:
   file.symlink:
-    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-gateway
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backendgateway
     - force: true
     - require:
-      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-gateway
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backendgateway
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_backend-api:
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_backendapi:
   file.symlink:
-    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-api
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backendapi
     - force: true
     - require:
-      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-api
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backendapi
     - watch_in:
       - cmd: reload-nginx
 
