@@ -132,7 +132,7 @@
     - context:
       environment: {{ environment }}
 
-# adding gateway & zedrestapi
+# adding new endpoints
 
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-gateway.conf:
   file.managed:
@@ -146,9 +146,9 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-zedrestapi.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backoffice.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/zedrestapi.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backoffice.conf
     - template: jinja
     - user: root
     - group: root
@@ -158,7 +158,31 @@
     - context:
       environment: {{ environment }}
 
-# end of adding gateway & zedrestapi
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backend-gateway.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backend-gateway.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backend-api.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backend-api.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
+# end of adding new endpoints
 
 
 /etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-configurator.conf:

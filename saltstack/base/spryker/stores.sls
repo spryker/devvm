@@ -75,7 +75,7 @@
     - watch_in:
       - cmd: reload-nginx
 
-# adding gateway & zed api
+# adding new endpoints
 /etc/nginx/sites-available/{{ store }}_{{ environment }}_gateway:
   file.managed:
     - source: salt://spryker/files/etc/nginx/sites-available/XX-gateway.conf
@@ -92,9 +92,9 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-available/{{ store }}_{{ environment }}_zedrestapi:
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_backoffice:
   file.managed:
-    - source: salt://spryker/files/etc/nginx/sites-available/XX-zedrestapi.conf
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-backoffice.conf
     - template: jinja
     - user: root
     - group: root
@@ -107,7 +107,39 @@
       - file: /data/logs/{{ environment }}
     - watch_in:
       - cmd: reload-nginx
-#end of adding gateway & zed api
+
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-gateway:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-backend-gateway.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      store: {{ store }}
+      settings: {{ settings|tojson }}
+    - require:
+      - file: /data/logs/{{ environment }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-api:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-backend-api.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      store: {{ store }}
+      settings: {{ settings|tojson }}
+    - require:
+      - file: /data/logs/{{ environment }}
+    - watch_in:
+      - cmd: reload-nginx
+#end of adding new endpoints
 
 /etc/nginx/sites-enabled/{{ store }}_{{ environment }}_zed:
   file.symlink:
@@ -148,12 +180,30 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_zedrestapi:
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_backoffice:
   file.symlink:
-    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zedrestapi
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backoffice
     - force: true
     - require:
-      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_zedrestapi
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backoffice
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_backend-gateway:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-gateway
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-gateway
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_backend-api:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-api
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-api
     - watch_in:
       - cmd: reload-nginx
 
