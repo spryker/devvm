@@ -108,7 +108,7 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-gateway:
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_backendgateway:
   file.managed:
     - source: salt://spryker/files/etc/nginx/sites-available/XX-backendgateway.conf
     - template: jinja
@@ -124,7 +124,7 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-available/{{ store }}_{{ environment }}_backend-api:
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_backendapi:
   file.managed:
     - source: salt://spryker/files/etc/nginx/sites-available/XX-backendapi.conf
     - template: jinja

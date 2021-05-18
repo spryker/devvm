@@ -170,7 +170,7 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backend-api.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-backendapi.conf:
   file.managed:
     - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/backendapi.conf
     - template: jinja
