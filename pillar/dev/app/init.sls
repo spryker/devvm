@@ -40,7 +40,7 @@ php:
   # use them on production.
   # Optional, Default: xdebug is installed/enabled
   install_xdebug: true
-  enable_xdebug: false
+  enable_xdebug: true
 
   # PHP OpCache.
   # Optional, default: enabled

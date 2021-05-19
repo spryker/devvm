@@ -22,8 +22,8 @@ xdebug:
     - require:
       - pkg: xdebug
 
-{{ php_module('xdebug', salt['pillar.get']('php:enable_xdebug', False), 'fpm') }}
-{{ php_module('xdebug', salt['pillar.get']('php:enable_xdebug', False), 'cli') }}
+{{ php_module('xdebug', salt['pillar.get']('php:enable_xdebug', True), 'fpm') }}
+{{ php_module('xdebug', salt['pillar.get']('php:enable_xdebug', True), 'cli') }}
 {% endif %}
 
 #
