@@ -197,7 +197,7 @@ Vagrant.configure(2) do |config|
 
   # Install required, but missing dependencies in the base box
   #config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
-  config.vm.provision "shell", inline: "set -x; sudo apt-get update; sudo apt-get install -y pkg-config python3-dev python3-pip curl; sudo pip3 install boto3; sudo pip3 install psutil; sudo pip3 install salt"
+  config.vm.provision "shell", inline: "set -x; sudo apt-get update; sudo apt-get install -y pkg-config python3-dev python3-pip python3-psutil curl; sudo pip3 install boto3"
 
 
   # SaltStack masterless setup
@@ -208,7 +208,7 @@ Vagrant.configure(2) do |config|
       salt.minion_config = "salt_minion"
       salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
-      salt.version = "v3003"
+      salt.version = "v3002.6"
       salt.verbose = true
       salt.install_type = "git"
     end
