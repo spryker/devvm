@@ -10,19 +10,19 @@ deploy:
 # salt '*' state.sls elasticsearch.update
 autoupdate:
   # Optional, default: False
-  nodejs: true
+  nodejs: false
+
+  # Optional, default: False #crash build if True
+  elasticsearch: false
 
   # Optional, default: False
-  elasticsearch: true
+  php: false
 
   # Optional, default: False
-  php: true
+  mysql: false
 
   # Optional, default: False
-  mysql: true
-
-  # Optional, default: False
-  postgresql: true
+  postgresql: false
 
   # Optional, default: False
   rabbitmq: false
