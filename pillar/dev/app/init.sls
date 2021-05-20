@@ -13,7 +13,7 @@ autoupdate:
   nodejs: true
 
   # Optional, default: False
-  elasticsearch: false
+  elasticsearch: true
 
   # Optional, default: False
   php: true
@@ -76,7 +76,7 @@ environments:
     elasticsearch:
       # JVM Heap Size of Elasticsearch
       # Optional, default: 384m
-      heap_size: 384m
+      heap_size: 2048m
 
     redis:
       host: 127.0.0.1
@@ -172,7 +172,7 @@ environments:
         password: mate20mg
     elasticsearch:
       skip_instance_setup: true
-      heap_size: 384m
+      heap_size: 2048m
     redis:
       skip_instance_setup: true
       host: 127.0.0.1

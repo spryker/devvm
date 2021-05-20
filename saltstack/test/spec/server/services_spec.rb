@@ -23,10 +23,7 @@ describe 'Active services' do
 end
 
 dead_services = [
-  'redis-server',
-  'elasticsearch',
-  'jenkins',
-  'filebeat',
+  'filebeat'
 ]
 
 describe 'Inactive services' do
