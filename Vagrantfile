@@ -70,10 +70,10 @@ end
 VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
 
 # Remote locations of provisioning repositories
-SALT_REPOSITORY    = ENV['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
-SALT_BRANCH        = ENV['SALT_BRANCH']        || "master"
-PILLAR_REPOSITORY  = ENV['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar.git"
-PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
+#SALT_REPOSITORY    = ENV['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
+#SALT_BRANCH        = ENV['SALT_BRANCH']        || "master"
+#PILLAR_REPOSITORY  = ENV['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar.git"
+#PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
 
 # Hostnames to be managed
 STORES = ['de', 'at', 'us']
@@ -129,27 +129,27 @@ File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 # Verify if salt/pillar directories are present
 has_fresh_repos = false
 
-if not Dir.exists?(SALT_DIRECTORY)
-  if find_executable 'git'
-    puts bold "Cloning SaltStack git repository..."
-    system "git clone #{SALT_REPOSITORY} --branch #{SALT_BRANCH} '#{SALT_DIRECTORY}'"
-    has_fresh_repos = true
-  else
-    raise "ERROR: Required #{SALT_DIRECTORY} could not be found and no git executable was found to solve this problem." +
-    "\n\n\033[0m"
-  end
-end
+# if not Dir.exists?(SALT_DIRECTORY)
+#   if find_executable 'git'
+#     puts bold "Cloning SaltStack git repository..."
+#     system "git clone #{SALT_REPOSITORY} --branch #{SALT_BRANCH} '#{SALT_DIRECTORY}'"
+#     has_fresh_repos = true
+#   else
+#     raise "ERROR: Required #{SALT_DIRECTORY} could not be found and no git executable was found to solve this problem." +
+#     "\n\n\033[0m"
+#   end
+# end
 
-if not Dir.exists?(PILLAR_DIRECTORY)
-  if find_executable 'git'
-    puts bold "Cloning Pillar git repository..."
-    system "git clone #{PILLAR_REPOSITORY} --branch #{PILLAR_BRANCH} '#{PILLAR_DIRECTORY}'"
-    has_fresh_repos = true
-  else
-    raise "ERROR: Required #{PILLAR_DIRECTORY} could not be found and no git executable was found to solve this problem." +
-    "\n\n\033[0m"
-  end
-end
+# if not Dir.exists?(PILLAR_DIRECTORY)
+#   if find_executable 'git'
+#     puts bold "Cloning Pillar git repository..."
+#     system "git clone #{PILLAR_REPOSITORY} --branch #{PILLAR_BRANCH} '#{PILLAR_DIRECTORY}'"
+#     has_fresh_repos = true
+#   else
+#     raise "ERROR: Required #{PILLAR_DIRECTORY} could not be found and no git executable was found to solve this problem." +
+#     "\n\n\033[0m"
+#   end
+# end
 
 if has_fresh_repos
   puts yellow "Fresh repositories have been cloned. If you just cloned the sample repository, have a look at the README.md file in the salt repository"
