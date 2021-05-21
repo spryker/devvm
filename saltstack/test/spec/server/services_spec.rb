@@ -9,8 +9,8 @@ services = [
   # App services
   'postgresql',
   'mysql',
-  'redis-server-development',
-  'elasticsearch-development',
+  'redis',
+  'elasticsearch',
 ]
 
 describe 'Active services' do
