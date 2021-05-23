@@ -122,9 +122,29 @@ rabbitmq-repo:
   pkgrepo.managed:
     - humanname: RabbitMQ repository
     - name: deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
-    - file: /etc/apt/sources.list.d/bintray.erlang.list
+    - file: /etc/apt/sources.list.d/rabbitmq1.list
     - keyid: F77F1EDA57EBB1CC
     - keyserver: keyserver.ubuntu.com
+    - refresh: False
+    - watch_in:
+       - cmd: apt-get-update
+
+rabbitmqerlang-repo:
+  pkgrepo.managed:
+    - humanname: RabbitMQ erlang latest repository
+    - name: deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/deb/ubuntu bionic main
+    - file: /etc/apt/sources.list.d/rabbitmqerlang.list
+    - keyserver: keys.openpgp.org
+    - refresh: False
+    - watch_in:
+       - cmd: apt-get-update
+
+rabbitmqserver-repo:
+  pkgrepo.managed:
+    - humanname: RabbitMQ latest repository
+    - name: deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/ubuntu bionic main
+    - file: /etc/apt/sources.list.d/rabbitmqserver.list
+    - keyserver: keys.openpgp.org
     - refresh: False
     - watch_in:
        - cmd: apt-get-update

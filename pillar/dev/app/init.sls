@@ -25,7 +25,7 @@ autoupdate:
   postgresql: false
 
   # Optional, default: False
-  rabbitmq: false
+  rabbitmq: true
 
 # List of stores. Note, each store defined here should be configured within
 # each environment section (see below).

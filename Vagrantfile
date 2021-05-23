@@ -197,7 +197,7 @@ Vagrant.configure(2) do |config|
 
   # Install required, but missing dependencies in the base box
   #config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
-  config.vm.provision "shell", inline: "set -x; sudo apt-get update; sudo apt-get install -y pkg-config python3-dev python3-pip python3-psutil curl; sudo pip3 install boto3"
+  config.vm.provision "shell", inline: "set -x; sudo apt-get update; sudo apt-get install -y pkg-config python3-dev python3-pip python3-psutil curl gnupg debian-keyring debian-archive-keyring apt-transport-https; sudo pip3 install boto3; sudo apt-key adv --keyserver \"hkps://keys.openpgp.org\" --recv-keys \"0x0A9AF2115F4687BD29803A206B73A36E6026DFCA\"; curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | sudo apt-key add -; curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | sudo apt-key add - "
 
 
   # SaltStack masterless setup
