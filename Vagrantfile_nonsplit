@@ -1,3 +1,6 @@
+# needs:
+#vagrant plugin install vagrant-hostsupdater
+#vagrant plugin install hostmanager
 # Helpers
 def colorize(text, color_code); "#{color_code}#{text}\033[0m"; end
 def red(text); colorize(text, "\033[31m"); end
@@ -27,7 +30,7 @@ if File.exists? VM_SETTINGS_FILE
 else
 
   # Project settings
-  VM_PROJECT = ENV['VM_PROJECT'] || 'suite'                                # Project name
+  VM_PROJECT = ENV['VM_PROJECT'] || 'suite-nonsplit'                                # Project name
   VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
 
   # Git parameters
@@ -69,7 +72,7 @@ end
 # Backward compatibility for .vm file
 VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
 
-# Remote locations of provisioning repositories
+# Remote locations of provisioning repositories - obsolete
 #SALT_REPOSITORY    = ENV['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
 #SALT_BRANCH        = ENV['SALT_BRANCH']        || "master"
 #PILLAR_REPOSITORY  = ENV['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar.git"
@@ -177,8 +180,8 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "devvm43"
-  config.vm.box_url = "http://ci.spryker.systems:8000/spryker-devvm-te8677-43.box"
+  config.vm.box = "debian10_5"
+  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/debian105.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
@@ -194,6 +197,38 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
   config.vm.network "forwarded_port", guest: 5601,  host: 5601,  auto_correct: true   # Kibana
   config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
+  config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
+  config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
+  config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
+  config.vm.network "forwarded_port", guest: 5601,  host: 5601,  auto_correct: true   # Kibana
+  config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
+  config.vm.network "forwarded_port", guest: 10490, host: 10490, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10491, host: 10491, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10492, host: 10492, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10493, host: 10493, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10494, host: 10494, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10495, host: 10495, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10496, host: 10496, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10030, host: 10030, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10031, host: 10031, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10032, host: 10032, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10033, host: 10033, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10034, host: 10034, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10035, host: 10035, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10036, host: 10036, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10100, host: 10100, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10101, host: 10101, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10102, host: 10102, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10103, host: 10103, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10104, host: 10104, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10105, host: 10105, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10106, host: 10106, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10001, host: 10001, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10002, host: 10002, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10003, host: 10003, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10490, host: 10490, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 33848, host: 33848, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 5353, host: 5353, auto_correct: true     #  
 
   # Install required, but missing dependencies in the base box
   #config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"

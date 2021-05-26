@@ -1,3 +1,14 @@
+# this file is for non-split as per request
+# needs plugins:
+# vagrant plugin install vagrant-hostsupdater
+# vagrant plugin install hostmanager
+# add hosts to your /etc/hosts if not found
+# run:
+# env VM_PROJECT=suite-nonsplit vagrant up (or VM_PROJECT=suite-nonsplit vagrant up)
+# vagrant ssh
+# composer install
+# vendor/bin/install (takes some time to finish)
+
 # Helpers
 def colorize(text, color_code); "#{color_code}#{text}\033[0m"; end
 def red(text); colorize(text, "\033[31m"); end
@@ -27,7 +38,7 @@ if File.exists? VM_SETTINGS_FILE
 else
 
   # Project settings
-  VM_PROJECT = ENV['VM_PROJECT'] || 'suite'                                # Project name
+  VM_PROJECT = ENV['VM_PROJECT'] || 'suite-nonsplit'                                # Project name
   VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
 
   # Git parameters
@@ -69,11 +80,6 @@ end
 # Backward compatibility for .vm file
 VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
 
-# Remote locations of provisioning repositories
-#SALT_REPOSITORY    = ENV['SALT_REPOSITORY']    || "git@github.com:spryker/saltstack.git"
-#SALT_BRANCH        = ENV['SALT_BRANCH']        || "master"
-#PILLAR_REPOSITORY  = ENV['PILLAR_REPOSITORY']  || "git@github.com:spryker/pillar.git"
-#PILLAR_BRANCH      = ENV['PILLAR_BRANCH']      || "master"
 
 # Hostnames to be managed
 STORES = ['de', 'at', 'us']
@@ -129,28 +135,6 @@ File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
 # Verify if salt/pillar directories are present
 has_fresh_repos = false
 
-# if not Dir.exists?(SALT_DIRECTORY)
-#   if find_executable 'git'
-#     puts bold "Cloning SaltStack git repository..."
-#     system "git clone #{SALT_REPOSITORY} --branch #{SALT_BRANCH} '#{SALT_DIRECTORY}'"
-#     has_fresh_repos = true
-#   else
-#     raise "ERROR: Required #{SALT_DIRECTORY} could not be found and no git executable was found to solve this problem." +
-#     "\n\n\033[0m"
-#   end
-# end
-
-# if not Dir.exists?(PILLAR_DIRECTORY)
-#   if find_executable 'git'
-#     puts bold "Cloning Pillar git repository..."
-#     system "git clone #{PILLAR_REPOSITORY} --branch #{PILLAR_BRANCH} '#{PILLAR_DIRECTORY}'"
-#     has_fresh_repos = true
-#   else
-#     raise "ERROR: Required #{PILLAR_DIRECTORY} could not be found and no git executable was found to solve this problem." +
-#     "\n\n\033[0m"
-#   end
-# end
-
 if has_fresh_repos
   puts yellow "Fresh repositories have been cloned. If you just cloned the sample repository, have a look at the README.md file in the salt repository"
   sleep 5
@@ -194,6 +178,38 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
   config.vm.network "forwarded_port", guest: 5601,  host: 5601,  auto_correct: true   # Kibana
   config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
+  config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
+  config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
+  config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
+  config.vm.network "forwarded_port", guest: 5601,  host: 5601,  auto_correct: true   # Kibana
+  config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
+  config.vm.network "forwarded_port", guest: 10490, host: 10490, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10491, host: 10491, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10492, host: 10492, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10493, host: 10493, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10494, host: 10494, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10495, host: 10495, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10496, host: 10496, auto_correct: true   # DE
+  config.vm.network "forwarded_port", guest: 10030, host: 10030, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10031, host: 10031, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10032, host: 10032, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10033, host: 10033, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10034, host: 10034, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10035, host: 10035, auto_correct: true   # 
+  config.vm.network "forwarded_port", guest: 10036, host: 10036, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10100, host: 10100, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10101, host: 10101, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10102, host: 10102, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10103, host: 10103, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10104, host: 10104, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10105, host: 10105, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10106, host: 10106, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10001, host: 10001, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10002, host: 10002, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10003, host: 10003, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 10490, host: 10490, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 33848, host: 33848, auto_correct: true   #
+  config.vm.network "forwarded_port", guest: 5353, host: 5353, auto_correct: true     #  
 
   # Install required, but missing dependencies in the base box
   #config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
