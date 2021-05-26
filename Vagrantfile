@@ -1,4 +1,4 @@
-# this file is for non-split as per request
+# this file is for spryker/non-split as per request (spryker-shop/suite use other file please) 
 # needs plugins:
 # vagrant plugin install vagrant-hostsupdater
 # vagrant plugin install hostmanager
@@ -42,7 +42,7 @@ else
   VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
 
   # Git parameters
-  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker-shop/#{VM_PROJECT}.git"
+  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
 
   # Auto-generate IP address based on hash of VM_PROJECT
