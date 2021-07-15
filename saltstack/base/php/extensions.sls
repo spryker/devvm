@@ -23,7 +23,7 @@ xdebug:
       - pkg: xdebug
 
 {{ php_module('xdebug', salt['pillar.get']('php:enable_xdebug', False), 'fpm') }}
-{{ php_module('xdebug', salt['pillar.get']('php:enable_xdebug', False), 'cli') }}
+{{ php_module('xdebug', salt['pillar.get']('php:enable_xdebug', True), 'cli') }}
 {% endif %}
 
 #
@@ -56,5 +56,5 @@ xdebug:
     - group: root
     - mode: 1777
 
-{{ php_module('opcache', salt['pillar.get']('php:enable_opcache', True), 'fpm') }}
-{{ php_module('opcache', salt['pillar.get']('php:enable_opcache', True), 'cli') }}
+{{ php_module('opcache', salt['pillar.get']('php:enable_opcache', False), 'fpm') }}
+{{ php_module('opcache', salt['pillar.get']('php:enable_opcache', False), 'cli') }}

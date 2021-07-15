@@ -16,10 +16,10 @@ elasticsearch:
 
 # Disable default elasticsearch service
 # Each environment will get its own ES instance running.
-disable-elasticsearch-service:
-  service.dead:
-    - name: elasticsearch
-    - enable: False
+#disable-elasticsearch-service:
+#  service.dead:
+#    - name: elasticsearch
+#    - enable: False
 
 # For each plugin - we need to restart Elasticsearch service on each environment
 # This is not maintained anymore since elasticsearch 5.x

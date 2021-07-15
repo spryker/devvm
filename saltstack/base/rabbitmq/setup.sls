@@ -29,7 +29,7 @@ rabbitmq-service:
 
 enable-rabbitmq-management:
   cmd.run:
-    - name: rabbitmq-plugins enable rabbitmq_management
+    - name: rabbitmq-plugins enable rabbitmq_management --offline
     - unless: rabbitmq-plugins list | grep '\[[eE]\*\] rabbitmq_management '
     - require:
       - service: rabbitmq-server

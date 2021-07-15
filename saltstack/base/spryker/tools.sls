@@ -12,4 +12,4 @@ reload-php-fpm:
 
 reload-nginx:
   cmd.wait:
-    - name: service nginx restart
+    - name: service nginx reload

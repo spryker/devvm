@@ -163,7 +163,7 @@ salt/base/settings/port_numbering.sls
 
 | AppDomain | Country name (English) | Store | Default language |
 | ------ | ------------------------- | ----- | ---------------- |
-| 00     | Germany (or default)      | DE    | de_DE            |
+| 49     | Germany                   | DE    | de_DE            |
 | 01     | Poland                    | PL    | pl_PL            |
 | 02     | France                    | FR    | fr_FR            |
 | 03     | Austria                   | AT    | de_AT            |

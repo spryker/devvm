@@ -35,7 +35,7 @@ static-test.demoshop.local
 ## Note on PHP OPcache
 To use OPcache for CLI calls, the VM ships with PHP opcache file cache enabled. Cache contents are stored in `/var/tmp/opcache`. After enabling or disabling PHP modules, for example to fix an unexpected PHP error like Segmentation fault, make sure to clear cache by running the command:
 ```
-sudo rm -rf /var/tmp/opcache/*; sudo systemctl restart php7.4-fpm
+sudo rm -rf /var/tmp/opcache/*; sudo systemctl restart php8.0-fpm
 ```
 
 ## Customizing the VM
@@ -47,12 +47,12 @@ To enable Xdebug, run the commands:
 ```
 # Enable XDebug, disable OpCache, clear disk cache, restart FPM
 sudo -i bash -c " \
-  phpenmod -v 7.4 -s cli -m xdebug; \
-  phpenmod -v 7.4 -s fpm -m xdebug; \
-  phpdismod -v 7.4 -s cli -m opcache; \
-  phpdismod -v 7.4 -s fpm -m opcache; \
+  phpenmod -v 8.0 -s cli -m xdebug; \
+  phpenmod -v 8.0 -s fpm -m xdebug; \
+  phpdismod -v 8.0 -s cli -m opcache; \
+  phpdismod -v 8.0 -s fpm -m opcache; \
   rm -rf /var/tmp/opcache/*; \
-  systemctl restart php7.4-fpm \
+  systemctl restart php8.0-fpm \
   "
 ```
 
@@ -61,12 +61,12 @@ keeping it disabled when not needed. To disable Xdebug and re-enable OPcache, ru
 ```
 # Disable XDebug, enable OpCache, clear disk cache, restart FPM
 sudo -i bash -c " \
-  phpdismod -v 7.4 -s cli -m xdebug; \
-  phpdismod -v 7.4 -s fpm -m xdebug; \
-  phpenmod -v 7.4 -s cli -m opcache; \
-  phpenmod -v 7.4 -s fpm -m opcache; \
+  phpdismod -v 8.0 -s cli -m xdebug; \
+  phpdismod -v 8.0 -s fpm -m xdebug; \
+  phpenmod -v 8.0 -s cli -m opcache; \
+  phpenmod -v 8.0 -s fpm -m opcache; \
   rm -rf /var/tmp/opcache/*; \
-  systemctl restart php7.4-fpm \
+  systemctl restart php8.0-fpm \
   "
 ```
 
