@@ -4,7 +4,7 @@
 # vagrant plugin install hostmanager
 # add hosts to your /etc/hosts if not found
 # run:
-# env VM_PROJECT=suite-nonsplit vagrant up (or VM_PROJECT=suite-nonsplit vagrant up)
+# vagrant up
 # vagrant ssh
 # composer install
 # vendor/bin/install (takes some time to finish)
