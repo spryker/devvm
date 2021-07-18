@@ -1,13 +1,19 @@
-# this file is for spryker/non-split as per request (spryker-shop/suite use other file please) 
+# For use with suite-nonsplit
 # needs plugins:
-# vagrant plugin install vagrant-hostsupdater
-# vagrant plugin install hostmanager
-# add hosts to your /etc/hosts if not found
+## vagrant plugin install vagrant-hostsupdater (on MacOsx / Linux only)
+## vagrant plugin install hostmanager
+# IMPORTANT: add hosts line shown after running to your /etc/hosts or in Windows: C:\Windows\System32\etc\drivers\hosts if not found
 # run:
 # vagrant up
+# clone repo into project directory
 # vagrant ssh
 # composer install
 # vendor/bin/install (takes some time to finish)
+# Troubleshooting: 
+# if you got stuck in configuring network interfaces notification, just Ctrl+C twice and 'vagrant up' again
+# to stop it: vagrant halt
+# to remove it: vagrant destroy
+
 
 # Helpers
 def colorize(text, color_code); "#{color_code}#{text}\033[0m"; end
@@ -38,11 +44,11 @@ if File.exists? VM_SETTINGS_FILE
 else
 
   # Project settings
-  VM_PROJECT = ENV['VM_PROJECT'] || 'suite'                                # Project name
+  VM_PROJECT = ENV['VM_PROJECT'] || 'suite-nonsplit'                                # Project name
   VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
 
   # Git parameters
-  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker-shop/#{VM_PROJECT}.git"
+  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
 
   # Auto-generate IP address based on hash of VM_PROJECT
@@ -52,7 +58,7 @@ else
   VM_IP_PREFIX = ENV['VM_IP_PREFIX'] || '10.10.0.'                         # Prefix for IP address of DEV VM
   VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
   VM_MEMORY    = ENV['VM_MEMORY']    || '8000'                             # Number of memory for DEV VM, in MB
-  VM_CPUS      = ENV['VM_CPUS']      || '6'                                # Number of CPU cores for DEV VM
+  VM_CPUS      = ENV['VM_CPUS']      || '2'                                # Number of CPU cores for DEV VM
   VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
   VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
 
@@ -161,8 +167,8 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian10_5"
-  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/debian105.box"
+  config.vm.box = "debian10_47"
+  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/spryker-devvm-te8677-47.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
@@ -170,7 +176,7 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = true
 
   # Set the VirtualBox IP address for the browser
-  config.vm.network :private_network, ip: VM_IP, nic_type: "virtio"
+  config.vm.network :private_network, ip: VM_IP
 
   # Port forwarding for services running on the VM
   config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
@@ -190,26 +196,23 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 10494, host: 10494, auto_correct: true   # DE
   config.vm.network "forwarded_port", guest: 10495, host: 10495, auto_correct: true   # DE
   config.vm.network "forwarded_port", guest: 10496, host: 10496, auto_correct: true   # DE
-  config.vm.network "forwarded_port", guest: 10030, host: 10030, auto_correct: true   # 
-  config.vm.network "forwarded_port", guest: 10031, host: 10031, auto_correct: true   # 
-  config.vm.network "forwarded_port", guest: 10032, host: 10032, auto_correct: true   # 
-  config.vm.network "forwarded_port", guest: 10033, host: 10033, auto_correct: true   # 
-  config.vm.network "forwarded_port", guest: 10034, host: 10034, auto_correct: true   # 
-  config.vm.network "forwarded_port", guest: 10035, host: 10035, auto_correct: true   # 
-  config.vm.network "forwarded_port", guest: 10036, host: 10036, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10100, host: 10100, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10101, host: 10101, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10102, host: 10102, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10103, host: 10103, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10104, host: 10104, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10105, host: 10105, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10106, host: 10106, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10001, host: 10001, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10002, host: 10002, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10003, host: 10003, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 10490, host: 10490, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 33848, host: 33848, auto_correct: true   #
-  config.vm.network "forwarded_port", guest: 5353, host: 5353, auto_correct: true     #  
+  config.vm.network "forwarded_port", guest: 10030, host: 10030, auto_correct: true   # AT
+  config.vm.network "forwarded_port", guest: 10031, host: 10031, auto_correct: true   # AT
+  config.vm.network "forwarded_port", guest: 10032, host: 10032, auto_correct: true   # AT
+  config.vm.network "forwarded_port", guest: 10033, host: 10033, auto_correct: true   # AT
+  config.vm.network "forwarded_port", guest: 10034, host: 10034, auto_correct: true   # AT
+  config.vm.network "forwarded_port", guest: 10035, host: 10035, auto_correct: true   # AT
+  config.vm.network "forwarded_port", guest: 10036, host: 10036, auto_correct: true   # AT
+  config.vm.network "forwarded_port", guest: 10100, host: 10100, auto_correct: true   # US
+  config.vm.network "forwarded_port", guest: 10101, host: 10101, auto_correct: true   # US
+  config.vm.network "forwarded_port", guest: 10102, host: 10102, auto_correct: true   # US
+  config.vm.network "forwarded_port", guest: 10103, host: 10103, auto_correct: true   # US
+  config.vm.network "forwarded_port", guest: 10104, host: 10104, auto_correct: true   # US
+  config.vm.network "forwarded_port", guest: 10105, host: 10105, auto_correct: true   # US
+  config.vm.network "forwarded_port", guest: 10106, host: 10106, auto_correct: true   # US
+
+
+
 
   # Install required, but missing dependencies in the base box
   #config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
@@ -222,7 +225,7 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", SYNCED_FOLDER_OPTIONS
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
-      salt.run_highstate = true
+      salt.run_highstate = false
       salt.bootstrap_options = "-F -P -c /tmp"
       salt.version = "v3002.6"
       salt.verbose = true
