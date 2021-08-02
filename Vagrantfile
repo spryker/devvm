@@ -1,16 +1,18 @@
 # For use with suite-nonsplit
 # needs plugins:
-## vagrant plugin install vagrant-hostsupdater (on MacOsx / Linux only)
-## vagrant plugin install hostmanager
-# IMPORTANT: add hosts line shown after running to your /etc/hosts or in Windows: C:\Windows\System32\etc\drivers\hosts if not found
+## vagrant plugin install vagrant-hostsupdater
+## vagrant plugin install vagrant-hostmanager
+## vagrant plugin install vagrant-vbguest 
+#
 # run:
 # vagrant up
-# clone repo into project directory
+# note: repo is cloned into project directory
 # vagrant ssh
 # composer install
 # vendor/bin/install (takes some time to finish)
-# Troubleshooting: 
-# if you got stuck in configuring network interfaces notification, just Ctrl+C twice and 'vagrant up' again
+#
+# Troubleshooting:
+## IMPORTANT: add hosts line shown after running to your /etc/hosts or in Windows: C:\Windows\System32\etc\drivers\hosts if not found
 # to stop it: vagrant halt
 # to remove it: vagrant destroy
 
@@ -55,8 +57,8 @@ else
   unique_byte = (Digest::SHA256.hexdigest(VM_PROJECT).to_i(16).modulo(251)+3).to_s
 
   # Settings for the Virtualbox VM
-  VM_IP_PREFIX = ENV['VM_IP_PREFIX'] || '10.10.0.'                         # Prefix for IP address of DEV VM
-  VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM, must be unique
+  VM_IP_PREFIX = ENV['VM_IP_PREFIX'] || '10.0.240.'                         # Prefix for IP address of DEV VM
+  VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM
   VM_MEMORY    = ENV['VM_MEMORY']    || '8000'                             # Number of memory for DEV VM, in MB
   VM_CPUS      = ENV['VM_CPUS']      || '2'                                # Number of CPU cores for DEV VM
   VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
@@ -82,10 +84,6 @@ else
     File.write(VM_SETTINGS_FILE, config.gsub(/ *= */, '='))
   end
 end
-
-# Backward compatibility for .vm file
-VM_SKIP_SF = '0' if not defined? VM_SKIP_SF
-
 
 # Hostnames to be managed
 STORES = ['de', 'at', 'us']
@@ -118,25 +116,13 @@ if Vagrant::Util::Platform.windows?
   IS_UNIX = false
   IS_LINUX = false
   IS_OSX = false
-  SYNCED_FOLDER_OPTIONS = { type: 'virtualbox' }
 else
   HOSTS_PATH = '/etc/hosts'
-  IS_WINDOWS = false
-  IS_UNIX = true
-  if (/darwin/ =~ Vagrant::Util::Platform.platform)
-    IS_LINUX = false
-    IS_OSX = true
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'actimeo=3', 'fsc', 'noatime', 'async'] }
-  else
-    IS_LINUX = true
-    IS_OSX = false
-    SYNCED_FOLDER_OPTIONS = { type: 'nfs', nfs_udp: false, mount_options: ['nolock', 'actimeo=3', 'fsc', 'noatime', 'async'] }
-  end
 end
 
 # mkmf
 require 'mkmf'
-File.delete('mkmf.log') if File.exists?('mkmf.log') and not IS_WINDOWS
+File.delete('mkmf.log') if File.exists?('mkmf.log')
 
 # Verify if salt/pillar directories are present
 has_fresh_repos = false
@@ -167,8 +153,15 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian10_47"
-  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/spryker-devvm-te8677-47.box"
+  #config.vm.box = "debian10_47"
+  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/devvm-new-TE-1.box"
+  config.vbguest.auto_update = true
+  # Load custom vbguest installer
+  if defined?(VagrantVbguest::Installers::Debian)
+
+      require_relative 'utility/vbg-installer'
+      config.vbguest.installer = Utility::DebianCustom
+  end
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
@@ -176,7 +169,8 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = true
 
   # Set the VirtualBox IP address for the browser
-  config.vm.network :private_network, ip: VM_IP
+  config.vm.network :private_network, ip: VM_IP, virtualbox__intnet: "spryker", nic_type: "virtio" 
+
 
   # Port forwarding for services running on the VM
   config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
@@ -210,24 +204,24 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 10104, host: 10104, auto_correct: true   # US
   config.vm.network "forwarded_port", guest: 10105, host: 10105, auto_correct: true   # US
   config.vm.network "forwarded_port", guest: 10106, host: 10106, auto_correct: true   # US
+  config.vm.synced_folder "project/", "/data/shop/development/current"
+ 
 
-
-
+ # config.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.17 netmask 255.255.255.0 up"
 
   # Install required, but missing dependencies in the base box
-  #config.vm.provision "shell", inline: "sudo apt-get install -qqy pkg-config python2.7-dev"
-  config.vm.provision "shell", inline: "set -x; sudo apt-get update; sudo apt-get install -y pkg-config python3-dev python3-pip python3-psutil curl gnupg debian-keyring debian-archive-keyring apt-transport-https; sudo pip3 install boto3; sudo apt-key adv --keyserver \"hkps://keys.openpgp.org\" --recv-keys \"0x0A9AF2115F4687BD29803A206B73A36E6026DFCA\"; curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | sudo apt-key add -; curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | sudo apt-key add - "
-
+  config.vm.provision "shell", inline: "set -x; sudo apt-get update; export APPLICATION_ENV=development; export APPLICATION_ENV=development; export COMPOSER_PROCESS_TIMEOUT=3600; sudo ulimit -n 65535; ulimit -n 65535; sudo apt-get install -y virtualbox-ext-pack pkg-config python3-dev python3-pip python3-psutil curl gnupg debian-keyring debian-archive-keyring apt-transport-https; sudo pip3 install boto3; echo ""cd /data/shop/development/current"" >> /home/vagrant/.bashrc; sudo apt-key adv --keyserver \"hkps://keys.openpgp.org\" --recv-keys \"0x0A9AF2115F4687BD29803A206B73A36E6026DFCA\"; curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | sudo apt-key add -; curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | sudo apt-key add - ;apt-key update; sudo apt install -y python2; curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py; sudo python2 get-pip.py;  "
+  
 
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
-    config.vm.synced_folder SALT_DIRECTORY,   "/srv/salt/",   SYNCED_FOLDER_OPTIONS
-    config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/", SYNCED_FOLDER_OPTIONS
+    config.vm.synced_folder SALT_DIRECTORY,   "/srv/salt/"
+    config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/"
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
       salt.run_highstate = false
       salt.bootstrap_options = "-F -P -c /tmp"
-      salt.version = "v3002.6"
+      salt.version = "v3003.1"
       salt.verbose = true
       salt.install_type = "git"
     end
@@ -254,29 +248,17 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  # Share the application code with the VM
-  if not (VM_SKIP_SF == '1')
-    config.vm.synced_folder SPRYKER_DIRECTORY, "/data/shop/development/current", SYNCED_FOLDER_OPTIONS
-    if IS_UNIX
-      config.nfs.map_uid = Process.uid
-      config.nfs.map_gid = Process.gid
-    end
-  end
-
-  # Configure VirtualBox VM resources (CPU and memory)
   config.vm.provider :virtualbox do |vb|
     vb.name = VM_NAME
+    vb.check_guest_additions = true
     vb.customize([
       "modifyvm", :id,
       "--memory", VM_MEMORY,
       "--cpus", VM_CPUS,
       "--nictype1", "virtio",
       "--nictype2", "virtio",
+      "--cpuexecutioncap", "50",
       "--audio", "none",
     ])
-    if IS_WINDOWS
-      # Enable creation of symlinks
-      vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
-    end
   end
 end

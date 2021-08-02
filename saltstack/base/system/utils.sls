@@ -8,7 +8,6 @@ base-utilities:
       - git
       - unzip
       - pbzip2
-      - zsh
       - screen
       - mc
       - curl
@@ -18,8 +17,8 @@ base-utilities:
       - dstat
       - telnet
       - make
-      - python-apt
       - vim
+      - nano
     - require:
       - cmd: apt-get-update
 

@@ -2,11 +2,11 @@
 
 PHP_VERSION=`php -v`
 PHP_ETC_DIR=/etc/php/{{ salt['pillar.get']('php:major_version') }}/
-PHP_VERSION_NUMBER=7
+PHP_VERSION_NUMBER=8
 PHP_FPM=/etc/init.d/php{{ salt['pillar.get']('php:major_version') }}-fpm
 
-if [[ $PHP_VERSION =~ "PHP 5" ]] ; then
-    PHP_ETC_DIR=/etc/php5/
+if [[ $PHP_VERSION =~ "PHP 8" ]] ; then
+    PHP_ETC_DIR=/etc/php/
     PHP_FPM=/etc/init.d/php5-fpm
     PHP_VERSION_NUMBER=5
 fi
