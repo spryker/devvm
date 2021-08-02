@@ -153,7 +153,7 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  #config.vm.box = "debian10_47"
+  config.vm.box = "debian_new-TE1"
   config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/devvm-new-TE-1.box"
   config.vbguest.auto_update = true
   # Load custom vbguest installer
@@ -250,7 +250,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider :virtualbox do |vb|
     vb.name = VM_NAME
-    vb.check_guest_additions = true
+    vb.check_guest_additions = false
     vb.customize([
       "modifyvm", :id,
       "--memory", VM_MEMORY,
