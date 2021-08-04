@@ -17,6 +17,7 @@
 # to remove it: vagrant destroy
 
 
+
 # Helpers
 def colorize(text, color_code); "#{color_code}#{text}\033[0m"; end
 def red(text); colorize(text, "\033[31m"); end
@@ -158,7 +159,6 @@ Vagrant.configure(2) do |config|
   config.vbguest.auto_update = true
   # Load custom vbguest installer
   if defined?(VagrantVbguest::Installers::Debian)
-
       require_relative 'utility/vbg-installer'
       config.vbguest.installer = Utility::DebianCustom
   end
@@ -169,48 +169,11 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = true
 
   # Set the VirtualBox IP address for the browser
-  config.vm.network :private_network, ip: VM_IP, virtualbox__intnet: "spryker", nic_type: "virtio" 
-
-
-  # Port forwarding for services running on the VM
-  config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
-  config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
-  config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
-  config.vm.network "forwarded_port", guest: 5601,  host: 5601,  auto_correct: true   # Kibana
-  config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
-  config.vm.network "forwarded_port", guest: 1080,  host: 1080,  auto_correct: true   # Mailcatcher
-  config.vm.network "forwarded_port", guest: 3306,  host: 3306,  auto_correct: true   # MySQL
-  config.vm.network "forwarded_port", guest: 5432,  host: 5432,  auto_correct: true   # PostgreSQL
-  config.vm.network "forwarded_port", guest: 5601,  host: 5601,  auto_correct: true   # Kibana
-  config.vm.network "forwarded_port", guest: 10007, host: 10007, auto_correct: true   # Jenkins (development)
-  config.vm.network "forwarded_port", guest: 10490, host: 10490, auto_correct: true   # DE
-  config.vm.network "forwarded_port", guest: 10491, host: 10491, auto_correct: true   # DE
-  config.vm.network "forwarded_port", guest: 10492, host: 10492, auto_correct: true   # DE
-  config.vm.network "forwarded_port", guest: 10493, host: 10493, auto_correct: true   # DE
-  config.vm.network "forwarded_port", guest: 10494, host: 10494, auto_correct: true   # DE
-  config.vm.network "forwarded_port", guest: 10495, host: 10495, auto_correct: true   # DE
-  config.vm.network "forwarded_port", guest: 10496, host: 10496, auto_correct: true   # DE
-  config.vm.network "forwarded_port", guest: 10030, host: 10030, auto_correct: true   # AT
-  config.vm.network "forwarded_port", guest: 10031, host: 10031, auto_correct: true   # AT
-  config.vm.network "forwarded_port", guest: 10032, host: 10032, auto_correct: true   # AT
-  config.vm.network "forwarded_port", guest: 10033, host: 10033, auto_correct: true   # AT
-  config.vm.network "forwarded_port", guest: 10034, host: 10034, auto_correct: true   # AT
-  config.vm.network "forwarded_port", guest: 10035, host: 10035, auto_correct: true   # AT
-  config.vm.network "forwarded_port", guest: 10036, host: 10036, auto_correct: true   # AT
-  config.vm.network "forwarded_port", guest: 10100, host: 10100, auto_correct: true   # US
-  config.vm.network "forwarded_port", guest: 10101, host: 10101, auto_correct: true   # US
-  config.vm.network "forwarded_port", guest: 10102, host: 10102, auto_correct: true   # US
-  config.vm.network "forwarded_port", guest: 10103, host: 10103, auto_correct: true   # US
-  config.vm.network "forwarded_port", guest: 10104, host: 10104, auto_correct: true   # US
-  config.vm.network "forwarded_port", guest: 10105, host: 10105, auto_correct: true   # US
-  config.vm.network "forwarded_port", guest: 10106, host: 10106, auto_correct: true   # US
+  config.vm.network :private_network, ip: VM_IP,  nic_type: "virtio" 
   config.vm.synced_folder "project/", "/data/shop/development/current"
- 
 
- # config.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.17 netmask 255.255.255.0 up"
-
-  # Install required, but missing dependencies in the base box
-  config.vm.provision "shell", inline: "set -x; sudo apt-get update; export APPLICATION_ENV=development; export APPLICATION_ENV=development; export COMPOSER_PROCESS_TIMEOUT=3600; sudo ulimit -n 65535; ulimit -n 65535; sudo apt-get install -y virtualbox-ext-pack pkg-config python3-dev python3-pip python3-psutil curl gnupg debian-keyring debian-archive-keyring apt-transport-https; sudo pip3 install boto3; echo ""cd /data/shop/development/current"" >> /home/vagrant/.bashrc; sudo apt-key adv --keyserver \"hkps://keys.openpgp.org\" --recv-keys \"0x0A9AF2115F4687BD29803A206B73A36E6026DFCA\"; curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key | sudo apt-key add -; curl -1sLf https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key | sudo apt-key add - ;apt-key update; sudo apt install -y python2; curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py; sudo python2 get-pip.py;  "
+ #configure variables:
+  config.vm.provision "shell", inline: "set -x; sudo echo ""export APPLICATION_ENV=development"" >> /etc/profile; sudo echo ""export COMPOSER_PROCESS_TIMEOUT=3600"" >> /etc/profile"
   
 
   # SaltStack masterless setup
@@ -251,14 +214,8 @@ Vagrant.configure(2) do |config|
   config.vm.provider :virtualbox do |vb|
     vb.name = VM_NAME
     vb.check_guest_additions = false
-    vb.customize([
-      "modifyvm", :id,
-      "--memory", VM_MEMORY,
-      "--cpus", VM_CPUS,
-      "--nictype1", "virtio",
-      "--nictype2", "virtio",
-      "--cpuexecutioncap", "50",
-      "--audio", "none",
-    ])
+    vb.customize ["modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter1", "VirtualBox Host-Only Ethernet Adapter"]
+    vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+    vb.customize(["modifyvm", :id, "--memory", VM_MEMORY, "--cpus", VM_CPUS, "--cpuexecutioncap", "75", "--audio", "none"])
   end
 end
