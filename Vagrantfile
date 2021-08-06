@@ -156,12 +156,12 @@ Vagrant.configure(2) do |config|
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
   config.vm.box = "debian_new-TE1"
   config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/devvm-new-TE-1.box"
-  config.vbguest.auto_update = true
-  # Load custom vbguest installer
-  if defined?(VagrantVbguest::Installers::Debian)
-      require_relative 'utility/vbg-installer'
-      config.vbguest.installer = Utility::DebianCustom
-  end
+  # config.vbguest.auto_update = true
+  # # Load custom vbguest installer
+  # if defined?(VagrantVbguest::Installers::Debian)
+  #     require_relative 'utility/vbg-installer'
+  #     config.vbguest.installer = Utility::DebianCustom
+  # end
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
@@ -170,10 +170,10 @@ Vagrant.configure(2) do |config|
 
   # Set the VirtualBox IP address for the browser
   config.vm.network :private_network, ip: VM_IP,  nic_type: "virtio" 
-  config.vm.synced_folder "project/", "/data/shop/development/current"
+  config.vm.synced_folder "project/", "/data/shop/development/current", owner: "www-data", group: "www-data", mount_options: ["dmode=777,fmode=777"]
 
  #configure variables:
-  config.vm.provision "shell", inline: "set -x; sudo echo ""export APPLICATION_ENV=development"" >> /etc/profile; sudo echo ""export COMPOSER_PROCESS_TIMEOUT=3600"" >> /etc/profile"
+  config.vm.provision "shell", inline: "set -x; sudo echo ""export APPLICATION_ENV=development"" >> /etc/profile; sudo echo ""export COMPOSER_PROCESS_TIMEOUT=3600"" >> /etc/profile; sudo /usr/sbin/usermod -aG www-data vagrant"
   
 
   # SaltStack masterless setup
@@ -182,10 +182,10 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/"
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
-      salt.run_highstate = false
+      salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
       salt.version = "v3003.1"
-      salt.verbose = true
+      salt.verbose = false
       salt.install_type = "git"
     end
   else
