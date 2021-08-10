@@ -1,30 +1,5 @@
-# For use with suite-nonsplit
-# needs plugins:
-## vagrant plugin install vagrant-hostsupdater vagrant-hostmanager vagrant-vbguest 
-#
-# run:
-# vagrant up
-# note: repo is cloned into project directory
-# vagrant ssh
-# composer install
-# vendor/bin/install DE      or     vendor/bin/install (for all stores, takes some time to finish)
-#
-# Troubleshooting:
-## IMPORTANT: add hosts line shown after running to your /etc/hosts or in Windows: C:\Windows\System32\etc\drivers\hosts if not found
-# to stop it: vagrant halt
-# to remove it: vagrant destroy
-
-
-
-# Helpers
-def colorize(text, color_code); "#{color_code}#{text}\033[0m"; end
-def red(text); colorize(text, "\033[31m"); end
-def yellow(text); colorize(text, "\033[33m"); end
-def green(text); colorize(text, "\033[32m"); end
-def bold(text); colorize(text, "\033[1;97m"); end
-
 ###
-### BEGINNING OF CONFIGURATION
+### BEGINNING OF CONFIGURATION FOR CI
 ###
 
 # Local directories and files to use
@@ -45,11 +20,11 @@ if File.exists? VM_SETTINGS_FILE
 else
 
   # Project settings
-  VM_PROJECT = ENV['VM_PROJECT'] || 'suite-nonsplit'                                # Project name
+  VM_PROJECT = ENV['VM_PROJECT'] || 'suite'                                # Project name
   VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
 
   # Git parameters
-  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "git@github.com:spryker/#{VM_PROJECT}.git"
+  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "https://github.com/spryker-shop/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
 
   # Auto-generate IP address based on hash of VM_PROJECT
@@ -59,7 +34,7 @@ else
   VM_IP_PREFIX = ENV['VM_IP_PREFIX'] || '10.0.240.'                         # Prefix for IP address of DEV VM
   VM_IP        = ENV['VM_IP']        || VM_IP_PREFIX + unique_byte         # IP Address of the DEV VM
   VM_MEMORY    = ENV['VM_MEMORY']    || '8000'                             # Number of memory for DEV VM, in MB
-  VM_CPUS      = ENV['VM_CPUS']      || '2'                                # Number of CPU cores for DEV VM
+  VM_CPUS      = ENV['VM_CPUS']      || '4'                                # Number of CPU cores for DEV VM
   VM_NAME      = ENV['VM_NAME']      || "Spryker Dev VM (#{VM_PROJECT})"   # Display name for VirtualBox
   VM_SKIP_SF   = ENV['VM_SKIP_SF']   || '0'                                # Don't mount shared folders
 
@@ -152,14 +127,10 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "debian_new-TE1"
-  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/devvm-new-TE-1.box"
+  config.vm.box = "debian10_ci-vm-146"
+  config.vm.box_url = "http://ci.spryker.systems:8000/debian10_ci-vm-146.box"
   # config.vbguest.auto_update = true
-  # # Load custom vbguest installer
-  # if defined?(VagrantVbguest::Installers::Debian)
-  #     require_relative 'utility/vbg-installer'
-  #     config.vbguest.installer = Utility::DebianCustom
-  # end
+ 
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
@@ -180,7 +151,7 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder PILLAR_DIRECTORY, "/srv/pillar/"
     config.vm.provision :salt do |salt|
       salt.minion_config = "salt_minion"
-      salt.run_highstate = false
+      salt.run_highstate = true
       salt.bootstrap_options = "-F -P -c /tmp"
       salt.version = "v3003.1"
       salt.verbose = false
@@ -214,6 +185,6 @@ Vagrant.configure(2) do |config|
     vb.check_guest_additions = false
     vb.customize ["modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter1", "VirtualBox Host-Only Ethernet Adapter"]
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
-    vb.customize(["modifyvm", :id, "--memory", VM_MEMORY, "--cpus", VM_CPUS, "--cpuexecutioncap", "75", "--audio", "none"])
+    vb.customize(["modifyvm", :id, "--memory", VM_MEMORY, "--cpus", VM_CPUS, "--audio", "none"])
   end
 end
