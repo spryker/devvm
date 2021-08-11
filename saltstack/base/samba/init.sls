@@ -14,7 +14,7 @@ install-smb-server:
 
 smbd:
   service.dead:
-    - enable: False
+    - enable: True
     - require:
       - pkg: install-smb-server
       - file: /etc/samba/smb.conf
