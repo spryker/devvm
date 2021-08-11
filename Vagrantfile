@@ -216,4 +216,9 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
     vb.customize(["modifyvm", :id, "--memory", VM_MEMORY, "--cpus", VM_CPUS, "--cpuexecutioncap", "75", "--audio", "none"])
   end
+
+  config.vm.provision "shell", inline: "rm -f /etc/profile.d/cronicle_env_variables.sh", run: "always"
+  config.vm.provision "file", source: "cronicle/cronicle_env_variables.sh", destination: "/tmp/cronicle_env_variables.sh", run: "always"
+  config.vm.provision "shell", inline: "mv /tmp/cronicle_env_variables.sh /etc/profile.d/cronicle_env_variables.sh", run: "always"
+  config.vm.provision "file", source: "cronicle/cronicle_setup.sh", destination: "/data/shop/development/current/bin/cronicle_setup.sh", run: "always"
 end
