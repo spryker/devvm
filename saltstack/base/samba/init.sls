@@ -13,7 +13,7 @@ install-smb-server:
       - pkg: install-smb-server
 
 smbd:
-  service.dead:
+  service.running:
     - enable: True
     - require:
       - pkg: install-smb-server
