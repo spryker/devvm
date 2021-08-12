@@ -121,7 +121,7 @@ if not (VM_SKIP_SF == '1')
   end
 end
 # Cleanup mkmf log
-File.delete('mkmf.log') if File.exists?('mkmf.log')
+#File.delete('mkmf.log') if File.exists?('mkmf.log')
 
 Vagrant.configure(2) do |config|
   
