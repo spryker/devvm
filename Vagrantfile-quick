@@ -207,7 +207,7 @@ Vagrant.configure(2) do |config|
   #config.vm.box = "debian10_5"
   #config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/debian105.box"
   config.vm.box = "spryker-devvm-v403-init"
-  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/spryker-devvm-v403-init.box"
+  config.vm.box_url = "http://ci.spryker.systems:8000/spryker-devvm-v403-init.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
