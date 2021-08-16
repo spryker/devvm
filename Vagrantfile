@@ -33,6 +33,7 @@ SALT_DIRECTORY     = BASE_DIRECTORY + "/saltstack"
 PILLAR_DIRECTORY   = BASE_DIRECTORY + "/pillar"
 SPRYKER_DIRECTORY  = BASE_DIRECTORY + "/project"
 VM_SETTINGS_FILE   = BASE_DIRECTORY + "/.vm"
+CRONICLE_DIRECTORY = BASE_DIRECTORY + "/cronicle"
 
 # Check if a VM configuration is already available
 if File.exists? VM_SETTINGS_FILE
@@ -169,6 +170,7 @@ Vagrant.configure(2) do |config|
   # Set the VirtualBox IP address for the browser
   config.vm.network :private_network, ip: VM_IP,  nic_type: "virtio" 
   config.vm.synced_folder "project/", "/data/shop/development/current", owner: "www-data", group: "www-data", mount_options: ["dmode=777,fmode=777"]
+  config.vm.synced_folder CRONICLE_DIRECTORY, "/data/shop/development/current/bin", owner: "www-data", group: "www-data", mount_options: ["dmode=777,fmode=777"]
 
  #configure variables:
   config.vm.provision "shell", inline: "set -x; sudo echo ""export APPLICATION_ENV=development"" >> /etc/profile; sudo echo ""export COMPOSER_PROCESS_TIMEOUT=3600"" >> /etc/profile; sudo /usr/sbin/usermod -aG www-data vagrant"
@@ -218,7 +220,5 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "shell", inline: "rm -f /etc/profile.d/cronicle_env_variables.sh", run: "always"
-  config.vm.provision "file", source: "cronicle/cronicle_env_variables.sh", destination: "/tmp/cronicle_env_variables.sh", run: "always"
-  config.vm.provision "shell", inline: "mv /tmp/cronicle_env_variables.sh /etc/profile.d/cronicle_env_variables.sh", run: "always"
-  config.vm.provision "file", source: "cronicle/cronicle_setup.sh", destination: "/data/shop/development/current/bin/cronicle_setup.sh", run: "always"
+  config.vm.provision "shell", inline: "cp /data/shop/development/current/bin/cronicle_env_variables.sh /etc/profile.d/cronicle_env_variables.sh", run: "always"
 end

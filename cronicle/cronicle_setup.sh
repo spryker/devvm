@@ -1,6 +1,9 @@
 #!/bin/sh
 
-cd ${SPRYKER_CRONICLE_BASE_PATH}/cronicle
+cd ${SPRYKER_PROJECT_ROOT}
+git clone -b $CRONICLE_BRANCH $CRONICLE_REPO cronicle
+cd cronicle
+yarn install
 node bin/build.js dist
 ./bin/control.sh setup
 node bin/hook.js before-start
