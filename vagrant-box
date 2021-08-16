@@ -26,11 +26,11 @@ if File.exists? VM_SETTINGS_FILE
 else
 
   # Project settings
-  VM_PROJECT = ENV['VM_PROJECT'] || 'suite-nonsplit'                                # Project name
+  VM_PROJECT = ENV['VM_PROJECT'] || 'suite'                                # Project name
   VM_DOMAIN  = ENV['VM_DOMAIN'] || VM_PROJECT                              # Domain name component, based on project
 
   # Git parameters
-  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "https://github.com/spryker/#{VM_PROJECT}.git"
+  SPRYKER_REPOSITORY = ENV['SPRYKER_REPOSITORY'] || "https://github.com/spryker-shop/#{VM_PROJECT}.git"
   SPRYKER_BRANCH = ENV['SPRYKER_BRANCH']  || "master"
 
   # Auto-generate IP address based on hash of VM_PROJECT
@@ -136,7 +136,6 @@ Vagrant.configure(2) do |config|
   # Set the VirtualBox IP address for the browser
   config.vm.network :private_network, ip: VM_IP,  nic_type: "virtio" 
   config.vm.synced_folder "project/", "/data/shop/development/current", owner: "www-data", group: "www-data", mount_options: ["dmode=777,fmode=777"]
-
   # Add hosts to /etc/hosts
   if Vagrant.has_plugin? 'vagrant-hostmanager'
     puts bold "Configuring vagrant-hostmanager (#{HOSTS.count} hostnames)..."
@@ -159,6 +158,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider :virtualbox do |vb|
     vb.name = VM_NAME
     vb.check_guest_additions = false
+    vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/data_shop_development_current", "1"]
     vb.customize ["modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter1", "VirtualBox Host-Only Ethernet Adapter"]
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
     vb.customize(["modifyvm", :id, "--memory", VM_MEMORY, "--cpus", VM_CPUS, "--audio", "none"])
