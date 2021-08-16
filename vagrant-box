@@ -129,7 +129,9 @@ Vagrant.configure(2) do |config|
   config.vm.box_url = "https://u220427-sub1:PpiiHzuF2OIUzmcH@u220427-sub1.your-storagebox.de/devvm_v4.1.0.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
-
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  
   # Enable ssh agent forwarding
   config.ssh.forward_agent = true
 
