@@ -1,6 +1,7 @@
 #!/bin/sh
 
-export SPRYKER_CRONICLE_BASE_PATH=/data/shop/development/current
+export ENV CRONICLE_REPO="https://github.com/spryker-sdk/Cronicle.git"
+export ENV CRONICLE_BRANCH="master"
 export SPRYKER_PROJECT_ROOT=/data/shop/development/current
 export SPRYKER_ENABLED_SCHEDULERS="{\"cronicle\":{\"base_url\":\"http:\\/\\/localhost:3012\",\"api_key\":\"secure-string\"}}"
 export SPRYKER_ENABLED_SCHEDULER_STORES="[\"DE\",\"AT\",\"US\"]"
