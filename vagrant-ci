@@ -155,7 +155,7 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "project/", "/data/shop/development/current", owner: "www-data", group: "www-data", mount_options: ["dmode=777,fmode=777"]
   config.vm.synced_folder CRONICLE_DIRECTORY, "/data/shop/development/current/bin", owner: "www-data", group: "www-data", mount_options: ["dmode=777,fmode=777"]
   #configure variables:
-  config.vm.provision "shell", inline: "set -x; sudo echo ""export APPLICATION_ENV=development"" >> /etc/profile; sudo echo ""export COMPOSER_PROCESS_TIMEOUT=3600"" >> /etc/profile; sudo /usr/sbin/usermod -aG www-data vagrant"
+  config.vm.provision "shell", inline: "set -x; sudo /usr/sbin/usermod -aG www-data vagrant"
   # Enable Cronicle
   config.vm.provision "shell", inline: "rm -f /etc/profile.d/cronicle_env_variables.sh", run: "always"
   config.vm.provision "shell", inline: "cp /data/shop/development/current/bin/cronicle_env_variables.sh /etc/profile.d/cronicle_env_variables.sh", run: "always"
