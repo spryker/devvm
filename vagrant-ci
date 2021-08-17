@@ -155,7 +155,7 @@ Vagrant.configure(2) do |config|
   #configure variables:
   config.vm.provision "shell", inline: "set -x; sudo /usr/sbin/usermod -aG www-data vagrant"
   # Enable Cronicle
-  config.vm.provision "shell", inline: "sudo /bin/sh /scripts/cronicle_initial_setup.sh"
+  config.vm.provision "shell", inline: "sudo /bin/sh /scripts/cronicle_initial_setup.sh ; true"
   
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
