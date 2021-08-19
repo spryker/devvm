@@ -21,7 +21,7 @@ apt-get-update:
 docker-repo:
  pkgrepo.managed:
    - humanname: Official Docker Repository
-   - name: deb [arch=amd64] https://download.docker.com/linux/debian {{ grains.lsb_distrib_codename }} oldstable
+   - name: deb [arch=amd64] https://download.docker.com/linux/debian {{ grains.lsb_distrib_codename }} stable
    - file: /etc/apt/sources.list.d/docker.list
    - key_url: https://download.docker.com/linux/debian/gpg
    - refresh: False
