@@ -173,7 +173,8 @@ Vagrant.configure(2) do |config|
 
  #configure variables:
   config.vm.provision "shell", inline: "set -x; sudo echo ""export APPLICATION_ENV=development"" >> /etc/profile; sudo echo ""export COMPOSER_PROCESS_TIMEOUT=3600"" >> /etc/profile; sudo /usr/sbin/usermod -aG www-data vagrant"
-  
+  config.vm.provision "shell", inline: "> /etc/profile.d/myvars.sh", run: "always"
+  config.vm.provision "shell", inline: "echo export VM_PROJECT=#{VM_PROJECT} >> /etc/profile.d/myvars.sh", run: "always"
 
   # SaltStack masterless setup
   if Dir.exists?(PILLAR_DIRECTORY) && Dir.exists?(SALT_DIRECTORY)
