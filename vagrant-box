@@ -131,7 +131,8 @@ Vagrant.configure(2) do |config|
   config.vm.boot_timeout = 300
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
-  
+  config.vm.provision "shell", inline: "> /etc/profile.d/myvars.sh", run: "always"
+  config.vm.provision "shell", inline: "echo export VM_PROJECT=#{VM_PROJECT} >> /etc/profile.d/myvars.sh", run: "always"
   # Enable ssh agent forwarding
   config.ssh.forward_agent = true
 
