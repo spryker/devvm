@@ -76,7 +76,8 @@ environments:
     elasticsearch:
       # JVM Heap Size of Elasticsearch
       # Optional, default: 384m
-      heap_size: 2048m
+      heap_size_min: 512m
+      heap_size_max: 2304m
 
     redis:
       host: 127.0.0.1
@@ -172,7 +173,8 @@ environments:
         password: mate20mg
     elasticsearch:
       skip_instance_setup: true
-      heap_size: 2048m
+      heap_size_min: 512m
+      heap_size_max: 2304m
     redis:
       skip_instance_setup: true
       host: 127.0.0.1
