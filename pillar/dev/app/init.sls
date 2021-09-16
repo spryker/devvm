@@ -76,8 +76,8 @@ environments:
     elasticsearch:
       # JVM Heap Size of Elasticsearch
       # Optional, default: 384m
-      heap_size_min: 2304m
-      heap_size_max: 2304m
+      heap_size_min: 256m
+      heap_size_max: 256m
 
     redis:
       host: 127.0.0.1
