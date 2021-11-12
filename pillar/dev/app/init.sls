@@ -10,22 +10,22 @@ deploy:
 # salt '*' state.sls elasticsearch.update
 autoupdate:
   # Optional, default: False
-  nodejs: true
+  nodejs: false
 
-  # Optional, default: False
+  # Optional, default: False #crash build if True
   elasticsearch: false
 
   # Optional, default: False
-  php: true
+  php: false
 
   # Optional, default: False
-  mysql: true
+  mysql: false
 
   # Optional, default: False
-  postgresql: true
+  postgresql: false
 
   # Optional, default: False
-  rabbitmq: false
+  rabbitmq: true
 
 # List of stores. Note, each store defined here should be configured within
 # each environment section (see below).
@@ -40,14 +40,14 @@ php:
   # use them on production.
   # Optional, Default: xdebug is installed/enabled
   install_xdebug: true
-  enable_xdebug: false
+  enable_xdebug: true
 
   # PHP OpCache.
   # Optional, default: enabled
   enable_opcache: true
 
   # Major PHP version
-  major_version: 7.4
+  major_version: 8.0
 
 # Newrelic credentials - leave empty for non-production setups
 newrelic:
@@ -76,7 +76,8 @@ environments:
     elasticsearch:
       # JVM Heap Size of Elasticsearch
       # Optional, default: 384m
-      heap_size: 384m
+      heap_size_min: 256m
+      heap_size_max: 256m
 
     redis:
       host: 127.0.0.1
@@ -117,12 +118,19 @@ environments:
           # Hostname for ZED NginX VHost. Only one value is allowed.
           # Mandatory, default: no value
           hostname: '~^zed\.de\..+\.local$'
-
           # Path to htpasswd file. Comment out to disable http auth.
           # Optional, default: no value
           # htpasswd_file:
         glue:
           hostname: '~^glue\.de\..+\.local$'
+        gateway:
+          hostname: '~^gateway\.de\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice\.de\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway\.de\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -131,6 +139,14 @@ environments:
           hostname: '~^zed\.us\..+\.local$'
         glue:
           hostname: '~^glue\.us\..+\.local$'
+        gateway:
+          hostname: '~^gateway\.us\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice\.us\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway\.us\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -139,7 +155,14 @@ environments:
           hostname: '~^zed\.at\..+\.local$'
         glue:
           hostname: '~^glue\.at\..+\.local$'
-
+        gateway:
+          hostname: '~^gateway\.at\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice\.at\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway\.at\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api\.at\..+\.local$'
 
   devtest:
     code_symlink: /data/shop/development/current
@@ -150,7 +173,8 @@ environments:
         password: mate20mg
     elasticsearch:
       skip_instance_setup: true
-      heap_size: 384m
+      heap_size_min: 256m
+      heap_size_max: 256m
     redis:
       skip_instance_setup: true
       host: 127.0.0.1
@@ -172,6 +196,14 @@ environments:
           hostname: '~^zed-test\.de\..+\.local$'
         glue:
           hostname: '~^glue-test\.de\..+\.local$'
+        gateway:
+          hostname: '~^gateway-test\.de\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice-test\.de\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway-test\.de\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api-test\.de\..+\.local$'
       US:
         yves:
           hostnames:
@@ -180,6 +212,14 @@ environments:
           hostname: '~^zed-test\.us\..+\.local$'
         glue:
           hostname: '~^glue-test\.us\..+\.local$'
+        gateway:
+          hostname: '~^gateway-test\.us\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice-test\.us\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway-test\.us\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api-test\.us\..+\.local$'
       AT:
         yves:
           hostnames:
@@ -188,6 +228,14 @@ environments:
           hostname: '~^zed-test\.at\..+\.local$'
         glue:
           hostname: '~^glue-test\.at\..+\.local$'
+        gateway:
+          hostname: '~^gateway-test\.at\..+\.local$'
+        backoffice:
+          hostname: '~^backoffice-test\.at\..+\.local$'
+        backendgateway:
+          hostname: '~^backend-gateway-test\.at\..+\.local$'
+        backendapi:
+          hostname: '~^backend-api-test\.at\..+\.local$'
 # The key below is used for deployment using deploy.rb (deprecated)
 #
 # From deployment server user root must be able to log in to all other

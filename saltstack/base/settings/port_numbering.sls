@@ -17,7 +17,7 @@ environment:
 store:
   DE:
     locale: de_DE
-    appdomain: '00'
+    appdomain: '49'
   PL:
     locale: pl_PL
     appdomain: '01'

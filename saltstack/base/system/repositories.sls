@@ -121,9 +121,30 @@ php-repo:
 rabbitmq-repo:
   pkgrepo.managed:
     - humanname: RabbitMQ repository
-    - name: deb https://dl.bintray.com/rabbitmq-erlang/debian buster erlang-22.x
-    - file: /etc/apt/sources.list.d/bintray.erlang.list
-    - key_url: https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+    - name: deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu bionic main
+    - file: /etc/apt/sources.list.d/rabbitmq1.list
+    - keyid: F77F1EDA57EBB1CC
+    - keyserver: keyserver.ubuntu.com
+    - refresh: False
+    - watch_in:
+       - cmd: apt-get-update
+
+rabbitmqerlang-repo:
+  pkgrepo.managed:
+    - humanname: RabbitMQ erlang latest repository
+    - name: deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/deb/ubuntu bionic main
+    - file: /etc/apt/sources.list.d/rabbitmqerlang.list
+    - keyserver: keys.openpgp.org
+    - refresh: False
+    - watch_in:
+       - cmd: apt-get-update
+
+rabbitmqserver-repo:
+  pkgrepo.managed:
+    - humanname: RabbitMQ latest repository
+    - name: deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/ubuntu bionic main
+    - file: /etc/apt/sources.list.d/rabbitmqserver.list
+    - keyserver: keys.openpgp.org
     - refresh: False
     - watch_in:
        - cmd: apt-get-update

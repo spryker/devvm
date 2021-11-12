@@ -9,8 +9,8 @@ services = [
   # App services
   'postgresql',
   'mysql',
-  'redis-server-development',
-  'elasticsearch-development',
+  'redis',
+  'elasticsearch',
 ]
 
 describe 'Active services' do
@@ -23,10 +23,7 @@ describe 'Active services' do
 end
 
 dead_services = [
-  'redis-server',
-  'elasticsearch',
-  'jenkins',
-  'filebeat',
+  'filebeat'
 ]
 
 describe 'Inactive services' do

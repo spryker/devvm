@@ -1,8 +1,3 @@
-# This pillar represents a list of operating system users. Multiple users can be specified.
-#
-# On dev environment we define only vagrant user and change the shell of this user to zsh
-# Please note that removing an user from pillar will not remove user from operating system.
-
 user:
   # Name of user
   # Mandatory, no default value
@@ -18,7 +13,7 @@ user:
 
     # Shell for the user
     # Optional, default: /bin/bash
-    shell: /bin/zsh
+    shell: /bin/bash
 
     # Public SSH key for the user
     # Optional, no default value
