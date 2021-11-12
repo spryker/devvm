@@ -173,8 +173,8 @@ environments:
         password: mate20mg
     elasticsearch:
       skip_instance_setup: true
-      heap_size_min: 2304m
-      heap_size_max: 2304m
+      heap_size_min: 256m
+      heap_size_max: 256m
     redis:
       skip_instance_setup: true
       host: 127.0.0.1
