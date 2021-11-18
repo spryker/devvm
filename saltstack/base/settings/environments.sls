@@ -82,13 +82,13 @@
 {%- if grains_hostname_backendapi != None %}
 {%-   do environments[environment]['stores'][store].backendapi.update ({ 'hostname': grains_hostname_backendapi}) %}
 {%- endif %}
-{%- set grains_hostname_gluestorefront.  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':gluestorefront.:hostname', None) %}
-{%- if grains_hostname_gluestorefront. != None %}
-{%-   do environments[environment]['stores'][store].gluestorefront..update ({ 'hostname': grains_hostname_gluestorefront.}) %}
+{%- set grains_hostname_gluestorefront  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':gluestorefront:hostname', None) %}
+{%- if grains_hostname_gluestorefront != None %}
+{%-   do environments[environment]['stores'][store].gluestorefront.update ({ 'hostname': grains_hostname_gluestorefront}) %}
 {%- endif %}
-{%- set grains_hostname_gluebackend.  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':gluebackend.:hostname', None) %}
-{%- if grains_hostname_gluebackend. != None %}
-{%-   do environments[environment]['stores'][store].gluebackend..update ({ 'hostname': grains_hostname_gluebackend.}) %}
+{%- set grains_hostname_gluebackend  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':gluebackend:hostname', None) %}
+{%- if grains_hostname_gluebackend != None %}
+{%-   do environments[environment]['stores'][store].gluebackend.update ({ 'hostname': grains_hostname_gluebackend}) %}
 {%- endif %}
 
 # Generate Yves/Zed ports
