@@ -1,4 +1,4 @@
-# For use with suite-nonsplit
+# 
 # needs plugins:
 ## vagrant plugin install vagrant-hostsupdater vagrant-hostmanager vagrant-vbguest 
 #
@@ -95,6 +95,8 @@ HOSTS = [ 'spryker-vagrant' ]
       "www#{host_suffix}.#{store}.#{domain}",
       "zed#{host_suffix}.#{store}.#{domain}",
       "glue#{host_suffix}.#{store}.#{domain}",
+      "glue-storefront#{host_suffix}.#{store}.#{domain}",
+      "glue-backend#{host_suffix}.#{store}.#{domain}",
       "gateway#{host_suffix}.#{store}.#{domain}",
       "backoffice#{host_suffix}.#{store}.#{domain}",
       "backend-gateway#{host_suffix}.#{store}.#{domain}",
@@ -153,8 +155,8 @@ end
 Vagrant.configure(2) do |config|
   # Base box for initial setup. Latest Debian (stable) is recommended.
   # The box file should have virtualbox guest additions installed, otherwise shared folders will not work
-  config.vm.box = "spryker-vm-146-1"
-  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/spryker-vm-146-1.box"
+  config.vm.box = "vm-147"
+  config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/vm-147.box"
   # config.vbguest.auto_update = true
   # # Load custom vbguest installer
   # if defined?(VagrantVbguest::Installers::Debian)

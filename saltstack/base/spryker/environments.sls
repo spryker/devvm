@@ -182,6 +182,30 @@
     - context:
       environment: {{ environment }}
 
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-glue-storefront.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/glue-storefront.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-glue-backend.conf:
+  file.managed:
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/glue-backend.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch_in:
+      - cmd: reload-php-fpm
+    - context:
+      environment: {{ environment }}
+
 # end of adding new endpoints
 
 

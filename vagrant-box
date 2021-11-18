@@ -75,6 +75,8 @@ HOSTS = [ 'spryker-vagrant' ]
       "www#{host_suffix}.#{store}.#{domain}",
       "zed#{host_suffix}.#{store}.#{domain}",
       "glue#{host_suffix}.#{store}.#{domain}",
+      "glue-storefront#{host_suffix}.#{store}.#{domain}",
+      "glue-backend#{host_suffix}.#{store}.#{domain}",
       "gateway#{host_suffix}.#{store}.#{domain}",
       "backoffice#{host_suffix}.#{store}.#{domain}",
       "backend-gateway#{host_suffix}.#{store}.#{domain}",
@@ -125,8 +127,8 @@ end
 
 Vagrant.configure(2) do |config|
   
-  config.vm.box = "devvm_v4.1.0.box"
-  config.vm.box_url = "https://u220427-sub1:PpiiHzuF2OIUzmcH@u220427-sub1.your-storagebox.de/devvm_v4.1.0.box"
+  config.vm.box = "vm-147"
+  config.vm.box_url = "https://u220427-sub1:PpiiHzuF2OIUzmcH@u220427-sub1.your-storagebox.de/vm-147.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
   config.hostmanager.enabled = true

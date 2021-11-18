@@ -139,6 +139,39 @@
       - file: /data/logs/{{ environment }}
     - watch_in:
       - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-storefront:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-glue-storefront.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      store: {{ store }}
+      settings: {{ settings|tojson }}
+    - require:
+      - file: /data/logs/{{ environment }}
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-backend:
+  file.managed:
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-glue-backend.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      environment: {{ environment }}
+      store: {{ store }}
+      settings: {{ settings|tojson }}
+    - require:
+      - file: /data/logs/{{ environment }}
+    - watch_in:
+      - cmd: reload-nginx
+
 #end of adding new endpoints
 
 /etc/nginx/sites-enabled/{{ store }}_{{ environment }}_zed:
@@ -206,6 +239,26 @@
       - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_backendapi
     - watch_in:
       - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_glue-storefront:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-storefront
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-storefront
+    - watch_in:
+      - cmd: reload-nginx
+
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_glue-backend:
+  file.symlink:
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-backend
+    - force: true
+    - require:
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-backend
+    - watch_in:
+      - cmd: reload-nginx
+
+#end of adding new endpoints
 
 {%- endif %}
 

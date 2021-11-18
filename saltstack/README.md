@@ -153,7 +153,7 @@ salt/base/settings/port_numbering.sls
 | 5      | Production                                |
 | 3      | Staging                                   |
 | 1      | Testing                                   |
-| 0      | Development                               |
+| 0      | Development / devtest                     |
 
 
 #### DD - AppDomain for multiple country instances
@@ -200,23 +200,31 @@ salt/base/settings/port_numbering.sls
 
 
 #### C - Component, from following list:
-
+ 
 | ID     | Component                                 |
 | ------ | ----------------------------------------- |
 | 0      | Yves                                      |
 | 1      | Zed                                       |
 | 2      | Glue                                      |
-| 3      |                                           |
-| 4      |                                           |
-| 5      | Search (elasticsearch)                    |
-| 6      | Queue (rabbitMQ)                          |
-| 7      | Jenkins                                   |
-| 8      | Cache (memcached)                         |
-| 9      | K/V Datastore (redis)                     |
+| 3      | gateway                                   |
+| 4      | backoffice                                |
+| 5      | backendgateway                            |
+| 6      | backendapi                                |
+| 7      | glue-storefront                           |
+| 8      | glue-backend                              |
+
+
+## per-environment
+
+| 005      | Search (elasticsearch)                    |
+| 006      | Queue (rabbitMQ)                          |
+| 007      | Jenkins                                   |
+| 008      | Cache (memcached)                         |
+| 009      | K/V Datastore (redis)                     |
 
 Examples:
- - 15000 - Production YVES, Germany, HTTP
+ - 15490 - Production YVES, Germany, HTTP
  - 15101 - Production ZED, USA, HTTP
- - 13007 - Staging Jenkins, HTTP (no store specified - jenkins runs per-environment)
- - 10005 - Development Elasticsearch, HTTP (no store specified)
+ - 13007 - Staging Jenkins, HTTP (runs per-environment)
+ - 10005 - Development Elasticsearch, HTTP (runs per-environment)
 
