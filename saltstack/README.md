@@ -210,8 +210,8 @@ salt/base/settings/port_numbering.sls
 | 4      | backoffice                                |
 | 5      | backendgateway                            |
 | 6      | backendapi                                |
-| 7      | glue-storefront                           |
-| 8      | glue-backend                              |
+| 7      | gluestorefront                           |
+| 8      | gluebackend                              |
 
 
 ## per-environment

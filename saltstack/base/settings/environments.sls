@@ -82,13 +82,13 @@
 {%- if grains_hostname_backendapi != None %}
 {%-   do environments[environment]['stores'][store].backendapi.update ({ 'hostname': grains_hostname_backendapi}) %}
 {%- endif %}
-{%- set grains_hostname_glue-storefront.  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':glue-storefront.:hostname', None) %}
-{%- if grains_hostname_glue-storefront. != None %}
-{%-   do environments[environment]['stores'][store].glue-storefront..update ({ 'hostname': grains_hostname_glue-storefront.}) %}
+{%- set grains_hostname_gluestorefront.  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':gluestorefront.:hostname', None) %}
+{%- if grains_hostname_gluestorefront. != None %}
+{%-   do environments[environment]['stores'][store].gluestorefront..update ({ 'hostname': grains_hostname_gluestorefront.}) %}
 {%- endif %}
-{%- set grains_hostname_glue-backend.  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':glue-backend.:hostname', None) %}
-{%- if grains_hostname_glue-backend. != None %}
-{%-   do environments[environment]['stores'][store].glue-backend..update ({ 'hostname': grains_hostname_glue-backend.}) %}
+{%- set grains_hostname_gluebackend.  = salt['grains.get']('environments:' + environment + ':stores:' + store + ':gluebackend.:hostname', None) %}
+{%- if grains_hostname_gluebackend. != None %}
+{%-   do environments[environment]['stores'][store].gluebackend..update ({ 'hostname': grains_hostname_gluebackend.}) %}
 {%- endif %}
 
 # Generate Yves/Zed ports
@@ -99,8 +99,8 @@
 {%- do environments[environment]['stores'][store].backoffice.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '4' }) %}
 {%- do environments[environment]['stores'][store].backendgateway.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '5' }) %}
 {%- do environments[environment]['stores'][store].backendapi.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '6' }) %}
-{%- do environments[environment]['stores'][store].glue-storefront.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '7' }) %}
-{%- do environments[environment]['stores'][store].glue-backend.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '8' }) %}
+{%- do environments[environment]['stores'][store].gluestorefront.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '7' }) %}
+{%- do environments[environment]['stores'][store].gluebackend.update ({ 'port': '1' + port['environment'][environment]['port'] + port['store'][store]['appdomain'] + '8' }) %}
 
 # Generate store locale settings
 {%- do environments[environment]['stores'][store].update ({ 'locale': port['store'][store]['locale'], 'appdomain': port['store'][store]['appdomain'] }) %}

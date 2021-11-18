@@ -123,10 +123,10 @@ environments:
           # htpasswd_file:
         glue:
           hostname: '~^glue\.de\..+\.local$'
-        glue-storefront:
-          hostname: '~^glue-storefront\.de\..+\.local$'
-        glue-backend:
-          hostname: '~^glue-backend\.de\..+\.local$'
+        gluestorefront:
+          hostname: '~^gluestorefront\.de\..+\.local$'
+        gluebackend:
+          hostname: '~^gluebackend\.de\..+\.local$'
         gateway:
           hostname: '~^gateway\.de\..+\.local$'
         backoffice:
@@ -143,10 +143,10 @@ environments:
           hostname: '~^zed\.us\..+\.local$'
         glue:
           hostname: '~^glue\.us\..+\.local$'
-        glue-storefront:
-          hostname: '~^glue-storefront\.us\..+\.local$'
-        glue-backend:
-          hostname: '~^glue-backend\.us\..+\.local$'
+        gluestorefront:
+          hostname: '~^gluestorefront\.us\..+\.local$'
+        gluebackend:
+          hostname: '~^gluebackend\.us\..+\.local$'
         gateway:
           hostname: '~^gateway\.us\..+\.local$'
         backoffice:
@@ -163,10 +163,10 @@ environments:
           hostname: '~^zed\.at\..+\.local$'
         glue:
           hostname: '~^glue\.at\..+\.local$'
-        glue-storefront:
-          hostname: '~^glue-storefront\.at\..+\.local$'
-        glue-backend:
-          hostname: '~^glue-backend\.at\..+\.local$'
+        gluestorefront:
+          hostname: '~^gluestorefront\.at\..+\.local$'
+        gluebackend:
+          hostname: '~^gluebackend\.at\..+\.local$'
         gateway:
           hostname: '~^gateway\.at\..+\.local$'
         backoffice:
@@ -208,10 +208,10 @@ environments:
           hostname: '~^zed-test\.de\..+\.local$'
         glue:
           hostname: '~^glue-test\.de\..+\.local$'
-        glue-storefront:
-          hostname: '~^glue-storefront-test\.de\..+\.local$'
-        glue-backend:
-          hostname: '~^glue-backend-test\.de\..+\.local$'
+        gluestorefront:
+          hostname: '~^gluestorefront-test\.de\..+\.local$'
+        gluebackend:
+          hostname: '~^gluebackend-test\.de\..+\.local$'
         gateway:
           hostname: '~^gateway-test\.de\..+\.local$'
         backoffice:
@@ -228,10 +228,10 @@ environments:
           hostname: '~^zed-test\.us\..+\.local$'
         glue:
           hostname: '~^glue-test\.us\..+\.local$'
-        glue-storefront:
-          hostname: '~^glue-storefront-test\.us\..+\.local$'
-        glue-backend:
-          hostname: '~^glue-backend-test\.us\..+\.local$'
+        gluestorefront:
+          hostname: '~^gluestorefront-test\.us\..+\.local$'
+        gluebackend:
+          hostname: '~^gluebackend-test\.us\..+\.local$'
         gateway:
           hostname: '~^gateway-test\.us\..+\.local$'
         backoffice:
@@ -248,10 +248,10 @@ environments:
           hostname: '~^zed-test\.at\..+\.local$'
         glue:
           hostname: '~^glue-test\.at\..+\.local$'
-        glue-storefront:
-          hostname: '~^glue-storefront-test\.at\..+\.local$'
-        glue-backend:
-          hostname: '~^glue-backend-test\.at\..+\.local$'
+        gluestorefront:
+          hostname: '~^gluestorefront-test\.at\..+\.local$'
+        gluebackend:
+          hostname: '~^gluebackend-test\.at\..+\.local$'
         gateway:
           hostname: '~^gateway-test\.at\..+\.local$'
         backoffice:

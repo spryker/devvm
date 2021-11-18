@@ -140,9 +140,9 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-storefront:
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_gluestorefront:
   file.managed:
-    - source: salt://spryker/files/etc/nginx/sites-available/XX-glue-storefront.conf
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-gluestorefront.conf
     - template: jinja
     - user: root
     - group: root
@@ -156,9 +156,9 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-backend:
+/etc/nginx/sites-available/{{ store }}_{{ environment }}_gluebackend:
   file.managed:
-    - source: salt://spryker/files/etc/nginx/sites-available/XX-glue-backend.conf
+    - source: salt://spryker/files/etc/nginx/sites-available/XX-gluebackend.conf
     - template: jinja
     - user: root
     - group: root
@@ -240,21 +240,21 @@
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_glue-storefront:
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_gluestorefront:
   file.symlink:
-    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-storefront
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_gluestorefront
     - force: true
     - require:
-      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-storefront
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_gluestorefront
     - watch_in:
       - cmd: reload-nginx
 
-/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_glue-backend:
+/etc/nginx/sites-enabled/{{ store }}_{{ environment }}_gluebackend:
   file.symlink:
-    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-backend
+    - target: /etc/nginx/sites-available/{{ store }}_{{ environment }}_gluebackend
     - force: true
     - require:
-      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_glue-backend
+      - file: /etc/nginx/sites-available/{{ store }}_{{ environment }}_gluebackend
     - watch_in:
       - cmd: reload-nginx
 
