@@ -182,9 +182,9 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-glue-storefront.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-gluestorefront.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/glue-storefront.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/gluestorefront.conf
     - template: jinja
     - user: root
     - group: root
@@ -194,9 +194,9 @@
     - context:
       environment: {{ environment }}
 
-/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-glue-backend.conf:
+/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/{{ environment }}-gluebackend.conf:
   file.managed:
-    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/glue-backend.conf
+    - source: salt://spryker/files/etc/php/{{ salt['pillar.get']('php:major_version') }}/fpm/pool.d/gluebackend.conf
     - template: jinja
     - user: root
     - group: root
