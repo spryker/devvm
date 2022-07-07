@@ -1,5 +1,7 @@
 # Spryker OS - Reference repository for DevVM
 
+**DEPRECATED** 
+
 This repository contains the Vagrantfile for setting up initial state of the DevVM. Provisioning of the machine is done using SaltStack.
 
 To install Spryker, refer to [Installation guide - B2C](https://documentation.spryker.com/docs/en/b2c-demo-shop-installation-mac-os-or-linux-with-devvm) or [Installation guide - B2B](https://documentation.spryker.com/docs/en/installation-guide-b2b).

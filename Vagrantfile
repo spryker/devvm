@@ -177,7 +177,8 @@ Vagrant.configure(2) do |config|
   config.vm.box_url = "https://u215179-sub1:8OZ32WegmzOBWvEb@u215179-sub1.your-backup.de/debian105.box"
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
-
+  config.vm.post_up_message = File.read("post_up_message.txt")
+  
   # Enable ssh agent forwarding
   config.ssh.forward_agent = true
 
