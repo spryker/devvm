@@ -163,6 +163,8 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "vm-#{VM_PROJECT}"
   config.vm.boot_timeout = 300
 
+  config.vm.post_up_message = File.read("post_up_message.txt")
+
   # Enable ssh agent forwarding
   config.ssh.forward_agent = true
 

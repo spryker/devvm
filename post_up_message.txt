@@ -1,0 +1,4 @@
+DevVM is depricated.
+
+Please use the Docker environment.
+Read more follow: https://docs.spryker.com/docs/scos/dev/setup/installing-spryker-with-docker/installing-spryker-with-docker.html
