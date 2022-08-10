@@ -1,4 +1,10 @@
 # devvm
+
+**DEPRECATED**
+
+We will soon deprecate the DevVM and stop supporting it. Therefore, we highly recommend [Docker SDK](https://docs.spryker.com/docs/scos/dev/the-docker-sdk/202204.0/the-docker-sdk.html#docker-sdk-repository-structure). To install Spryker, refer to [Installing Spryker with Docker](https://docs.spryker.com//docs/scos/dev/setup/installing-spryker-with-docker/installing-spryker-with-docker.html)
+
+
 Spryker DevVM (development vm)
 This repository contains the Vagrantfile for setting up initial state of the DevVM. Provisioning of the machine is done using SaltStack.
 For more information:
